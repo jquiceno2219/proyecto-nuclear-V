@@ -11,9 +11,8 @@
 	<groupId>co.edu.unihumboldt</groupId>
 	<artifactId>parking</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>parking</name>
-	<description>App Web for parking</description>
+	<description>Parking App</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -55,11 +54,6 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

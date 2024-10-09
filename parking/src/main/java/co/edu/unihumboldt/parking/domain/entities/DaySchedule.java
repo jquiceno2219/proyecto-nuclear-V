@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.DayOfWeek;
+import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
@@ -14,7 +14,7 @@ import java.time.DayOfWeek;
 @Builder
 @Entity
 @Table(name = "days_schedule",schema = "project", indexes = @Index(columnList = "id"))
-public class DaySchedule {
+public class DaySchedule implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

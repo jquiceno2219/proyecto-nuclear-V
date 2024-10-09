@@ -2,7 +2,6 @@ package co.edu.unihumboldt.parking.mapping.dtos;
 
 import co.edu.unihumboldt.parking.domain.entities.CarPark;
 import co.edu.unihumboldt.parking.domain.entities.Role;
-import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 
 @Builder

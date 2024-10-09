@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "users",schema = "project", indexes = @Index(columnList = "id"))
 
-public class User implements Serializable {
+public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
