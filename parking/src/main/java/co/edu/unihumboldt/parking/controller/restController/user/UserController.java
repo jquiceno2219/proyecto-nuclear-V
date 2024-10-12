@@ -22,7 +22,7 @@ public class UserController {
 
     private final UserServiceImpl serviceUser;
     private final CarParkServiceImpl serviceCarPark;
-    private RoleServiceImpl serviceRole;
+    private final RoleServiceImpl serviceRole;
 
     public UserController(UserServiceImpl serviceUser, CarParkServiceImpl serviceCarPark, RoleServiceImpl serviceRole) {
         this.serviceUser = serviceUser;
@@ -62,7 +62,5 @@ public class UserController {
         }  catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error creating User: " + e.getMessage());
         }
-
     }
-
 }

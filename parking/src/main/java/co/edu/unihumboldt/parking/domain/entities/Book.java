@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "books",schema = "project", indexes = @Index(columnList = "id"))
+@Table(name = "books",schema = "public", indexes = @Index(columnList = "id"))
 public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

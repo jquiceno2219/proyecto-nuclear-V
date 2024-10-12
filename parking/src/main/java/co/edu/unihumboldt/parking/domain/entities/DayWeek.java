@@ -13,7 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "days_week",schema = "project", indexes = @Index(columnList = "id"))
+@Table(name = "days_week",schema = "public", indexes = @Index(columnList = "id"))
 public class DayWeek implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "users",schema = "project", indexes = @Index(columnList = "id"))
+@Table(name = "users",schema = "public", indexes = @Index(columnList = "id"))
 
 public class User implements Serializable{
     @Id

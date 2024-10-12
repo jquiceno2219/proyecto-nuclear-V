@@ -13,7 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "spots",schema = "project", indexes = @Index(columnList = "id"))
+@Table(name = "spots",schema = "public", indexes = @Index(columnList = "id"))
 public class Spot implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

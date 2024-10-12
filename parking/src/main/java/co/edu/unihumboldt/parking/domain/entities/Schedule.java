@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "schedules",schema = "project", indexes = @Index(columnList = "id"))
+@Table(name = "schedules",schema = "public", indexes = @Index(columnList = "id"))
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
