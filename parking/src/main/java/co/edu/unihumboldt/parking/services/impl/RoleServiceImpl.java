@@ -5,6 +5,7 @@ import co.edu.unihumboldt.parking.mapping.dtos.RoleDto;
 import co.edu.unihumboldt.parking.mapping.mappers.RoleMapper;
 import co.edu.unihumboldt.parking.repositories.RoleRepository;
 import co.edu.unihumboldt.parking.services.RoleService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,5 +34,25 @@ public class RoleServiceImpl implements RoleService {
     public void add(RoleDto t) {
         Role role = RoleMapper.mapFrom(t);
         repository.save(role);
+    }
+
+    @Override
+    public void update(int id, RoleDto roleDto) {
+        Role role = repository.findById(id).orElseThrow();;
+        Role updated = RoleMapper.mapFrom(roleDto);
+
+        role.setName(updated.getName());
+        role.setStatus(updated.isStatus());
+    }
+
+    @Override
+    public RoleDto toggleRoleStatus(int id) {
+        Role role = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Role not found with id: " + id));
+
+        role.setStatus(!role.isStatus());
+        Role savedRole = repository.save(role);
+
+        return RoleMapper.mapFrom(savedRole);
     }
 }

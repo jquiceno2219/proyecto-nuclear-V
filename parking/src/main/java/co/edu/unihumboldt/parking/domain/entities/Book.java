@@ -19,10 +19,10 @@ public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Date BookDate;
-    private Date PayDate;
-    private Date StartDate;
-    private Date EndDate;
+    private Date bookDate;
+    private Date payDate;
+    private Date startDate;
+    private Date endDate;
     @ManyToOne
     private BookStatus bookStatus;
     @ManyToOne

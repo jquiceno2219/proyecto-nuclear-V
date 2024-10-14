@@ -3,11 +3,10 @@ package co.edu.unihumboldt.parking.mapping.mappers;
 
 import co.edu.unihumboldt.parking.domain.entities.User;
 import co.edu.unihumboldt.parking.mapping.dtos.UserDto;
-import lombok.Builder;
 
 import java.util.List;
 
-@Builder
+
 public class UserMapper {
     public static UserDto mapFrom(User source){
         return new UserDto(source.getId(),

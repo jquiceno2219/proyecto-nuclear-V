@@ -8,4 +8,6 @@ public interface CarParkService {
     List<CarParkDto> list();
     CarParkDto byId(int id);
     void add(CarParkDto t);
+    void update(int id, CarParkDto carParkDto);
+    CarParkDto toggleCarParkStatus(int id);
 }

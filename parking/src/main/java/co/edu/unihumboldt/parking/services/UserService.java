@@ -8,4 +8,6 @@ public interface UserService {
     List<UserDto> list();
     UserDto byId(int id);
     void add(UserDto t);
+    void update(int id, UserDto userDto);
+    UserDto toggleUserStatus(int id);
 }
