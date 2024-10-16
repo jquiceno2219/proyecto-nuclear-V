@@ -13,15 +13,24 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "days_schedule",schema = "public", indexes = @Index(columnList = "id"))
+@Table(name = "days_schedule", schema = "public")
 public class DaySchedule implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+
+    @EmbeddedId
+    private DayScheduleId id;
+
+    @MapsId("scheduleId")
     @ManyToOne
+    @JoinColumn(name = "schedule_id")
     private Schedule schedule;
+
+    @MapsId("dayWeekId")
     @ManyToOne
+    @JoinColumn(name = "day_week_id")
     private DayWeek dayWeek;
+
+    @MapsId("carParkId")
     @ManyToOne
+    @JoinColumn(name = "car_park_id")
     private CarPark carPark;
 }

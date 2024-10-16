@@ -1,4 +1,4 @@
-package co.edu.unihumboldt.parking.controller.restController.Fee;
+package co.edu.unihumboldt.parking.controller.restController.fee;
 
 import co.edu.unihumboldt.parking.mapping.dtos.FeeDto;
 import co.edu.unihumboldt.parking.mapping.mappers.CarParkMapper;

@@ -1,6 +1,5 @@
 package co.edu.unihumboldt.parking.controller.restController.vehicleType;
 
-import co.edu.unihumboldt.parking.mapping.dtos.RoleDto;
 import co.edu.unihumboldt.parking.mapping.dtos.VehicleTypeDto;
 import co.edu.unihumboldt.parking.services.impl.VehicleTypeServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
