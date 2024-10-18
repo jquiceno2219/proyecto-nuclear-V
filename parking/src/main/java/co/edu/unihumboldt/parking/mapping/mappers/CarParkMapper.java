@@ -7,7 +7,20 @@ import java.util.List;
 
 public class CarParkMapper {
     public static CarParkDto mapFrom(CarPark source){
-        return new CarParkDto(source.getId(),
+        return CarParkDto.builder()
+                .id(source.getId())
+                .name(source.getName())
+                .address(source.getAddress())
+                .phoneNumber(source.getPhoneNumber())
+                .nit(source.getNit())
+                .coordX(source.getCoordX())
+                .coordY(source.getCoordY())
+                .status(source.isStatus())
+                .build();
+    }
+
+    public static CarPark mapFrom(CarParkDto source){
+        return new CarPark(source.getId(),
                 source.getName(),
                 source.getAddress(),
                 source.getPhoneNumber(),
@@ -15,17 +28,6 @@ public class CarParkMapper {
                 source.getCoordX(),
                 source.getCoordY(),
                 source.isStatus());
-    }
-
-    public static CarPark mapFrom(CarParkDto source){
-        return new CarPark(source.id(),
-                source.name(),
-                source.address(),
-                source.phoneNumber(),
-                source.nit(),
-                source.coordX(),
-                source.coordY(),
-                source.status());
     }
 
     public static List<CarPark> mapFrom(List<CarParkDto> source){

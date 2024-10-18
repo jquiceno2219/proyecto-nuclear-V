@@ -3,6 +3,7 @@ package co.edu.unihumboldt.parking.controller.restController.vehicleType;
 import co.edu.unihumboldt.parking.mapping.dtos.VehicleTypeDto;
 import co.edu.unihumboldt.parking.services.impl.VehicleTypeServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -11,16 +12,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+/**
+ * Clase {@code VehicleTypeRestController} que gestiona las operaciones CRUD para los
+ * tipos de vehículos a través de la API. Utiliza {@code VehicleTypeServiceImpl} para
+ * realizar la lógica de negocio. Proporciona endpoints para listar, crear, actualizar
+ * y alternar el estado de los tipos de vehículos. Los métodos manejan excepciones y
+ * devuelven respuestas adecuadas, incluyendo códigos de estado HTTP que reflejan el
+ * resultado de las operaciones.
+ */
+
 @Controller
+@AllArgsConstructor
 @RequestMapping("api/vehicles-types")
-public class VehicleTypeController {
+public class VehicleTypeRestController {
     private  final VehicleTypeServiceImpl serviceVehicleType;
-    private final Logger logger = LoggerFactory.getLogger(VehicleTypeController.class);
-
-    public VehicleTypeController(VehicleTypeServiceImpl serviceVehicleType) {
-        this.serviceVehicleType = serviceVehicleType;
-    }
-
+    private final Logger logger = LoggerFactory.getLogger(VehicleTypeRestController.class);
 
     @GetMapping("/list")
     public List<VehicleTypeDto> listVehicleType() {
@@ -28,14 +34,8 @@ public class VehicleTypeController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<String> createVehicleType (@RequestParam("name") String name,
-                                              @RequestParam("status") boolean status){
+    public ResponseEntity<String> createVehicleType (@RequestBody VehicleTypeDto vehicleTypeDto){
         try {
-
-            VehicleTypeDto vehicleTypeDto = VehicleTypeDto.builder()
-                    .name(name)
-                    .status(status)
-                    .build();
             serviceVehicleType.add(vehicleTypeDto);
             return ResponseEntity.ok("Vehicle Type Created Successfully");
         }  catch (Exception e) {
@@ -46,21 +46,15 @@ public class VehicleTypeController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateVehicleType(
             @PathVariable("id") int id,
-            @RequestParam("name") String name,
-            @RequestParam("status") boolean status) {
+            @RequestBody VehicleTypeDto vehicleTypeDto) {
 
         try {
             VehicleTypeDto existingVehicleType = serviceVehicleType.byId(id);
             if (existingVehicleType == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vehicle Type not found");
             }
-            VehicleTypeDto updateVehicleType = VehicleTypeDto.builder()
-                    .id(id)
-                    .name(name)
-                    .status(status)
-                    .build();
-
-            serviceVehicleType.add(updateVehicleType);
+            vehicleTypeDto.setId(id);
+            serviceVehicleType.add(vehicleTypeDto);
             return ResponseEntity.ok("Vehicle Type Updated Successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

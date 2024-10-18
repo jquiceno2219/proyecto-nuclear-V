@@ -9,6 +9,16 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+/**
+ * La clase FeeServiceImpl es una implementación del servicio FeeService, responsable de manejar
+ * la lógica de negocio relacionada con las tarifas en el sistema de estacionamiento. Utiliza
+ * el FeeRepository para realizar operaciones de acceso a datos, como listar todas las tarifas,
+ * buscar tarifas por ID, agregar nuevas tarifas y actualizar tarifas existentes. También permite
+ * alternar el estado de una tarifa, facilitando su activación o desactivación. La clase se apoya
+ * en FeeMapper para convertir entre entidades de tarifas y objetos de transferencia de datos (DTO),
+ * garantizando así una correcta manipulación y transferencia de información a través de las capas
+ * de la aplicación.
+ */
 
 @Service
 public class FeeServiceImpl implements FeeService {
@@ -21,7 +31,7 @@ public class FeeServiceImpl implements FeeService {
 
     @Override
     public List<FeeDto> list() {
-        List<Fee> fee = (List<Fee>) repository.findAll();
+        List<Fee> fee =  repository.findAll();
         return FeeMapper.mapFromDto(fee);
     }
 

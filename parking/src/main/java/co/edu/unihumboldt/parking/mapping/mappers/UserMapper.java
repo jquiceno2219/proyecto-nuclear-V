@@ -9,29 +9,31 @@ import java.util.List;
 
 public class UserMapper {
     public static UserDto mapFrom(User source){
-        return new UserDto(source.getId(),
-         source.getUserName(),
-         source.getPassword(),
-         source.getName(),
-         source.getIdNumber(),
-         source.getPhoneNumber(),
-         source.getEmail(),
-         source.isStatus(),
-         source.getCarPark(),
-         source.getRole());
+        return  UserDto.builder()
+                .id(source.getId())
+                .userName(source.getUserName())
+                .password(source.getPassword())
+                .name(source.getName())
+                .idNumber(source.getIdNumber())
+                .phoneNumber(source.getPhoneNumber())
+                .email(source.getEmail())
+                .status(source.isStatus())
+                .carPark(source.getCarPark())
+                .role(source.getRole())
+                .build();
     }
 
     public static User mapFrom(UserDto source){
-        return new User(source.id(),
-                source.userName(),
-                source.password(),
-                source.name(),
-                source.idNumber(),
-                source.phoneNumber(),
-                source.email(),
-                source.status(),
-                source.carPark(),
-                source.role());
+        return new User(source.getId(),
+                source.getUserName(),
+                source.getPassword(),
+                source.getName(),
+                source.getIdNumber(),
+                source.getPhoneNumber(),
+                source.getEmail(),
+                source.isStatus(),
+                source.getCarPark(),
+                source.getRole());
     }
 
     public static List<User> mapFrom(List<UserDto> source){

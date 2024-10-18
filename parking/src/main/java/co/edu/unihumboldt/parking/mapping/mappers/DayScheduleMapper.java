@@ -7,17 +7,19 @@ import java.util.List;
 
 public class DayScheduleMapper {
     public static DayScheduleDto mapFrom(DaySchedule source) {
-        return new DayScheduleDto(source.getId(),
-                source.getSchedule(),
-                source.getDayWeek(),
-                source.getCarPark());
+        return  DayScheduleDto.builder()
+                .id(source.getId())
+                .schedule(source.getSchedule())
+                .dayWeek(source.getDayWeek())
+                .carPark(source.getCarPark())
+                .build();
     }
 
     public static DaySchedule mapFrom(DayScheduleDto source){
-        return new DaySchedule(source.id(),
-                source.schedule(),
-                source.dayWeek(),
-                source.carPark());
+        return new DaySchedule(source.getId(),
+                source.getSchedule(),
+                source.getDayWeek(),
+                source.getCarPark());
     }
 
     public static List<DaySchedule> mapFrom(List<DayScheduleDto> source){

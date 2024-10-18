@@ -9,6 +9,16 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+/**
+ * La clase UserServiceImpl implementa la interfaz UserService y proporciona
+ * la lógica de negocio para gestionar los usuarios del sistema.
+ * Utiliza UserRepository para realizar operaciones CRUD sobre los usuarios,
+ * permitiendo listar todos los usuarios, buscar un usuario por su ID,
+ * agregar nuevos usuarios, actualizar la información de un usuario existente
+ * y alternar el estado (activo/inactivo) de un usuario.
+ * Los datos del usuario se mapean a través de UserMapper, lo que
+ * facilita la conversión entre entidades de dominio y objetos de transferencia de datos (DTO).
+ */
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> list() {
-        List<User> user = (List<User>) repository.findAll();
+        List<User> user =  repository.findAll();
         return UserMapper.mapFromDto(user);
     }
 

@@ -9,6 +9,18 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+/**
+ * La clase PayMethodsServiceImpl es una implementación del servicio PayMethodService, encargada
+ * de gestionar la lógica de negocio relacionada con los métodos de pago en el sistema de
+ * estacionamiento. Utiliza el PayMethodRepository para realizar operaciones de acceso a datos,
+ * incluyendo listar todos los métodos de pago, buscar un método específico por su ID, agregar
+ * nuevos métodos de pago y actualizar métodos existentes. Además, permite alternar el estado
+ * de un método de pago, facilitando su activación o desactivación. La clase emplea PayMethodMapper
+ * para transformar entre entidades de métodos de pago y objetos de transferencia de datos (DTO),
+ * asegurando así una adecuada manipulación y transmisión de la información a través de las capas
+ * de la aplicación.
+ */
+
 @Service
 public class PayMethodsServiceImpl implements PayMethodService {
    private final PayMethodRepository repository;
@@ -19,7 +31,7 @@ public class PayMethodsServiceImpl implements PayMethodService {
 
     @Override
     public List<PayMethodDto> list() {
-        List<PayMethod> payMethod = (List<PayMethod>) repository.findAll();
+        List<PayMethod> payMethod =  repository.findAll();
         return PayMethodMapper.mapFromDto(payMethod);
     }
 

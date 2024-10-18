@@ -7,6 +7,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+/**
+ * Clase {@code Role} que representa un rol en el sistema.
+ * Esta entidad se mapea a la tabla {@code roles} en el esquema {@code public}.
+ * Contiene atributos para el identificador del rol, el nombre del rol
+ * y el estado (activo/inactivo).
+ * Implementa {@code Serializable} para permitir la serialización de objetos.
+ * Utiliza Lombok para generar constructores, métodos de acceso y un constructor de estilo "builder".
+ */
 
 @Data
 @AllArgsConstructor

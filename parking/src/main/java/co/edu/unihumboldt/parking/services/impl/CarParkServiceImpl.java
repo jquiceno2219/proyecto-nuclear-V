@@ -1,4 +1,15 @@
 package co.edu.unihumboldt.parking.services.impl;
+/**
+ * La clase CarParkServiceImpl es una implementación del servicio CarParkService, encargada de gestionar
+ * la lógica de negocio relacionada con los parqueaderos en el sistema de estacionamiento. Utiliza el
+ * CarParkRepository para realizar operaciones en la base de datos, incluyendo la obtención de la lista
+ * de parqueaderos, la búsqueda de un parqueadero específico por su ID, la adición de un nuevo parqueadero
+ * y la actualización de la información de un parqueadero existente. Además, proporciona una funcionalidad
+ * para alternar el estado (activo/inactivo) de un parqueadero. La clase utiliza el CarParkMapper para
+ * convertir entre las entidades de parqueadero y los objetos de transferencia de datos (DTO), garantizando
+ * la correcta manipulación de los datos a través de las diferentes capas de la aplicación.
+ */
+
 
 import co.edu.unihumboldt.parking.domain.entities.CarPark;
 import co.edu.unihumboldt.parking.mapping.dtos.CarParkDto;
@@ -19,7 +30,7 @@ public class CarParkServiceImpl implements CarParkService {
 
     @Override
     public List<CarParkDto> list() {
-        List<CarPark> carPark = (List<CarPark>) repository.findAll();
+        List<CarPark> carPark =  repository.findAll();
         return CarParkMapper.mapFromDto(carPark);
     }
 

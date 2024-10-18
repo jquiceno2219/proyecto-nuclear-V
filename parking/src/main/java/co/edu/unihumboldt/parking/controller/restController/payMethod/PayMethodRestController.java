@@ -3,24 +3,29 @@ package co.edu.unihumboldt.parking.controller.restController.payMethod;
 import co.edu.unihumboldt.parking.mapping.dtos.PayMethodDto;
 import co.edu.unihumboldt.parking.services.PayMethodService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+/**
+ * Clase {@code PayMethodRestController} que gestiona las operaciones CRUD para
+ * los métodos de pago a través de la API. Utiliza {@code PayMethodService}
+ * para acceder a la lógica de negocio. Proporciona endpoints para listar, crear,
+ * actualizar y alternar el estado de los métodos de pago. Los métodos manejan
+ * excepciones y devuelven respuestas adecuadas en caso de éxito o error,
+ * incluyendo registros de errores para facilitar la depuración.
+ */
 
-@Controller
+@RestController
+@AllArgsConstructor
 @RequestMapping("api/pay-methods")
-public class PayMethodController {
+public class PayMethodRestController {
     private final PayMethodService servicePayMethod;
-    private final Logger logger = LoggerFactory.getLogger(PayMethodController.class);
-
-    public PayMethodController(PayMethodService servicePayMethod) {
-        this.servicePayMethod = servicePayMethod;
-    }
+    private final Logger logger = LoggerFactory.getLogger(PayMethodRestController.class);
 
     @GetMapping("/list")
     public List<PayMethodDto> listRole() {
@@ -28,14 +33,8 @@ public class PayMethodController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<String> createPayMethod (@RequestParam("name") String name,
-                                              @RequestParam("status") boolean status){
+    public ResponseEntity<String> createPayMethod (@RequestBody PayMethodDto payMethodDto){
         try {
-
-            PayMethodDto payMethodDto = PayMethodDto.builder()
-                    .name(name)
-                    .status(status)
-                    .build();
             servicePayMethod.add(payMethodDto);
             return ResponseEntity.ok("Pay Method Created Successfully");
         }  catch (Exception e) {
@@ -46,21 +45,15 @@ public class PayMethodController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updatePayMethod(
             @PathVariable("id") int id,
-            @RequestParam("name") String name,
-            @RequestParam("status") boolean status) {
+            @RequestBody PayMethodDto payMethodDto) {
 
         try {
             PayMethodDto existingPayMethod = servicePayMethod.byId(id);
             if (existingPayMethod == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pay Method not found");
             }
-            PayMethodDto updatePayMethod = PayMethodDto.builder()
-                    .id(id)
-                    .name(name)
-                    .status(status)
-                    .build();
-
-            servicePayMethod.add(updatePayMethod);
+            payMethodDto.setId(id);
+            servicePayMethod.add(payMethodDto);
             return ResponseEntity.ok("Pay Method Updated Successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

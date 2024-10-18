@@ -7,6 +7,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+/**
+ * Clase {@code Fee} que representa una tarifa asociada a un tipo de vehículo en un parqueo.
+ * Esta entidad se mapea a la tabla {@code fees} en el esquema {@code public}.
+ * Contiene atributos para el identificador de la tarifa, el nombre de la tarifa,
+ * el precio de la tarifa, el estado (activo/inactivo), el parqueo asociado y el tipo de vehículo asociado.
+ * Implementa {@code Serializable} para permitir la serialización de objetos.
+ * Utiliza Lombok para generar constructores, métodos de acceso y un constructor de estilo "builder".
+ */
 
 @Data
 @AllArgsConstructor

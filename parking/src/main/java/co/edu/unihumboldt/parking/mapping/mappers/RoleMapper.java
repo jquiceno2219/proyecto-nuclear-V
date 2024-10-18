@@ -7,15 +7,19 @@ import java.util.List;
 
 public class RoleMapper {
     public static RoleDto mapFrom(Role source){
-        return new RoleDto(source.getId(),
-                source.getName(),
-                source.isStatus());
+        return RoleDto.builder()
+                .id(source.getId())
+                .name(source.getName())
+                .status(source.isStatus())
+                .build();
     }
 
     public static Role mapFrom(RoleDto source){
-        return new Role(source.id(),
-                source.name(),
-                source.status());
+        return Role.builder()
+                .id(source.getId())
+                .name(source.getName())
+                .status(source.isStatus())
+                .build();
     }
 
     public static List<Role> mapFrom(List<RoleDto> source){

@@ -7,17 +7,19 @@ import java.util.List;
 
 public class ScheduleMapper {
     public static ScheduleDto mapFrom(Schedule source){
-        return new ScheduleDto(source.getId(),
-                source.getStartTime(),
-                source.getEndTime(),
-                source.isStatus());
+        return  ScheduleDto.builder()
+                .id(source.getId())
+                .startTime(source.getStartTime())
+                .endTime(source.getEndTime())
+                .status(source.isStatus())
+                .build();
     }
 
     public static Schedule mapFrom(ScheduleDto source){
-        return new Schedule(source.id(),
-                source.startTime(),
-                source.endTime(),
-                source.status());
+        return new Schedule(source.getId(),
+                source.getStartTime(),
+                source.getEndTime(),
+                source.isStatus());
     }
 
     public static List<Schedule> mapFrom(List<ScheduleDto> source){

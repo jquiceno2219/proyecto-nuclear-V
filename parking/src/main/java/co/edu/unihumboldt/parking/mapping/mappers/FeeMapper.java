@@ -7,21 +7,23 @@ import java.util.List;
 
 public class FeeMapper {
     public static FeeDto mapFrom(Fee source){
-        return new FeeDto(source.getId(),
+        return FeeDto.builder()
+                .id(source.getId())
+                .name(source.getName())
+                .price(source.getPrice())
+                .status(source.isStatus())
+                .carPark(source.getCarPark())
+                .vehicleType(source.getVehicleType())
+                .build();
+    }
+
+    public static Fee mapFrom(FeeDto source){
+        return new Fee(source.getId(),
                 source.getName(),
                 source.getPrice(),
                 source.isStatus(),
                 source.getCarPark(),
                 source.getVehicleType());
-    }
-
-    public static Fee mapFrom(FeeDto source){
-        return new Fee(source.id(),
-                source.name(),
-                source.price(),
-                source.status(),
-                source.carPark(),
-                source.vehicleType());
     }
 
     public static List<Fee> mapFrom(List<FeeDto> source){

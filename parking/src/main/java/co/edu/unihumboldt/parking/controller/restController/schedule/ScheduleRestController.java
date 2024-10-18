@@ -2,27 +2,31 @@ package co.edu.unihumboldt.parking.controller.restController.schedule;
 
 import co.edu.unihumboldt.parking.mapping.dtos.ScheduleDto;
 import co.edu.unihumboldt.parking.services.impl.ScheduleServiceImpl;
-import co.edu.unihumboldt.parking.services.impl.ScheduleServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+/**
+ * Clase {@code ScheduleRestController} que gestiona las operaciones CRUD para
+ * los horarios disponibles a través de la API. Utiliza {@code ScheduleServiceImpl} para
+ * acceder a la lógica de negocio. Proporciona endpoints para listar, crear,
+ * actualizar y alternar el estado de los horarios. Los métodos manejan
+ * excepciones y devuelven respuestas adecuadas en caso de éxito o error,
+ * registrando errores para facilitar la depuración.
+ */
 
-@Controller
+@RestController
+@AllArgsConstructor
 @RequestMapping("api/schedules")
-public class ScheduleController {
+public class ScheduleRestController {
     private final ScheduleServiceImpl serviceSchedule;
-    
-    public ScheduleController(ScheduleServiceImpl serviceSchedule) {
-        this.serviceSchedule = serviceSchedule;
-    }
 
-    private final Logger logger = LoggerFactory.getLogger(ScheduleController.class);
+    private final Logger logger = LoggerFactory.getLogger(ScheduleRestController.class);
 
 
     @GetMapping("/list")
@@ -31,16 +35,8 @@ public class ScheduleController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<String> createSchedule (@RequestParam("start_time") int startTime,
-                                                 @RequestParam("end_time") int endTime,
-                                                 @RequestParam("status") boolean status){
+    public ResponseEntity<String> createSchedule (@RequestBody ScheduleDto scheduleDto){
         try {
-
-            ScheduleDto scheduleDto = ScheduleDto.builder()
-                    .startTime(startTime)
-                    .endTime(endTime)
-                    .status(status)
-                    .build();
             serviceSchedule.add(scheduleDto);
             return ResponseEntity.ok("Schedule Created Successfully");
         }  catch (Exception e) {
@@ -51,23 +47,15 @@ public class ScheduleController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateSchedule(
             @PathVariable("id") int id,
-            @RequestParam("start_time") int startTime,
-            @RequestParam("end_time") int endTime,
-            @RequestParam("status") boolean status) {
+            @RequestBody ScheduleDto scheduleDto) {
 
         try {
             ScheduleDto existingSchedule = serviceSchedule.byId(id);
             if (existingSchedule == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Schedule not found");
             }
-            ScheduleDto updateSchedule = ScheduleDto.builder()
-                    .id(id)
-                    .startTime(startTime)
-                    .endTime(endTime)
-                    .status(status)
-                    .build();
-
-            serviceSchedule.add(updateSchedule);
+            scheduleDto.setId(id);
+            serviceSchedule.add(scheduleDto);
             return ResponseEntity.ok("Schedule Updated Successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

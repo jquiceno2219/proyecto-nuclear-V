@@ -9,6 +9,16 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+/**
+ * La clase VehicleTypeServiceImpl implementa la interfaz VehicleTypeService
+ * y proporciona la lógica de negocio para gestionar los tipos de vehículos
+ * en el sistema. Utiliza VehicleTypeRepository para realizar operaciones CRUD
+ * sobre los tipos de vehículos, permitiendo listar todos los tipos, buscar
+ * un tipo por su ID, agregar nuevos tipos, actualizar la información de un
+ * tipo existente y alternar el estado (activo/inactivo) de un tipo de vehículo.
+ * Los datos del tipo de vehículo se mapean a través de VehicleTypeMapper,
+ * facilitando la conversión entre entidades de dominio y objetos de transferencia de datos (DTO).
+ */
 
 @Service
 public class VehicleTypeServiceImpl implements VehicleTypeService {
@@ -21,7 +31,7 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
 
     @Override
     public List<VehicleTypeDto> list() {
-        List<VehicleType> vehicleType = (List<VehicleType>) repository.findAll();
+        List<VehicleType> vehicleType = repository.findAll();
         return VehicleTypeMapper.mapFromDto(vehicleType);
     }
 
@@ -40,7 +50,7 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
     @Override
     public void update(int id, VehicleTypeDto vehicleTypeDto) {
 
-        VehicleType vehicleType = repository.findById(id).orElseThrow();;
+        VehicleType vehicleType = repository.findById(id).orElseThrow();
         VehicleType updated = VehicleTypeMapper.mapFrom(vehicleTypeDto);
 
         vehicleType.setName(updated.getName());

@@ -1,5 +1,15 @@
 package co.edu.unihumboldt.parking.services.impl;
 
+/**
+ * La clase BookStatusServiceImpl es una implementación del servicio BookStatusService, encargada de gestionar
+ * la lógica de negocio relacionada con el estado de las reservas en el sistema de estacionamiento.
+ * Interactúa con la base de datos mediante la interfaz BookStatusRepository para realizar operaciones como
+ * listar todos los estados de las reservas, buscar un estado específico por su ID, agregar un nuevo estado y
+ * actualizar la información de un estado existente. Utiliza el BookStatusMapper para convertir entre las
+ * entidades de estado del libro y los objetos de transferencia de datos (DTO), asegurando que los datos
+ * se manejen de manera eficiente y coherente a lo largo de las diferentes capas de la aplicación.
+ */
+
 import co.edu.unihumboldt.parking.domain.entities.BookStatus;
 import co.edu.unihumboldt.parking.mapping.dtos.BookStatusDto;
 import co.edu.unihumboldt.parking.mapping.mappers.BookStatusMapper;
@@ -21,7 +31,7 @@ public class BookStatusServiceImpl implements BookStatusService {
 
     @Override
     public List<BookStatusDto> list() {
-        List<BookStatus> bookStatus = (List<BookStatus>)repository.findAll();
+        List<BookStatus> bookStatus = repository.findAll();
         return BookStatusMapper.mapFromDto(bookStatus);
     }
 

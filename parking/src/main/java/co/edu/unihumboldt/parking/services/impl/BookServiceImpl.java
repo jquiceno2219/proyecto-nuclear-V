@@ -8,6 +8,14 @@ import co.edu.unihumboldt.parking.services.BookService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+/**
+ * La clase BookServiceImpl es una implementación del servicio BookService, responsable de manejar la lógica
+ * de negocio relacionada con las reservas en el sistema de estacionamiento. Esta clase interactúa
+ * con la base de datos a través de la interfaz BookRepository, permitiendo realizar operaciones como listar
+ * todas las reservas, buscar una reserva por su ID, agregar una nueva reserva y actualizar la información de una reserva
+ * existente. Utiliza el BookMapper para convertir entre las entidades y los objetos de transferencia de datos
+ * (DTO), asegurando que los datos se gestionen correctamente entre las diferentes capas de la aplicación.
+ */
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -20,7 +28,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> list() {
-        List<Book> book = (List<Book>)repository.findAll();
+        List<Book> book = repository.findAll();
         return BookMapper.mapFromDto(book);
     }
 

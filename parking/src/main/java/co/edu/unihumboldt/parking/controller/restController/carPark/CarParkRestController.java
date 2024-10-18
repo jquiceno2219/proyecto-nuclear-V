@@ -3,23 +3,29 @@ package co.edu.unihumboldt.parking.controller.restController.carPark;
 import co.edu.unihumboldt.parking.mapping.dtos.CarParkDto;
 import co.edu.unihumboldt.parking.services.impl.CarParkServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+/**
+ * Clase {@code CarParkRestController} que gestiona las operaciones CRUD para
+ * los estacionamientos a través de la API. Utiliza {@code CarParkServiceImpl}
+ * para acceder a la lógica de negocio. Proporciona endpoints para listar, crear,
+ * actualizar y alternar el estado de los estacionamientos.
+ * Los métodos manejan excepciones y devuelven respuestas adecuadas en caso de
+ * éxito o error, incluyendo registros de errores para facilitar la depuración.
+ */
 
-@Controller
+@RestController
+@AllArgsConstructor
 @RequestMapping("api/car-parks")
-public class CarParkController {
+public class CarParkRestController {
     private final CarParkServiceImpl serviceCarPark;
-    private final Logger logger = LoggerFactory.getLogger(CarParkController.class);
-    public CarParkController(CarParkServiceImpl serviceCarPark) {
-        this.serviceCarPark = serviceCarPark;
-    }
+    private final Logger logger = LoggerFactory.getLogger(CarParkRestController.class);
 
     @GetMapping("/list")
     public List<CarParkDto> listCarPark() {
@@ -27,24 +33,8 @@ public class CarParkController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<String> createCarPark (@RequestParam("name") String name,
-                                              @RequestParam("address") String adddress,
-                                              @RequestParam("phone_number") String phoneNumber,
-                                              @RequestParam("nit") String nit,
-                                              @RequestParam("coordx") String coordX,
-                                              @RequestParam("coordy") String coordY,
-                                              @RequestParam("status") boolean status){
+    public ResponseEntity<String> createCarPark (@RequestBody CarParkDto carParkDto){
         try {
-
-            CarParkDto carParkDto = CarParkDto.builder()
-                    .name(name)
-                    .address(adddress)
-                    .phoneNumber(phoneNumber)
-                    .nit(nit)
-                    .coordX(coordX)
-                    .coordY(coordY)
-                    .status(status)
-                    .build();
             serviceCarPark.add(carParkDto);
             return ResponseEntity.ok("Car Park Created Successfully");
         }  catch (Exception e) {
@@ -55,31 +45,15 @@ public class CarParkController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateCarPark(
             @PathVariable("id") int id,
-            @RequestParam("name") String name,
-            @RequestParam("address") String adddress,
-            @RequestParam("phone_number") String phoneNumber,
-            @RequestParam("nit") String nit,
-            @RequestParam("coordx") String coordX,
-            @RequestParam("coordy") String coordY,
-            @RequestParam("status") boolean status) {
+            @RequestBody CarParkDto carParkDto) {
 
         try {
             CarParkDto existingCarpark = serviceCarPark.byId(id);
             if (existingCarpark == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Car park not found");
             }
-            CarParkDto updateCarpark = CarParkDto.builder()
-                    .id(id)
-                    .name(name)
-                    .address(adddress)
-                    .phoneNumber(phoneNumber)
-                    .nit(nit)
-                    .coordX(coordX)
-                    .coordY(coordY)
-                    .status(status)
-                    .build();
-
-            serviceCarPark.add(updateCarpark);
+            carParkDto.setId(id);
+            serviceCarPark.add(carParkDto);
             return ResponseEntity.ok("Car Park Updated Successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

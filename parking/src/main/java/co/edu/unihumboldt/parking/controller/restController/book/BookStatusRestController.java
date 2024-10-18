@@ -3,24 +3,29 @@ package co.edu.unihumboldt.parking.controller.restController.book;
 import co.edu.unihumboldt.parking.mapping.dtos.BookStatusDto;
 import co.edu.unihumboldt.parking.services.impl.BookStatusServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+/**
+ * Clase {@code BookStatusRestController} que gestiona las operaciones CRUD para
+ * el estado de las reservas a través de la API. Utiliza {@code BookStatusServiceImpl}
+ * para acceder a la lógica de negocio. Proporciona endpoints para listar, crear
+ * y actualizar el estado de las reservas, así como para alternar su estado.
+ * Los métodos manejan excepciones y devuelven respuestas adecuadas en caso de
+ * éxito o error, incluyendo registros de errores para la depuración.
+ */
 
-@Controller
+@RestController
+@AllArgsConstructor
 @RequestMapping("api/books-status")
-public class BookStatusController {
+public class BookStatusRestController {
     private final BookStatusServiceImpl serviceBookStatus;
-    private final Logger logger = LoggerFactory.getLogger(BookStatusController.class);
-
-    public BookStatusController(BookStatusServiceImpl serviceBookStatus) {
-        this.serviceBookStatus = serviceBookStatus;
-    }
+    private final Logger logger = LoggerFactory.getLogger(BookStatusRestController.class);
 
 
     @GetMapping("/list")
@@ -29,15 +34,10 @@ public class BookStatusController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<String> createBookStatus (@RequestParam("name") String name,
-                                              @RequestParam("status") boolean status){
+    public ResponseEntity<String> createBookStatus (@RequestBody BookStatusDto bookStatusDto){
         try {
 
-            BookStatusDto createBookStatus = BookStatusDto.builder()
-                    .name(name)
-                    .status(status)
-                    .build();
-            serviceBookStatus.add(createBookStatus);
+            serviceBookStatus.add(bookStatusDto);
             return ResponseEntity.ok("Book Status Created Successfully");
         }  catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error creating Book Status: " + e.getMessage());
@@ -47,21 +47,15 @@ public class BookStatusController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateBookStatus(
             @PathVariable("id") int id,
-            @RequestParam("name") String name,
-            @RequestParam("status") boolean status) {
+            @RequestBody BookStatusDto bookStatusDto) {
 
         try {
             BookStatusDto existingBookStatus = serviceBookStatus.byId(id);
             if (existingBookStatus == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book Status not found");
             }
-            BookStatusDto updateBookStatus = BookStatusDto.builder()
-                    .id(id)
-                    .name(name)
-                    .status(status)
-                    .build();
-
-            serviceBookStatus.add(updateBookStatus);
+            bookStatusDto.setId(id);
+            serviceBookStatus.add(bookStatusDto);
             return ResponseEntity.ok("Book Status Updated Successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

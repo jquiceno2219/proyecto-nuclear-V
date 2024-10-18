@@ -7,18 +7,20 @@ import java.util.List;
 
 public class DayWeekMapper {
     public static DayWeekDto mapFrom(DayWeek source){
-        return new DayWeekDto(source.getId(),
-                source.getDayWeekNumber(),
-                source.getDayTitle(),
-                source.isStatus()
-          );
+        return DayWeekDto.builder()
+                .id(source.getId())
+                .dayWeekNumber(source.getDayWeekNumber())
+                .dayTitle(source.getDayTitle())
+                .status(source.isStatus())
+                .build();
+
     }
 
     public static DayWeek mapFrom(DayWeekDto source){
-        return new DayWeek(source.id(),
-                source.dayWeekNumber(),
-                source.dayTitle(),
-                source.status()
+        return new DayWeek(source.getId(),
+                source.getDayWeekNumber(),
+                source.getDayTitle(),
+                source.isStatus()
         );
     }
 

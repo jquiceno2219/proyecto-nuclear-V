@@ -9,6 +9,15 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+/**
+ * La clase DayWeekServiceImpl es una implementación del servicio DayWeekService, encargada de gestionar
+ * la lógica de negocio relacionada con los días de la semana en el sistema de estacionamiento. Utiliza
+ * el DayWeekRepository para interactuar con la base de datos, permitiendo operaciones como la obtención
+ * de una lista de días de la semana y la búsqueda por ID. Además, permite añadir, actualizar y alternar
+ * el estado de los días de la semana. La clase utiliza el DayWeekMapper para convertir entre las entidades
+ * de días de la semana y los objetos de transferencia de datos (DTO), asegurando la correcta manipulación
+ * de datos a lo largo de las distintas capas de la aplicación.
+ */
 
 @Service
 public class DayWeekServiceImpl implements DayWeekService {
@@ -20,7 +29,7 @@ public class DayWeekServiceImpl implements DayWeekService {
 
     @Override
     public List<DayWeekDto> list() {
-        List<DayWeek> dayWeek = (List<DayWeek>) repository.findAll();
+        List<DayWeek> dayWeek = repository.findAll();
         return DayWeekMapper.mapFromDto(dayWeek);
     }
 

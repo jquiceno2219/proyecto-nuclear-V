@@ -8,7 +8,19 @@ import java.util.List;
 
 public class BookMapper {
     public static BookDto mapFrom(Book source){
-        return new BookDto(source.getId(),
+        return BookDto.builder().id(source.getId())
+                .bookDate(source.getBookDate())
+                .payDate(source.getPayDate())
+                .startDate(source.getStartDate())
+                .endDate(source.getEndDate())
+                .payMethod(source.getPayMethod())
+                .spot(source.getSpot())
+                .fee(source.getFee())
+                .build();
+    }
+
+    public static Book mapFrom(BookDto source){
+        return new Book(source.getId(),
                 source.getBookDate(),
                 source.getPayDate(),
                 source.getStartDate(),
@@ -17,18 +29,6 @@ public class BookMapper {
                 source.getPayMethod(),
                 source.getSpot(),
                 source.getFee());
-    }
-
-    public static Book mapFrom(BookDto source){
-        return new Book(source.id(),
-                source.bookDate(),
-                source.payDate(),
-                source.startDate(),
-                source.endDate(),
-                source.bookStatus(),
-                source.payMethod(),
-                source.spot(),
-                source.fee());
     }
 
     public static List<Book> mapFrom(List<BookDto> source){

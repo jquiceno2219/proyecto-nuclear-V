@@ -9,6 +9,16 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+/**
+ * La clase RoleServiceImpl es una implementación del servicio RoleService, encargada de gestionar
+ * la lógica de negocio relacionada con los roles de usuario en el sistema de estacionamiento. Utiliza
+ * el RoleRepository para realizar operaciones de acceso a datos, incluyendo la obtención de todos los
+ * roles, la búsqueda de un rol específico por su ID, la adición de nuevos roles y la actualización de
+ * roles existentes. Además, permite alternar el estado de un rol, facilitando su activación o
+ * desactivación. La clase emplea RoleMapper para transformar entre entidades de rol y objetos de
+ * transferencia de datos (DTO), asegurando así una adecuada manipulación y transmisión de la
+ * información a través de las capas de la aplicación.
+ */
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -20,7 +30,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<RoleDto> list() {
-        List<Role> role = (List<Role>) repository.findAll();
+        List<Role> role =  repository.findAll();
         return RoleMapper.mapFromDto(role);
     }
 

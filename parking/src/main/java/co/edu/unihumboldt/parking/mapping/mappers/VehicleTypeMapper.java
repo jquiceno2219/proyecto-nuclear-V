@@ -7,15 +7,17 @@ import java.util.List;
 
 public class VehicleTypeMapper {
     public static VehicleTypeDto mapFrom(VehicleType source){
-        return new VehicleTypeDto(source.getId(),
-                source.getName(),
-                source.isStatus());
+        return VehicleTypeDto.builder()
+                .id(source.getId())
+                .name(source.getName())
+                .status(source.isStatus())
+                .build();
     }
 
     public static VehicleType mapFrom(VehicleTypeDto source){
-        return new VehicleType(source.id(),
-                source.name(),
-                source.status());
+        return new VehicleType(source.getId(),
+                source.getName(),
+                source.isStatus());
     }
 
     public static List<VehicleType> mapFrom(List<VehicleTypeDto> source){

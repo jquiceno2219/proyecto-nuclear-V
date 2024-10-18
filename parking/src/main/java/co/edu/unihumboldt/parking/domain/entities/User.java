@@ -7,6 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+/**
+ * Clase {@code User} que representa a un usuario en el sistema.
+ * Esta entidad se mapea a la tabla {@code users} en el esquema {@code public}.
+ * Contiene atributos para el identificador del usuario, nombre de usuario, contraseña,
+ * nombre completo, número de identificación, número de teléfono, correo electrónico,
+ * estado, parqueadero asociado y rol.
+ * Implementa {@code Serializable} para permitir la serialización de objetos.
+ * Utiliza Lombok para generar constructores, métodos de acceso y un constructor de estilo "builder".
+ */
 
 @Data
 @AllArgsConstructor
@@ -30,7 +39,5 @@ public class User implements Serializable{
     private CarPark carPark;
     @ManyToOne
     private Role role;
-
-
 
 }

@@ -7,15 +7,18 @@ import java.util.List;
 
 public class PayMethodMapper {
     public static PayMethodDto mapFrom(PayMethod source){
-        return new PayMethodDto(source.getId(),
-                source.getName(),
-                source.isStatus());
+        return PayMethodDto.builder()
+                .id(source.getId())
+                .name(source.getName())
+                .status(source.isStatus())
+                .build();
+
     }
 
     public static PayMethod mapFrom(PayMethodDto source){
-        return new PayMethod(source.id(),
-                source.name(),
-                source.status());
+        return new PayMethod(source.getId(),
+                source.getName(),
+                source.isStatus());
     }
 
     public static List<PayMethod> mapFrom(List<PayMethodDto> source){

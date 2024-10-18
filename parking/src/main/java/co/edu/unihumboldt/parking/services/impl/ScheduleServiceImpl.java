@@ -9,6 +9,17 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+/**
+ * La clase ScheduleServiceImpl implementa la interfaz ScheduleService y se encarga de manejar
+ * la lógica de negocio asociada a la gestión de horarios en el sistema de estacionamiento. Utiliza
+ * ScheduleRepository para realizar operaciones de acceso a datos, incluyendo la obtención de todos
+ * los horarios, la búsqueda de un horario específico por su ID, la adición de nuevos horarios y la
+ * actualización de horarios existentes. Además, permite alternar el estado de un horario, facilitando
+ * su activación o desactivación. La clase utiliza ScheduleMapper para convertir entre entidades de
+ * horario y objetos de transferencia de datos (DTO), asegurando una manipulación y transmisión
+ * eficiente de la información a través de las distintas capas de la aplicación.
+ */
+
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
     private final ScheduleRepository repository;
@@ -19,7 +30,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<ScheduleDto> list() {
-        List<Schedule> schedule = (List<Schedule>) repository.findAll();
+        List<Schedule> schedule =  repository.findAll();
         return ScheduleMapper.mapFromDto(schedule);
     }
 

@@ -7,6 +7,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+/**
+ * Clase {@code ServiceBook} que representa la relación entre un servicio adicional
+ * y una reserva en el sistema. Esta entidad se mapea a la tabla {@code services_book}
+ * en el esquema {@code public}. Contiene atributos para el identificador de la relación,
+ * la reserva asociada y el servicio adicional asociado.
+ * Implementa {@code Serializable} para permitir la serialización de objetos.
+ * Utiliza Lombok para generar constructores, métodos de acceso y un constructor de estilo "builder".
+ */
 
 @Data
 @AllArgsConstructor
