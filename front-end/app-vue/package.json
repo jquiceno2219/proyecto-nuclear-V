@@ -11,10 +11,14 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.6.11",
+    "bootstrap": "^5.3.3",
+    "bootstrap-vue": "^2.23.1",
     "vue": "^3.5.12"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
+    "@types/bootstrap": "^5.2.10",
     "@types/node": "^20.17.0",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vue/tsconfig": "^0.5.1",
