@@ -1,30 +1,51 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/administration/users">Users</router-link>
+      <router-link to="/administration/roles">Roles</router-link>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
+    </nav>
   </header>
-
   <main>
-    <TheWelcome />
+    <router-view></router-view>
   </main>
 </template>
 
 <style scoped>
 header {
-  line-height: 1.5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .logo {
   display: block;
   margin: 0 auto 2rem;
+}
+
+nav {
+  padding: 1rem;
+  text-align: center;
+}
+
+nav a {
+  margin: 0 0.5rem;
+  text-decoration: none;
+  color: #2c3e50;
+}
+
+nav a.router-link-active {
+  color: #42b983;
 }
 
 @media (min-width: 1024px) {
