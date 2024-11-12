@@ -1,13 +1,9 @@
 <!-- src/components/Administration.vue -->
-<script setup lang="ts">
-
-import UserComponent from "@/components/UserComponent.vue";
-import RoleComponent from "@/components/RoleComponent.vue";
-</script>
+<script setup lang="ts"></script>
 
 <template>
 <main>
-  <user-component/>
+  <router-view></router-view>
 </main>
 </template>
 

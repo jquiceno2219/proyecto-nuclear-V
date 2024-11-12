@@ -30,7 +30,7 @@ public class Fee implements Serializable {
     private int price;
     private boolean status;
     @ManyToOne
-    private CarPark carPark;
+    private ParkingFacility parkingFacility;
     @ManyToOne
     private VehicleType vehicleType;
 }

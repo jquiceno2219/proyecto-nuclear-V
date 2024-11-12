@@ -34,10 +34,10 @@ public class ServiceBookRestController {
     public ResponseEntity<String> createServiceBook(@RequestBody ServiceBookDto serviceBookDto) {
         try {
             serviceBookService.add(serviceBookDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body("ServiceBook Created Successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).body("ServiceReservation Created Successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Error creating ServiceBook: " + e.getMessage());
+                    .body("Error creating ServiceReservation: " + e.getMessage());
         }
     }
 
@@ -47,14 +47,14 @@ public class ServiceBookRestController {
         try {
             ServiceBookDto existingServiceBook = serviceBookService.byId(id);
             if (existingServiceBook == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ServiceBook not found");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ServiceReservation not found");
             }
             serviceBookDto.setId(id);
             serviceBookService.add(serviceBookDto);  // Mejor uso de un método `update`
-            return ResponseEntity.ok("ServiceBook Updated Successfully");
+            return ResponseEntity.ok("ServiceReservation Updated Successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Error updating ServiceBook: " + e.getMessage());
+                    .body("Error updating ServiceReservation: " + e.getMessage());
         }
     }
 }

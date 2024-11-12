@@ -18,8 +18,8 @@ public class UserMapper {
                 .phoneNumber(source.getPhoneNumber())
                 .email(source.getEmail())
                 .status(source.isStatus())
-                .carPark(source.getCarPark())
-                .role(source.getRole())
+                .parkingFacility(source.getParkingFacility())
+                .userRole(source.getUserRole())
                 .build();
     }
 
@@ -32,8 +32,8 @@ public class UserMapper {
                 source.getPhoneNumber(),
                 source.getEmail(),
                 source.isStatus(),
-                source.getCarPark(),
-                source.getRole());
+                source.getParkingFacility(),
+                source.getUserRole());
     }
 
     public static List<User> mapFrom(List<UserDto> source){

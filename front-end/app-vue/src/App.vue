@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-
 </script>
 
 <template>
   <header>
     <nav>
       <router-link to="/">Home</router-link> |
-      <router-link to="/administration/users">Users</router-link>
-      <router-link to="/administration/roles">Roles</router-link>
-
+      <router-link to="/administration/users">Users</router-link> |
+      <router-link to="/administration/roles">Roles</router-link> |
+      <router-link to="/administration/parking-facilities">Parking Facilities</router-link>
     </nav>
   </header>
   <main>

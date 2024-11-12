@@ -12,7 +12,7 @@ public class AddServiceMapper {
                 .name(source.getName())
                 .price(source.getPrice())
                 .status(source.isStatus())
-                .carPark(source.getCarPark())
+                .parkingFacility(source.getParkingFacility())
                 .build();
     }
 
@@ -21,7 +21,7 @@ public class AddServiceMapper {
                 source.getName(),
                 source.getPrice(),
                 source.isStatus(),
-                source.getCarPark()
+                source.getParkingFacility()
      );
     }
 

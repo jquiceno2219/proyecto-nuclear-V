@@ -57,8 +57,8 @@ public class UserServiceImpl implements UserService {
         user.setIdNumber(updated.getIdNumber());
         user.setPhoneNumber(updated.getPhoneNumber());
         user.setEmail(updated.getEmail());
-        user.setCarPark(updated.getCarPark());
-        user.setRole(updated.getRole());
+        user.setParkingFacility(updated.getParkingFacility());
+        user.setUserRole(updated.getUserRole());
     }
 
     @Override

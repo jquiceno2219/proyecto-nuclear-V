@@ -1,6 +1,6 @@
 package co.edu.unihumboldt.parking.services.impl;
 
-import co.edu.unihumboldt.parking.domain.entities.ServiceBook;
+import co.edu.unihumboldt.parking.domain.entities.ServiceReservation;
 import co.edu.unihumboldt.parking.mapping.dtos.ServiceBookDto;
 import co.edu.unihumboldt.parking.mapping.mappers.ServiceBookMapper;
 import co.edu.unihumboldt.parking.repositories.ServiceBookRepository;
@@ -30,29 +30,29 @@ public class ServiceBookServiceImpl implements ServiceBookService {
 
     @Override
     public List<ServiceBookDto> list() {
-        List<ServiceBook> serviceBook = repository.findAll();
-        return ServiceBookMapper.mapFromDto(serviceBook);
+        List<ServiceReservation> serviceReservation = repository.findAll();
+        return ServiceBookMapper.mapFromDto(serviceReservation);
     }
 
     @Override
     public ServiceBookDto byId(int id) {
-        ServiceBook serviceBook = repository.findById(id).orElseThrow();
-        return ServiceBookMapper.mapFrom(serviceBook);
+        ServiceReservation serviceReservation = repository.findById(id).orElseThrow();
+        return ServiceBookMapper.mapFrom(serviceReservation);
     }
 
     @Override
     public void add(ServiceBookDto t) {
-        ServiceBook serviceBook = ServiceBookMapper.mapFrom(t);
-        repository.save(serviceBook);
+        ServiceReservation serviceReservation = ServiceBookMapper.mapFrom(t);
+        repository.save(serviceReservation);
     }
 
     @Override
     public void update(int id, ServiceBookDto serviceBookDto) {
-        ServiceBook serviceBook = repository.findById(id).orElseThrow();
-        ServiceBook updated = ServiceBookMapper.mapFrom(serviceBookDto);
+        ServiceReservation serviceReservation = repository.findById(id).orElseThrow();
+        ServiceReservation updated = ServiceBookMapper.mapFrom(serviceBookDto);
 
-        serviceBook.setBook(updated.getBook());
-        serviceBook.setAddService(updated.getAddService());
+        serviceReservation.setReservation(updated.getReservation());
+        serviceReservation.setAddService(updated.getAddService());
     }
 
 }

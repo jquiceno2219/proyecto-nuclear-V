@@ -8,6 +8,6 @@ export interface User {
     phoneNumber: string;
     email: string;
     status: boolean;
-    carPark: number;
-    role: number;
+    parkingFacility: number;
+    userRole: number;
 }

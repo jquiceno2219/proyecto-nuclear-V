@@ -2,40 +2,64 @@
 
 import type {RouteRecordRaw} from "vue-router";
 import {createRouter, createWebHistory} from "vue-router";
-import HomeView from "@/Views/HomeView.vue";
-import Login from "@/components/LoginComponent.vue";
-import RoleComponent from "@/components/RoleComponent.vue";
-import UserComponent from "@/components/UserComponent.vue";
+import HomeView from "@/views/HomeView.vue";
+
 import Administration from "@/components/Administration.vue";
-import UserView from "@/Views/UserView.vue";
-import RoleView from "@/Views/RoleView.vue";
+import UserView from "@/views/UserView.vue";
+import RoleView from "@/views/UserRoleView.vue";
+import LoginView from "@/views/LoginView.vue";
+import ParkingFacilityView from "@/views/ParkingFacilityView.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/',
+        path: '/login',
         name: 'Login',
-        component: Login
+        component: LoginView,
+        meta: {
+            requiresAuth: false
+        }
+
     },
     {
         path: '/',
         name: 'home',
-        component: HomeView
+        component: HomeView,
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/administration',
         name: 'Administration',
         component: Administration,
+        meta: {
+            requiresAuth: true
+        },
         children: [
             {
                 path: 'users',
                 name: 'User',
                 component: UserView,
+                meta: {
+                    requiresAuth: true
+                }
             },
             {
                 path: 'roles',
                 name: 'Role',
                 component: RoleView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'parking-facilities',
+                name: 'ParkingFacility',
+                component: ParkingFacilityView,
+                meta: {
+                    requiresAuth: true,
+                }
             },
 
         ],
@@ -44,15 +68,17 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
     history: createWebHistory(),
-    routes,
+    routes
 });
 
 router.beforeEach((to, from, next) => {
-    const isAuthenticated = !!localStorage.getItem('username');
-
-    if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
-
-        next({ name: 'Login' });
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        // Verificar si hay token
+        if (!sessionStorage.getItem('user')) { // Cambié 'basicAuth' a 'user'
+            next('/login');
+        } else {
+            next();
+        }
     } else {
         next();
     }

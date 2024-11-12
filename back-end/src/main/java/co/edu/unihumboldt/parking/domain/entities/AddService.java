@@ -31,6 +31,6 @@ public class AddService implements Serializable {
     private int price;
     private boolean status;
     @ManyToOne
-    private CarPark carPark;
+    private ParkingFacility parkingFacility;
 
 }
