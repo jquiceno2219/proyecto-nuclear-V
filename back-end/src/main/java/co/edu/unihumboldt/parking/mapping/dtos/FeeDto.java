@@ -1,6 +1,6 @@
 package co.edu.unihumboldt.parking.mapping.dtos;
 
-import co.edu.unihumboldt.parking.domain.entities.CarPark;
+import co.edu.unihumboldt.parking.domain.entities.ParkingFacility;
 import co.edu.unihumboldt.parking.domain.entities.VehicleType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +22,6 @@ public class FeeDto {
     private String name;
     private int price;
     private boolean status;
-    private CarPark carPark;
+    private ParkingFacility parkingFacility;
     private VehicleType vehicleType;
 }

@@ -1,7 +1,7 @@
 package co.edu.unihumboldt.parking.mapping.dtos;
 
-import co.edu.unihumboldt.parking.domain.entities.CarPark;
-import co.edu.unihumboldt.parking.domain.entities.Role;
+import co.edu.unihumboldt.parking.domain.entities.ParkingFacility;
+import co.edu.unihumboldt.parking.domain.entities.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,6 +25,6 @@ public class UserDto {
     private String phoneNumber;
     private String email;
     private boolean status;
-    private CarPark carPark;
-    private Role role;
+    private ParkingFacility parkingFacility;
+    private UserRole userRole;
 }

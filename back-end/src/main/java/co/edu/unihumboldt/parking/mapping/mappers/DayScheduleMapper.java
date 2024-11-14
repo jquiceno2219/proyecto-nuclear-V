@@ -11,7 +11,7 @@ public class DayScheduleMapper {
                 .id(source.getId())
                 .schedule(source.getSchedule())
                 .dayWeek(source.getDayWeek())
-                .carPark(source.getCarPark())
+                .parkingFacility(source.getParkingFacility())
                 .build();
     }
 
@@ -19,7 +19,7 @@ public class DayScheduleMapper {
         return new DaySchedule(source.getId(),
                 source.getSchedule(),
                 source.getDayWeek(),
-                source.getCarPark());
+                source.getParkingFacility());
     }
 
     public static List<DaySchedule> mapFrom(List<DayScheduleDto> source){

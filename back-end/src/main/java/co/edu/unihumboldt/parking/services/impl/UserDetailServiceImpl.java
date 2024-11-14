@@ -37,7 +37,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 true, // accountNonExpired
                 true, // credentialsNonExpired
                 true, // accountNonLocked
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName()))
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getUserRole().getName()))
         );
     }
 }

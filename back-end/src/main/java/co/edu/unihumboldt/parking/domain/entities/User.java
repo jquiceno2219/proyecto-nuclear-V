@@ -36,8 +36,8 @@ public class User implements Serializable{
     private String email;
     private boolean status;
     @ManyToOne
-    private CarPark carPark;
+    private ParkingFacility parkingFacility;
     @ManyToOne
-    private Role role;
+    private UserRole userRole;
 
 }

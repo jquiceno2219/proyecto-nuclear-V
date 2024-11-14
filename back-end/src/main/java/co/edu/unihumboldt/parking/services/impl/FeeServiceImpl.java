@@ -55,7 +55,7 @@ public class FeeServiceImpl implements FeeService {
         fee.setName(updated.getName());
         fee.setPrice(updated.getPrice());
         fee.setStatus(updated.isStatus());
-        fee.setCarPark(updated.getCarPark());
+        fee.setParkingFacility(updated.getParkingFacility());
         fee.setVehicleType(updated.getVehicleType());
     }
 
