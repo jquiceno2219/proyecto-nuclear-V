@@ -54,7 +54,7 @@ public class AddServiceServiceImpl implements AddServiceService {
         addService.setName(updated.getName());
         addService.setPrice(updated.getPrice());
         addService.setStatus(updated.isStatus());
-        addService.setCarPark(updated.getCarPark());
+        addService.setParkingFacility(updated.getParkingFacility());
     }
 
     @Override

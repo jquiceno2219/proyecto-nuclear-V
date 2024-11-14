@@ -31,5 +31,5 @@ public class DaySchedule implements Serializable {
     @ManyToOne
     private DayWeek dayWeek;
     @ManyToOne
-    private CarPark carPark;
+    private ParkingFacility parkingFacility;
 }

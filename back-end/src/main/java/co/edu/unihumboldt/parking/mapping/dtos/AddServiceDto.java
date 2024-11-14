@@ -1,6 +1,6 @@
 package co.edu.unihumboldt.parking.mapping.dtos;
 
-import co.edu.unihumboldt.parking.domain.entities.CarPark;
+import co.edu.unihumboldt.parking.domain.entities.ParkingFacility;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +21,5 @@ public class AddServiceDto {
     private String name;
     private int price;
     private boolean status;
-    private CarPark carPark;
+    private ParkingFacility parkingFacility;
 }

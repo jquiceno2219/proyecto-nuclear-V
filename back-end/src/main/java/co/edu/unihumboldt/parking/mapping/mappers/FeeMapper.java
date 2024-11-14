@@ -12,7 +12,7 @@ public class FeeMapper {
                 .name(source.getName())
                 .price(source.getPrice())
                 .status(source.isStatus())
-                .carPark(source.getCarPark())
+                .parkingFacility(source.getParkingFacility())
                 .vehicleType(source.getVehicleType())
                 .build();
     }
@@ -22,7 +22,7 @@ public class FeeMapper {
                 source.getName(),
                 source.getPrice(),
                 source.isStatus(),
-                source.getCarPark(),
+                source.getParkingFacility(),
                 source.getVehicleType());
     }
 
