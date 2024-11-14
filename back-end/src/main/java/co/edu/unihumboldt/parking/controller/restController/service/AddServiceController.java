@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * Clase {@code AddServiceRestController} que gestiona las operaciones CRUD para
+ * Clase {@code AddServiceController} que gestiona las operaciones CRUD para
  * los servicios adicionales a través de la API. Utiliza {@code AddServiceServiceImpl}
  * para acceder a la lógica de negocio. Proporciona endpoints para listar, crear,
  * actualizar y alternar el estado de los servicios adicionales. Los métodos manejan
@@ -23,11 +23,11 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/add-services")
-public class AddServiceRestController {
+public class AddServiceController {
 
     private final AddServiceServiceImpl serviceAddService;
 
-    private final Logger logger = LoggerFactory.getLogger(AddServiceRestController.class);
+    private final Logger logger = LoggerFactory.getLogger(AddServiceController.class);
 
     @GetMapping("/list")
     public List<AddServiceDto> listAddServices() {

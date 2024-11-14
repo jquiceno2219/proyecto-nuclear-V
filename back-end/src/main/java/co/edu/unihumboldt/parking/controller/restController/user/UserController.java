@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * Clase {@code UserRestController} que gestiona las operaciones CRUD para los
+ * Clase {@code UserController} que gestiona las operaciones CRUD para los
  * usuarios a través de la API. Utiliza {@code UserServiceImpl} para interactuar
  * con la lógica de negocio. Proporciona endpoints para listar, crear, actualizar
  * y alternar el estado de los usuarios. Los métodos manejan excepciones y devuelven
@@ -23,10 +23,10 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/users")
-public class UserRestController {
+public class UserController {
 
     private final UserServiceImpl serviceUser;
-    private final Logger logger = LoggerFactory.getLogger(UserRestController.class);
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/list")
     public List<UserDto> listUsers() {

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * Clase {@code ScheduleRestController} que gestiona las operaciones CRUD para
+ * Clase {@code ScheduleController} que gestiona las operaciones CRUD para
  * los horarios disponibles a través de la API. Utiliza {@code ScheduleServiceImpl} para
  * acceder a la lógica de negocio. Proporciona endpoints para listar, crear,
  * actualizar y alternar el estado de los horarios. Los métodos manejan
@@ -23,10 +23,10 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/schedules")
-public class ScheduleRestController {
+public class ScheduleController {
     private final ScheduleServiceImpl serviceSchedule;
 
-    private final Logger logger = LoggerFactory.getLogger(ScheduleRestController.class);
+    private final Logger logger = LoggerFactory.getLogger(ScheduleController.class);
 
 
     @GetMapping("/list")

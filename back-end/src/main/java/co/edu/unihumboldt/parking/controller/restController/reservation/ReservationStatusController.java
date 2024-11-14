@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * Clase {@code ReservationStatusRestController} que gestiona las operaciones CRUD para
+ * Clase {@code ReservationStatusController} que gestiona las operaciones CRUD para
  * el estado de las reservas a través de la API. Utiliza {@code ReservationStatusServiceImpl}
  * para acceder a la lógica de negocio. Proporciona endpoints para listar, crear
  * y actualizar el estado de las reservas, así como para alternar su estado.
@@ -23,9 +23,9 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/reservations-status")
-public class ReservationStatusRestController {
+public class ReservationStatusController {
     private final ReservationStatusServiceImpl serviceBookStatus;
-    private final Logger logger = LoggerFactory.getLogger(ReservationStatusRestController.class);
+    private final Logger logger = LoggerFactory.getLogger(ReservationStatusController.class);
 
 
     @GetMapping("/list")

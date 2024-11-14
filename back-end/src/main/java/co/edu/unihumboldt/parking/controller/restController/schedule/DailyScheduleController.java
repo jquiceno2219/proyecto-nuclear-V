@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * Clase {@code DayScheduleRestController} que gestiona las operaciones CRUD
+ * Clase {@code DailyScheduleController} que gestiona las operaciones CRUD
  * para los horarios diarios a través de la API. Utiliza {@code DayScheduleServiceImpl}
  * para acceder a la lógica de negocio. Proporciona endpoints para listar y crear
  * horarios diarios. Los métodos manejan excepciones y devuelven respuestas adecuadas
@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/days-schedules")
-public class DayScheduleRestController {
+public class DailyScheduleController {
     private final DayScheduleServiceImpl serviceDaySchedule;
 
     @GetMapping("/list")

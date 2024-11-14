@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * Clase {@code ParkingSpotRestController} que gestiona las operaciones CRUD para los
+ * Clase {@code ParkingSpotController} que gestiona las operaciones CRUD para los
  * spots a través de la API. Utiliza {@code ParkingSpotServiceImpl} para interactuar
  * con la lógica de negocio. Proporciona endpoints para listar, crear, actualizar
  * y alternar el estado de los spots. Los métodos manejan excepciones y devuelven
@@ -23,10 +23,10 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/parking-spots")
-public class ParkingSpotRestController {
+public class ParkingSpotController {
     private final ParkingSpotServiceImpl serviceSpot;
 
-    private final Logger logger = LoggerFactory.getLogger(ParkingSpotRestController.class);
+    private final Logger logger = LoggerFactory.getLogger(ParkingSpotController.class);
 
     @GetMapping("/list")
     public List<ParkingSpotDto> listSpots() {

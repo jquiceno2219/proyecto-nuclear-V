@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * Clase {@code PayMethodRestController} que gestiona las operaciones CRUD para
+ * Clase {@code PayMethodController} que gestiona las operaciones CRUD para
  * los métodos de pago a través de la API. Utiliza {@code PayMethodService}
  * para acceder a la lógica de negocio. Proporciona endpoints para listar, crear,
  * actualizar y alternar el estado de los métodos de pago. Los métodos manejan
@@ -23,9 +23,9 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/pay-methods")
-public class PayMethodRestController {
+public class PayMethodController {
     private final PayMethodService servicePayMethod;
-    private final Logger logger = LoggerFactory.getLogger(PayMethodRestController.class);
+    private final Logger logger = LoggerFactory.getLogger(PayMethodController.class);
 
     @GetMapping("/list")
     public List<PayMethodDto> listRole() {

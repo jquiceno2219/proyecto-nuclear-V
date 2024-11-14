@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * Clase {@code UserRoleRestController} que gestiona las operaciones CRUD para
+ * Clase {@code UserRoleController} que gestiona las operaciones CRUD para
  * los roles a través de la API. Utiliza {@code UserRoleServiceImpl} para acceder
  * a la lógica de negocio. Proporciona endpoints para listar, crear, actualizar
  * y alternar el estado de los roles. Los métodos manejan excepciones y
@@ -23,9 +23,9 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/user-roles")
-public class UserRoleRestController {
+public class UserRoleController {
     private  final UserRoleServiceImpl serviceRole;
-    private final Logger logger = LoggerFactory.getLogger(UserRoleRestController.class);
+    private final Logger logger = LoggerFactory.getLogger(UserRoleController.class);
     @GetMapping("/list")
     public List<UserRoleDto> listRole() {
         return serviceRole.list();

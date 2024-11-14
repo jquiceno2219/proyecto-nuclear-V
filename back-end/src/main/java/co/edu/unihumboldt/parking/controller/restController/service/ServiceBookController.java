@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * Clase {@code ServiceBookRestController} que gestiona las operaciones CRUD para
+ * Clase {@code ServiceBookController} que gestiona las operaciones CRUD para
  * la reserva de servicios a través de la API. Utiliza {@code ServiceBookServiceImpl}
  * para acceder a la lógica de negocio. Proporciona endpoints para listar, crear
  * y actualizar reservas de servicios. Los métodos manejan excepciones y devuelven
@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/service-books")
-public class ServiceBookRestController {
+public class ServiceBookController {
 
     private final ServiceBookServiceImpl serviceBookService;
 

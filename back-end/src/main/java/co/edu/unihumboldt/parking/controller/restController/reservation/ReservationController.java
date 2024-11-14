@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Clase {@code ReservationRestController} que gestiona las operaciones CRUD para reservas
+ * Clase {@code ReservationController} que gestiona las operaciones CRUD para reservas
  * a través de la API. Utiliza {@code ReservationServiceImpl} para acceder a la lógica
  * de negocio. Proporciona endpoints para listar reservas, crear una nueva reserva
  * y actualizar una reserva existente. Los métodos manejan excepciones y devuelven
@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/reservations")
-public class ReservationRestController {
+public class ReservationController {
 
     private final ReservationServiceImpl serviceBook;
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * Clase {@code DayWeekRestController} que gestiona las operaciones CRUD para
+ * Clase {@code DayOfWeekController} que gestiona las operaciones CRUD para
  * los días de la semana a través de la API. Utiliza {@code DayWeekServiceImpl}
  * para acceder a la lógica de negocio. Proporciona endpoints para listar, crear,
  * actualizar y alternar el estado de los días de la semana. Los métodos manejan
@@ -23,9 +23,9 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/days-week")
-public class DayWeekRestController {
+public class DayOfWeekController {
     private final DayWeekServiceImpl serviceDayWeek;
-    private final Logger logger = LoggerFactory.getLogger(DayWeekRestController.class);
+    private final Logger logger = LoggerFactory.getLogger(DayOfWeekController.class);
 
     @GetMapping("/list")
     public List<DayWeekDto> listDayWeeks() {

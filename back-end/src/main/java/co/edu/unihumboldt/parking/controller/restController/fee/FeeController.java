@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * Clase {@code FeeRestController} que gestiona las operaciones CRUD para
+ * Clase {@code FeeController} que gestiona las operaciones CRUD para
  * las tarifas a través de la API. Utiliza {@code FeeServiceImpl} para acceder
  * a la lógica de negocio. Proporciona endpoints para listar, crear, actualizar
  * y alternar el estado de las tarifas. Los métodos manejan excepciones y
@@ -23,9 +23,9 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/fee")
-public class FeeRestController {
+public class FeeController {
     private final FeeServiceImpl serviceFee;
-    private final Logger logger = LoggerFactory.getLogger(FeeRestController.class);
+    private final Logger logger = LoggerFactory.getLogger(FeeController.class);
 
 
     @GetMapping("/list")
