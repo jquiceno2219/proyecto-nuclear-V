@@ -6,15 +6,8 @@ import ParkingFacilityService from "@/services/ParkingFacilityService";
 
 const parkings = ref<ParkingFacility[]>([]);
 const newParking = ref<ParkingFacility>({
-  address: "",
-  coordX: "",
-  coordY: "",
-  id: 0,
-  name: "",
-  nit: "",
-  phoneNumber: "",
-  status: false
-})
+  address: "", coordX: "", coordY: "", id: 0, name: "", nit: "", phoneNumber: "", status: true
+});
 const editingParking = ref<ParkingFacility | null>(null);
 
 onMounted(async () => {
@@ -73,7 +66,7 @@ const toggleParkingStatus = async (parking: ParkingFacility) => {
 
 // Reiniciar el formulario
 const resetForm = () => {
-  newParking.value = { id: 0, name: '', status: true };
+  newParking.value = { address: "", coordX: "", coordY: "", id: 0, name: "", nit: "", phoneNumber: "", status: true};
   editingParking.value = null; // Reiniciar el rol en edición
 };
 
@@ -111,6 +104,10 @@ const currentParking = computed(() => {
   <div class="parking-form">
     <h2>{{ editingParking ? 'Edit Parking Facility' : 'Create Parking Facility' }}</h2>
     <input v-model="currentParking.name" placeholder="Parking Facility Name" />
+    <input v-model="currentParking.address" placeholder="Parking Facility Address" />
+    <input v-model="currentParking.phoneNumber" placeholder="Parking Facility Contact Number" />
+    <input v-model="currentParking.coordX" placeholder="Parking Facility X Coordinate" />
+    <input v-model="currentParking.coordY" placeholder="Parking Facility Y Coordinate" />
     <input type="checkbox" v-model="currentParking.status" />
     <label for="status">Active</label>
     <button @click="editingParking ? updateParking() : createParking()">
@@ -122,5 +119,23 @@ const currentParking = computed(() => {
 
 
 <style scoped>
+.parking-list, .parking-form {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
+.parking-list h2, .parking-form h2 {
+  margin-bottom: 10px;
+}
+
+.parking-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.parking-form li {
+  margin-bottom: 10px;
+}
 </style>

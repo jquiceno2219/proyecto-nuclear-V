@@ -9,6 +9,7 @@ import UserView from "@/views/UserView.vue";
 import RoleView from "@/views/UserRoleView.vue";
 import LoginView from "@/views/LoginView.vue";
 import ParkingFacilityView from "@/views/ParkingFacilityView.vue";
+import ParkingSpotView from "@/views/ParkingSpotView.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -57,6 +58,14 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'parking-facilities',
                 name: 'ParkingFacility',
                 component: ParkingFacilityView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'parking-spots',
+                name: 'ParkingSpot',
+                component: ParkingSpotView,
                 meta: {
                     requiresAuth: true,
                 }

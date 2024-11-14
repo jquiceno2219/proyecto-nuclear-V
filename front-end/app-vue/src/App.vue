@@ -7,7 +7,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/administration/users">Users</router-link> |
       <router-link to="/administration/roles">Roles</router-link> |
-      <router-link to="/administration/parking-facilities">Parking Facilities</router-link>
+      <router-link to="/administration/parking-facilities">Parking Facilities</router-link> |
+      <router-link to="/administration/parking-spots">Parking Spots</router-link>
     </nav>
   </header>
   <main>
