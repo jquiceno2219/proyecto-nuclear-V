@@ -8,19 +8,19 @@
 
   import { onMounted } from "vue";
 //  import { useGeolocation } from "@vueuse/core";
-  
+
   //import { userMarker, nearbyMarkers } from "@/stores/mapStore";
-  
+
 //  const { coords } = useGeolocation();
-  
+
   let map: leaflet.Map;
   let userGeoMarker: leaflet.Marker;
-  
+
   onMounted(() => {
     map = leaflet
       .map("map")
       .setView([51.505, -0.09], 13);
-  
+
     leaflet
       .tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,

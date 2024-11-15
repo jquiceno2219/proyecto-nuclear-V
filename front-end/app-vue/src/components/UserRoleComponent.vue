@@ -4,7 +4,7 @@ import type {UserRole} from "@/models/UserRole";
 import roleService from "@/services/UserRoleService";
 
 const roles = ref<UserRole[]>([]);
-const newRole = ref<UserRole>({ id: 0, name: '', status: true }); // Ajusta según la estructura de UserRole
+const newRole = ref<UserRole>({ id: 0, name: '', status: true });
 const editingRole = ref<UserRole | null>(null); // Para almacenar el rol que se está editando
 
 onMounted(async () => {
@@ -126,4 +126,3 @@ const currentRole = computed(() => {
   margin-bottom: 10px;
 }
 </style>
-``

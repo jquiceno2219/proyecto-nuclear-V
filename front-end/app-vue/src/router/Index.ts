@@ -10,6 +10,9 @@ import RoleView from "@/views/UserRoleView.vue";
 import LoginView from "@/views/LoginView.vue";
 import ParkingFacilityView from "@/views/ParkingFacilityView.vue";
 import ParkingSpotView from "@/views/ParkingSpotView.vue";
+import ScheduleVIew from "@/views/ScheduleVIew.vue";
+import DayOfWeekView from "@/views/DayOfWeekView.vue";
+import DailyScheduleView from "@/views/DailyScheduleView.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -66,6 +69,30 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'parking-spots',
                 name: 'ParkingSpot',
                 component: ParkingSpotView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'schedules',
+                name: 'Schedule',
+                component: ScheduleVIew,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'days-week',
+                name: 'DayOfWeeks',
+                component: DayOfWeekView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'daily-schedules',
+                name: 'DailySchedule',
+                component: DailyScheduleView,
                 meta: {
                     requiresAuth: true,
                 }

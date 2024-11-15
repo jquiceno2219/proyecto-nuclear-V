@@ -8,7 +8,11 @@
       <router-link to="/administration/users">Users</router-link> |
       <router-link to="/administration/roles">Roles</router-link> |
       <router-link to="/administration/parking-facilities">Parking Facilities</router-link> |
-      <router-link to="/administration/parking-spots">Parking Spots</router-link>
+      <router-link to="/administration/parking-spots">Parking Spots</router-link> |
+      <router-link to="/administration/schedules">Schedules</router-link> |
+      <router-link to="/administration/days-week">Days Week</router-link>
+      <router-link to="/administration/daily-schedules">Daily Schedules</router-link>
+
     </nav>
   </header>
   <main>
