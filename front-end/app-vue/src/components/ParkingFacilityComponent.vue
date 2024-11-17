@@ -3,11 +3,29 @@
 import type {ParkingFacility} from "@/models/ParkingFacility";
 import {computed, onMounted, ref} from "vue";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
+import Map from "@/components/map.vue";
 
 const parkings = ref<ParkingFacility[]>([]);
 const newParking = ref<ParkingFacility>({
   address: "", coordX: "", coordY: "", id: 0, name: "", nit: "", phoneNumber: "", status: true
 });
+
+const updateCoordinates = (coords: { coordX: string; coordY: string }) => {
+  // Actualiza las coordenadas cuando se hace clic en el mapa
+  newParking.value.coordX = coords.coordX;
+  newParking.value.coordY = coords.coordY;
+};
+
+const updateCoordX = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  newParking.value.coordX = input.value;
+};
+
+const updateCoordY = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  newParking.value.coordY = input.value;
+};
+
 const editingParking = ref<ParkingFacility | null>(null);
 
 onMounted(async () => {
@@ -89,7 +107,8 @@ const currentParking = computed(() => {
       <li v-for="parking in activeParkings" :key="parking.id">
         <strong>Name:</strong> {{ parking.name }}<br>
         <strong>Address:</strong> {{ parking.address }}<br>
-        <strong>Phone Number:</strong> {{ parking.nit }}<br>
+        <strong>Nit:</strong> {{ parking.nit }}<br>
+        <strong>Phone Number:</strong> {{ parking.phoneNumber }}<br>
         <strong>Coordenates X:</strong> {{ parking.coordX }}<br>
         <strong>Coordenates:</strong> {{ parking.coordY }}<br>
 
@@ -105,9 +124,10 @@ const currentParking = computed(() => {
     <h2>{{ editingParking ? 'Edit Parking Facility' : 'Create Parking Facility' }}</h2>
     <input v-model="currentParking.name" placeholder="Parking Facility Name" />
     <input v-model="currentParking.address" placeholder="Parking Facility Address" />
+    <input v-model="currentParking.nit" placeholder="Nit" />
     <input v-model="currentParking.phoneNumber" placeholder="Parking Facility Contact Number" />
-    <input v-model="currentParking.coordX" placeholder="Parking Facility X Coordinate" />
-    <input v-model="currentParking.coordY" placeholder="Parking Facility Y Coordinate" />
+    <input :value="newParking.coordX" @input="updateCoordX($event)" placeholder="Parking Facility X Coordinate" />
+    <input :value="newParking.coordY" @input="updateCoordY($event)" placeholder="Parking Facility Y Coordinate" />
     <input type="checkbox" v-model="currentParking.status" />
     <label for="status">Active</label>
     <button @click="editingParking ? updateParking() : createParking()">
@@ -115,6 +135,8 @@ const currentParking = computed(() => {
     </button>
     <button @click="resetForm" v-if="editingParking">Cancel</button>
   </div>
+
+<div class="map"><Map @map-click="updateCoordinates"></Map></div>
 </template>
 
 
@@ -138,4 +160,5 @@ const currentParking = computed(() => {
 .parking-form li {
   margin-bottom: 10px;
 }
+
 </style>

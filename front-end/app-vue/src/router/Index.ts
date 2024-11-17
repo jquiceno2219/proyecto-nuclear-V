@@ -10,9 +10,18 @@ import RoleView from "@/views/UserRoleView.vue";
 import LoginView from "@/views/LoginView.vue";
 import ParkingFacilityView from "@/views/ParkingFacilityView.vue";
 import ParkingSpotView from "@/views/ParkingSpotView.vue";
-
+import Map from "@/components/map.vue";
+import PayMethod from "@/components/PayMethod.vue";
 
 const routes: Array<RouteRecordRaw> = [
+    {
+        path: '/map',
+        name: 'Map test',
+        component: Map,
+        meta: {
+            requiresAuth: false
+        }
+    },
     {
         path: '/login',
         name: 'Login',
@@ -70,7 +79,14 @@ const routes: Array<RouteRecordRaw> = [
                     requiresAuth: true,
                 }
             },
-
+            {
+                path: 'pay-method',
+                name: 'Method test',
+                component: PayMethod,
+                meta: {
+                    requiresAuth: true
+                }
+            },
         ],
     },
 ];
