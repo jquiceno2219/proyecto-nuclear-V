@@ -12,6 +12,7 @@ let mapInstance;
 
 onMounted(() => {
   // Inicializar el mapa
+  
   mapInstance = L.map(mapContainer.value).setView([4.537, -75.678], 13);
 
   // Agregar capa de OpenStreetMap
