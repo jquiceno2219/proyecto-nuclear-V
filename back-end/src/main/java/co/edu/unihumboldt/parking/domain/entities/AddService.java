@@ -22,7 +22,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "days_schedule",schema = "public", indexes = @Index(columnList = "id"))
+@Table(name = "add_service",schema = "public", indexes = @Index(columnList = "id"))
 public class AddService implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

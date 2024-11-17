@@ -77,11 +77,11 @@ const updatespot = async () => {
       }
       const spotToSend = {
         id: 0,
-        spotNumber: newSpot.value.spotNumber,
-        status: newSpot.value.status,
-        parkingFacility: {id: newSpot.value.parkingFacility.id}
+        spotNumber: editingSpot.value.spotNumber,
+        status: editingSpot.value.status,
+        parkingFacility: {id: editingSpot.value.parkingFacility.id}
       };
-      await parkingSpotService.updateSpot(editingSpot.value.id, spotToSend);
+      await parkingSpotService.updateSpot(editingSpot .value.id, spotToSend);
       await loadSpots();
       resetForm();
     } catch (error) {
