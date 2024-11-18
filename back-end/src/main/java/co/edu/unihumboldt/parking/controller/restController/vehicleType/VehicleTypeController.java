@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 /**
- * Clase {@code VehicleTypeRestController} que gestiona las operaciones CRUD para los
+ * Clase {@code VehicleTypeController} que gestiona las operaciones CRUD para los
  * tipos de vehículos a través de la API. Utiliza {@code VehicleTypeServiceImpl} para
  * realizar la lógica de negocio. Proporciona endpoints para listar, crear, actualizar
  * y alternar el estado de los tipos de vehículos. Los métodos manejan excepciones y
@@ -21,12 +21,12 @@ import java.util.List;
  * resultado de las operaciones.
  */
 
-@Controller
+@RestController
 @AllArgsConstructor
-@RequestMapping("api/vehicles-types")
-public class VehicleTypeRestController {
+@RequestMapping("api/vehicle-types")
+public class VehicleTypeController {
     private  final VehicleTypeServiceImpl serviceVehicleType;
-    private final Logger logger = LoggerFactory.getLogger(VehicleTypeRestController.class);
+    private final Logger logger = LoggerFactory.getLogger(VehicleTypeController.class);
 
     @GetMapping("/list")
     public List<VehicleTypeDto> listVehicleType() {

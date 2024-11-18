@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue";
+import { computed, onMounted, ref } from "vue";
 import parkingSpotService from "@/services/ParkingSpotService";
-import type {ParkingSpot} from "@/models/ParkingSpot";
-import type {ParkingFacility} from "@/models/ParkingFacility";
+import type { ParkingSpot } from "@/models/ParkingSpot";
+import type { ParkingFacility } from "@/models/ParkingFacility";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
 
-
 const spots = ref<ParkingSpot[]>([]);
-const newSpot = ref<ParkingSpot>({id: 0, parkingFacility: {id: 0}, spotNumber: 0, status: true});
+const newSpot = ref<ParkingSpot>({ id: 0, parkingFacility: { id: 0 }, spotNumber: 0, status: true });
 const editingSpot = ref<ParkingSpot | null>(null);
 
 const parkings = ref<ParkingFacility[]>([]);
 
 onMounted(async () => {
   await loadSpots();
-  await loadParkings()
+  await loadParkings();
 });
 
 // Cargar spots desde el servicio
@@ -26,7 +25,7 @@ const loadSpots = async () => {
   }
 };
 
-const loadParkings= async () => {
+const loadParkings = async () => {
   try {
     parkings.value = await ParkingFacilityService.getParking();
   } catch (error) {
@@ -34,7 +33,7 @@ const loadParkings= async () => {
   }
 };
 
-// Crear un nuevo rol
+// Crear un nuevo spot
 const createSpot = async () => {
   try {
     if (!validateSpotForm()) {
@@ -58,17 +57,16 @@ const createSpot = async () => {
 
 const validateSpotForm = () => {
   const spot = currentSpot.value;
-  return spot.spotNumber &&
-      spot.parkingFacility?.id
+  return spot.spotNumber && spot.parkingFacility?.id;
 };
 
 // Iniciar la edición
-const editspot = (spot: ParkingSpot) => {
-  editingSpot.value = { ...spot }; // Clonar el rol para editarlo
+const editSpot = (spot: ParkingSpot) => {
+  editingSpot.value = { ...spot }; // Clonar el spot para editarlo
 };
 
-// Actualizar un rol
-const updatespot = async () => {
+// Actualizar un spot
+const updateSpot = async () => {
   if (editingSpot.value) {
     try {
       if (!validateSpotForm()) {
@@ -77,27 +75,26 @@ const updatespot = async () => {
       }
       const spotToSend = {
         id: 0,
-        spotNumber: newSpot.value.spotNumber,
-        status: newSpot.value.status,
-        parkingFacility: {id: newSpot.value.parkingFacility.id}
+        spotNumber: editingSpot.value.spotNumber,
+        status: editingSpot.value.status,
+        parkingFacility: { id: editingSpot.value.parkingFacility.id }
       };
       await parkingSpotService.updateSpot(editingSpot.value.id, spotToSend);
       await loadSpots();
       resetForm();
     } catch (error) {
       console.error('Error al actualizar spot:', error);
-      alert('Error al actualizar spot: ' + (error as Error).message);
     }
   }
 };
 
-// Alternar estado de un rol
+// Alternar estado de un spot
 const toggleSpotStatus = async (spot: ParkingSpot) => {
   try {
     const updatedSpot = await parkingSpotService.toggleSpotStatus(spot.id);
     const index = spots.value.findIndex(r => r.id === updatedSpot.id);
     if (index !== -1) {
-      spots.value[index] = updatedSpot; // Actualizar el rol en la lista
+      spots.value[index] = updatedSpot; // Actualizar el spot en la lista
     }
   } catch (error) {
     console.error('Error al alternar estado de spot:', error);
@@ -106,8 +103,8 @@ const toggleSpotStatus = async (spot: ParkingSpot) => {
 
 // Reiniciar el formulario
 const resetForm = () => {
-  newSpot.value = {id: 0, parkingFacility: {id: 0}, spotNumber: 0, status: true};
-  editingSpot.value = null; // Reiniciar el rol en edición
+  newSpot.value = { id: 0, parkingFacility: { id: 0 }, spotNumber: 0, status: true };
+  editingSpot.value = null; // Reiniciar el spot en edición
 };
 
 // Computed property para filtrar spots activos
@@ -122,48 +119,75 @@ const currentSpot = computed(() => {
 </script>
 
 <template>
-  <div class="spot-list">
-    <h2>spots List</h2>
-    <ul v-if="activeSpots.length">
-      <li v-for="spot in activeSpots" :key="spot.id">
-        <div class="spot-details">
-        <strong>Spot Number:</strong> {{ spot.spotNumber }}<br>
-        <strong>Parking Facility:</strong>
-        <span>{{ parkings.find(p => p.id === spot.parkingFacility.id)?.name || 'N/A' }}</span><br>
+  <div class="container">
+    <div class="spot-list">
+      <h2>Parking Spots List</h2>
+      <table v-if="activeSpots.length">
+        <thead>
+        <tr>
+          <th>Spot Number</th>
+          <th>Parking Facility</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="spot in activeSpots" :key="spot.id">
+          <td>{{ spot.spotNumber }}</td>
+          <td>{{ parkings.find(p => p.id === spot.parkingFacility.id)?.name || 'N/A' }}</td>
+          <td>{{ spot.status ? 'Active' : 'Inactive' }}</td>
+          <td>
+            <button class="action-button" @click="toggleSpotStatus(spot)">
+              {{ spot.status ? 'Delete' : 'Recover' }}
+            </button>
+            <button class="action-button" @click="editSpot(spot)">Edit</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <p v-else>No active spots available.</p>
+    </div>
+
+    <div class="spot-form">
+      <h2>{{ editingSpot ? 'Edit Parking Spot' : 'Create Parking Spot' }}</h2>
+      <form @submit.prevent="editingSpot ? updateSpot() : createSpot()">
+        <div class="form-group">
+          <input class="form-input" v-model="currentSpot.spotNumber" placeholder="Parking Spot Number" required />
         </div>
-        <button @click="toggleSpotStatus(spot)">
-          {{ spot.status ? 'Delete' : 'Recuperate' }}
+        <div class="form-group">
+          <select class="form-input" v-model="currentSpot.parkingFacility.id" required>
+            <option disabled value="">Select Parking Facility</option>
+            <option v-for="parkingFacility in parkings" :key="parkingFacility.id" :value="parkingFacility.id">
+              {{ parkingFacility.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" id="status" v-model="currentSpot.status" />
+          <label for="status">Active</label>
+        </div>
+        <button class="submit-button" type="submit">
+          {{ editingSpot ? 'Update Parking Spot' : 'Create Parking Spot' }}
         </button>
-        <button @click="editspot(spot)">Edit</button>
-        <hr />
-      </li>
-    </ul>
-    <p v-else>No active spots available.</p>
-  </div>
-
-  <div class="spot-form">
-    <h2>{{ editingSpot ? 'Edit ParkingSpot' : 'Create ParkingSpot' }}</h2>
-    <input v-model="currentSpot.spotNumber" placeholder="Parking Spot Number" />
-
-    <select v-model="currentSpot .parkingFacility.id" required>
-      <option disabled value="">Select Parking Facility</option>
-      <option v-for="parkingFacility in parkings" :key="parkingFacility.id" :value="parkingFacility.id">
-        {{ parkingFacility.name }}
-      </option>
-    </select>
-
-    <input type="checkbox" v-model="currentSpot.status" />
-    <label for="status">Active</label>
-    <button @click="editingSpot ? updatespot() : createSpot()">
-      {{ editingSpot ? 'Update ParkingSpot' : 'Create ParkingSpot' }}
-    </button>
-    <button @click="resetForm" v-if="editingSpot">Cancel</button>
+        <button class="cancel-button" type="button" @click="resetForm" v-if="editingSpot">
+          Cancel
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  width: 150%;
+}
+
 .spot-list, .spot-form {
-  margin: 20px;
+  flex: 1;
+  margin: 10px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -173,12 +197,65 @@ const currentSpot = computed(() => {
   margin-bottom: 10px;
 }
 
-.spot-list ul {
-  list-style-type: none;
-  padding: 0;
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.spot-list li {
-  margin-bottom: 10px;
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: rgba(0, 0, 0, 0.99);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.action-button, .submit-button, .cancel-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.action-button {
+  background-color: #679ee8;
+  color: white;
+}
+
+.action-button:hover {
+  background-color: #569ae7;
+}
+
+.submit-button {
+  background-color: #96f6ab;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #72e58c;
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #c82333;
 }
 </style>

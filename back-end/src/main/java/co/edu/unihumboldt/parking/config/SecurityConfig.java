@@ -50,6 +50,8 @@ public class SecurityConfig {
                                 "api/users/new",
                                 "api/users/update/{id}",
                                 "api/car-parks/list",
+                                "api/pay-methods/list",
+                                "api/reservations-status/list",
                                 "api/car-parks/update/{id}"
                         ).hasAnyRole("ADMIN", "PARKING_MANAGER")
 
@@ -58,11 +60,9 @@ public class SecurityConfig {
                                 "api/users/status/{id}",
                                 "api/car-parks/new",
                                 "api/car-parks/status/{id}",
-                                "api/books-status/list",
-                                "api/books-status/new",
-                                "api/books-status/update/{id}",
-                                "api/books-status/status/{id}",
-                                "api/pay-methods/list",
+                                "api/reservations-status/new",
+                                "api/reservations-status/update/{id}",
+                                "api/reservations-status/status/{id}",
                                 "api/pay-methods/new",
                                 "api/pay-methods/update/{id}",
                                 "api/pay-methods/status/{id}"
@@ -80,10 +80,10 @@ public class SecurityConfig {
                                 "api/fees/new",
                                 "api/fees/update/{id}",
                                 "api/fees/status/{id}",
-                                "api/add-services/list",
-                                "api/add-services/new",
-                                "api/add-services/update/{id}",
-                                "api/add-services/status/{id}"
+                                "api/service-reservations/list",
+                                "api/service-reservations/new",
+                                "api/service-reservations/update/{id}",
+                                "api/service-reservations/status/{id}"
 
                         ).hasRole("PARKING_MANAGER")
 

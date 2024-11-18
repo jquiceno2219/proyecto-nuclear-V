@@ -16,13 +16,13 @@ export default {
         }
     },
 
-    async createSpot(Spot: ParkingSpot): Promise<string> {
-        const response = await axios.post(`${API_URL}/new`, Spot);
+    async createSpot(spot: ParkingSpot): Promise<string> {
+        const response = await axios.post(`${API_URL}/new`, spot);
         return response.data;
     },
 
-    async updateSpot(id: number, Spot: ParkingSpot): Promise<string> {
-        const response = await axios.put(`${API_URL}/update/${id}`, Spot);
+    async updateSpot(id: number, spot: ParkingSpot): Promise<string> {
+        const response = await axios.put(`${API_URL}/update/${id}`, spot);
         return response.data;
     },
 

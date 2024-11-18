@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue";
-import type {UserRole} from "@/models/UserRole";
+import { computed, onMounted, ref } from "vue";
+import type { UserRole } from "@/models/UserRole";
 import roleService from "@/services/UserRoleService";
 
 const roles = ref<UserRole[]>([]);
 const newRole = ref<UserRole>({ id: 0, name: '', status: true });
-const editingRole = ref<UserRole | null>(null); // Para almacenar el rol que se está editando
+const editingRole = ref<UserRole | null>(null);
 
 onMounted(async () => {
   await loadRoles();
@@ -23,9 +23,13 @@ const loadRoles = async () => {
 // Crear un nuevo rol
 const createRole = async () => {
   try {
+    if (!newRole.value.name) {
+      alert('Por favor complete todos los campos requeridos');
+      return;
+    }
     await roleService.createRole(newRole.value);
-    resetForm(); // Reiniciar el formulario
-    await loadRoles(); // Recargar roles
+    resetForm();
+    await loadRoles();
   } catch (error) {
     console.error('Error al crear rol:', error);
   }
@@ -33,7 +37,7 @@ const createRole = async () => {
 
 // Iniciar la edición de un rol
 const editRole = (role: UserRole) => {
-  editingRole.value = { ...role }; // Clonar el rol para editarlo
+  editingRole.value = { ...role };
 };
 
 // Actualizar un rol
@@ -41,8 +45,8 @@ const updateRole = async () => {
   if (editingRole.value) {
     try {
       await roleService.updateRole(editingRole.value.id, editingRole.value);
-      resetForm(); // Reiniciar el formulario
-      await loadRoles(); // Recargar roles
+      resetForm();
+      await loadRoles();
     } catch (error) {
       console.error('Error al actualizar rol:', error);
     }
@@ -55,7 +59,7 @@ const toggleRoleStatus = async (role: UserRole) => {
     const updatedRole = await roleService.toggleRoleStatus(role.id);
     const index = roles.value.findIndex(r => r.id === updatedRole.id);
     if (index !== -1) {
-      roles.value[index] = updatedRole; // Actualizar el rol en la lista
+      roles.value[index] = updatedRole;
     }
   } catch (error) {
     console.error('Error al alternar estado de rol:', error);
@@ -65,7 +69,7 @@ const toggleRoleStatus = async (role: UserRole) => {
 // Reiniciar el formulario
 const resetForm = () => {
   newRole.value = { id: 0, name: '', status: true };
-  editingRole.value = null; // Reiniciar el rol en edición
+  editingRole.value = null;
 };
 
 // Computed property para filtrar roles activos
@@ -80,34 +84,65 @@ const currentRole = computed(() => {
 </script>
 
 <template>
-  <div class="role-list">
-    <h2>Roles List</h2>
-    <ul v-if="activeRoles.length">
-      <li v-for="role in activeRoles" :key="role.id">
-        <strong>Name:</strong> {{ role.name }}<br>
-        <button @click="toggleRoleStatus(role)">Delete</button>
-        <button @click="editRole(role)">Edit</button>
-        <hr />
-      </li>
-    </ul>
-    <p v-else>No active roles available.</p>
-  </div>
+  <div class="container">
+    <div class="role-list">
+      <h2>Roles List</h2>
+      <table v-if="activeRoles.length">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="role in activeRoles" :key="role.id">
+          <td>{{ role.name }}</td>
+          <td>{{ role.status ? 'Active' : 'Inactive' }}</td>
+          <td>
+            <button class="action-button" @click="toggleRoleStatus(role)">
+              {{ role.status ? 'Delete' : 'Recover' }}
+            </button>
+            <button class="action-button" @click="editRole(role)">Edit</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <p v-else>No active roles available.</p>
+    </div>
 
-  <div class="role-form">
-    <h2>{{ editingRole ? 'Edit UserRole' : 'Create UserRole' }}</h2>
-    <input v-model="currentRole.name" placeholder="UserRole Name" />
-    <input type="checkbox" v-model="currentRole.status" />
-    <label for="status">Active</label>
-    <button @click="editingRole ? updateRole() : createRole()">
-      {{ editingRole ? 'Update UserRole' : 'Create UserRole' }}
-    </button>
-    <button @click="resetForm" v-if="editingRole">Cancel</button>
+    <div class="role-form">
+      <h2>{{ editingRole ? 'Edit UserRole' : 'Create UserRole' }}</h2>
+      <form @submit.prevent="editingRole ? updateRole() : createRole()">
+        <div class="form-group">
+          <input class="form-input" v-model="currentRole.name" placeholder="User Role Name" required />
+        </div>
+        <div class="form-group">
+          <input type="checkbox" id="status" v-model="currentRole.status" />
+          <label for="status">Active</label>
+        </div>
+        <button class="submit-button" type="submit">
+          {{ editingRole ? 'Update UserRole' : 'Create UserRole' }}
+        </button>
+        <button class="cancel-button" type="button" @click="resetForm" v-if="editingRole">
+          Cancel
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  width : 150%;
+}
+
 .role-list, .role-form {
-  margin: 20px;
+  flex: 1;
+  margin: 10px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -117,12 +152,65 @@ const currentRole = computed(() => {
   margin-bottom: 10px;
 }
 
-.role-list ul {
-  list-style-type: none;
-  padding: 0;
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.role-list li {
-  margin-bottom: 10px;
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: rgba(0, 0, 0, 0.99);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.action-button, .submit-button, .cancel-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.action-button {
+  background-color: #679ee8;
+  color: white;
+}
+
+.action-button:hover {
+  background-color: #569ae7;
+}
+
+.submit-button {
+  background-color: #96f6ab;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #72e58c;
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #c82333;
 }
 </style>

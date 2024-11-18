@@ -28,7 +28,7 @@ public class AddService implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private int price;
+    private double price;
     private boolean status;
     @ManyToOne
     private ParkingFacility parkingFacility;

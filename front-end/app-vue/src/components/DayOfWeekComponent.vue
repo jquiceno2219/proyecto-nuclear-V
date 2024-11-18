@@ -5,7 +5,7 @@ import dayOfWeekService from "@/services/DayOfWeekService";
 
 const dayWeeks = ref<DayOfWeek[]>([]);
 const newDayWeek = ref<DayOfWeek>({
-  dayNumber: 0, dayTitle: "", id: 0, status: true
+  dayWeekNumber: 0, dayTitle: "", id: 0, status: true
 });
 const editingDayWeek = ref<DayOfWeek | null>(null);
 
@@ -22,54 +22,55 @@ const loadDayWeeks = async () => {
 };
 
 const createDayWeek = async () => {
-  if (validateDayWeek(newDayWeek.value)) {
-    try {
-      // Asegurarse de que dayNumber sea un número
-      const dayWeekToCreate = {
-        ...newDayWeek.value,
-        dayNumber: parseInt(newDayWeek.value.dayNumber.toString())
-      };
-      await dayOfWeekService.createDayOfWeek(dayWeekToCreate);
-      resetForm();
-      await loadDayWeeks();
-    } catch (error) {
-      console.error('Error al crear:', error);
+  try {
+    if (!validateDaysForm()) {
+      alert('Please complete all required fields');
+      return;
     }
-  } else {
-    console.error('Invalid dayNumber:', newDayWeek.value.dayNumber);
+    console.log('Day to send:', newDayWeek.value); // Agregar esta línea
+    const dayToSend = {
+      id: 0,
+      dayWeekNumber: newDayWeek.value.dayWeekNumber,
+      dayTitle: newDayWeek.value.dayTitle,
+      status: newDayWeek.value.status
+    };
+    await dayOfWeekService.createDayOfWeek(dayToSend);
+    await loadDayWeeks();
+    resetForm();
+  } catch (error) {
+    console.error('Error al crear day:', error);
   }
+};
+
+const validateDaysForm = () => {
+  const day = currentDayWeek.value;
+  return day.dayWeekNumber > 0 && day.dayTitle;
 };
 
 const editDayWeek = (dayWeek: DayOfWeek) => {
-  // Asegurarse de que dayNumber sea un número al editar
-  editingDayWeek.value = {
-    ...dayWeek,
-    dayNumber: parseInt(dayWeek.dayNumber.toString())
-  };
+  editingDayWeek.value = {...dayWeek};
 };
 
 const updateDayWeek = async () => {
-  if (editingDayWeek.value && validateDayWeek(editingDayWeek.value)) {
+  if (editingDayWeek.value) {
     try {
-      // Asegurarse de que dayNumber sea un número
-      const dayWeekToUpdate = {
-        ...editingDayWeek.value,
-        dayNumber: parseInt(editingDayWeek.value.dayNumber.toString())
+      if (!validateDaysForm()) {
+        alert('Please complete all required fields');
+        return;
+      }
+      const dayToSend = {
+        id: 0,
+        dayWeekNumber: editingDayWeek.value.dayWeekNumber,
+        dayTitle: editingDayWeek.value.dayTitle,
+        status: editingDayWeek.value.status
       };
-      await dayOfWeekService.updateDayOfWeek(dayWeekToUpdate.id, dayWeekToUpdate);
-      resetForm();
+      await dayOfWeekService.updateDayOfWeek(editingDayWeek.value.id, dayToSend);
       await loadDayWeeks();
+      resetForm();
     } catch (error) {
-      console.error('Error al actualizar:', error);
+      console.error('Error al actualizar day:', error);
     }
-  } else {
-    console.error('Invalid dayNumber:', editingDayWeek.value?.dayNumber);
   }
-};
-
-const validateDayWeek = (dayWeek: DayOfWeek): boolean => {
-  const dayNumber = parseInt(dayWeek.dayNumber.toString());
-  return !isNaN(dayNumber) && dayNumber > 0 && dayNumber <= 7;
 };
 
 const toggleDayWeekStatus = async (dayWeek: DayOfWeek) => {
@@ -86,7 +87,7 @@ const toggleDayWeekStatus = async (dayWeek: DayOfWeek) => {
 
 const resetForm = () => {
   newDayWeek.value = {
-    dayNumber: 1,
+    dayWeekNumber: 0,
     dayTitle: "",
     id: 0,
     status: true
@@ -108,7 +109,7 @@ const currentDayWeek = computed(() => {
     <h2>Lista de Días de la Semana</h2>
     <ul v-if="activeDayWeeks.length">
       <li v-for="dayWeek in activeDayWeeks" :key="dayWeek.id">
-        <strong>Número de día:</strong> {{ dayWeek.dayNumber }}<br>
+        <strong>Número de día:</strong> {{ dayWeek.dayWeekNumber }}<br>
         <strong>Título del día:</strong> {{ dayWeek.dayTitle }}<br>
         <button @click="toggleDayWeekStatus(dayWeek)">Eliminar</button>
         <button @click="editDayWeek(dayWeek)">Editar</button>
@@ -121,11 +122,8 @@ const currentDayWeek = computed(() => {
   <div class="dayWeek-form">
     <h2>{{ editingDayWeek ? 'Editar Día' : 'Crear Día' }}</h2>
     <input
-        v-model.number="currentDayWeek.dayNumber"
-        type="number"
-        min="1"
-        max="7"
-        placeholder="Número de día (1-7)"
+        v-model.number="currentDayWeek.dayWeekNumber"
+        placeholder="Número de día (1-7)" required
     />
     <input
         v-model="currentDayWeek.dayTitle"

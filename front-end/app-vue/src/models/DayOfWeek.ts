@@ -1,7 +1,7 @@
 
 export interface DayOfWeek{
     id: number;
-    dayNumber: number;
+    dayWeekNumber: number;
     dayTitle: string;
     status: boolean;
 

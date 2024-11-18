@@ -1,6 +1,4 @@
 // src/models/User.ts
-import type {ParkingFacility} from "@/models/ParkingFacility";
-import type {UserRole} from "@/models/UserRole";
 
 export interface User {
     id: number;

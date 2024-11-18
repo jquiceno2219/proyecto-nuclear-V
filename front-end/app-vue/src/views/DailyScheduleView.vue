@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-import DayOfWeekComponent from "@/components/DayOfWeekComponent.vue";
 import DailyScheduleComponent from "@/components/DailyScheduleComponent.vue";
 </script>
 

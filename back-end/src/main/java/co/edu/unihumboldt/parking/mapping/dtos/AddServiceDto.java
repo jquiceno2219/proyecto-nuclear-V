@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class AddServiceDto {
     private int id;
     private String name;
-    private int price;
+    private double price;
     private boolean status;
     private ParkingFacility parkingFacility;
 }

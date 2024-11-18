@@ -1,7 +1,6 @@
 <script setup lang="ts">
-
-import type {ParkingFacility} from "@/models/ParkingFacility";
-import {computed, onMounted, ref} from "vue";
+import type { ParkingFacility } from "@/models/ParkingFacility";
+import { computed, onMounted, ref } from "vue";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
 
 const parkings = ref<ParkingFacility[]>([]);
@@ -13,6 +12,7 @@ const editingParking = ref<ParkingFacility | null>(null);
 onMounted(async () => {
   await loadParkings();
 });
+
 // Cargar parkings desde el servicio
 const loadParkings = async () => {
   try {
@@ -22,23 +22,23 @@ const loadParkings = async () => {
   }
 };
 
-// Crear un nuevo
+// Crear un nuevo parking
 const createParking = async () => {
   try {
     await ParkingFacilityService.createParking(newParking.value);
     resetForm(); // Reiniciar el formulario
     await loadParkings(); // Recargar parkings
   } catch (error) {
-    console.error('Error al crear rol:', error);
+    console.error('Error al crear parking:', error);
   }
 };
 
-// Iniciar la edición
+// Iniciar la edición de un parking
 const editParking = (parking: ParkingFacility) => {
-  editingParking.value = { ...parking }; // Clonar el rol para editarlo
+  editingParking.value = { ...parking }; // Clonar el parking para editarlo
 };
 
-// Actualizar un rol
+// Actualizar un parking
 const updateParking = async () => {
   if (editingParking.value) {
     try {
@@ -46,28 +46,28 @@ const updateParking = async () => {
       resetForm(); // Reiniciar el formulario
       await loadParkings(); // Recargar parkings
     } catch (error) {
-      console.error('Error al actualizar rol:', error);
+      console.error('Error al actualizar parking:', error);
     }
   }
 };
 
-// Alternar estado
+// Alternar estado de un parking
 const toggleParkingStatus = async (parking: ParkingFacility) => {
   try {
     const updatedParking = await ParkingFacilityService.toggleParkingStatus(parking.id);
     const index = parkings.value.findIndex(r => r.id === updatedParking.id);
     if (index !== -1) {
-      parkings.value[index] = updatedParking; // Actualizar  en la lista
+      parkings.value[index] = updatedParking; // Actualizar el parking en la lista
     }
   } catch (error) {
-    console.error('Error al alternar estado de rol:', error);
+    console.error('Error al alternar estado de parking:', error);
   }
 };
 
 // Reiniciar el formulario
 const resetForm = () => {
-  newParking.value = { address: "", coordX: "", coordY: "", id: 0, name: "", nit: "", phoneNumber: "", status: true};
-  editingParking.value = null; // Reiniciar el rol en edición
+  newParking.value = { address: "", coordX: "", coordY: "", id: 0, name: "", nit: "", phoneNumber: "", status: true };
+  editingParking.value = null; // Reiniciar el parking en edición
 };
 
 // Computed property para filtrar parkings activos
@@ -79,48 +79,88 @@ const activeParkings = computed(() => {
 const currentParking = computed(() => {
   return editingParking.value || newParking.value;
 });
-
 </script>
 
 <template>
-  <div class="parking-list">
-    <h2>Parkings List</h2>
-    <ul v-if="activeParkings.length">
-      <li v-for="parking in activeParkings" :key="parking.id">
-        <strong>Name:</strong> {{ parking.name }}<br>
-        <strong>Address:</strong> {{ parking.address }}<br>
-        <strong>Phone Number:</strong> {{ parking.nit }}<br>
-        <strong>Coordenates X:</strong> {{ parking.coordX }}<br>
-        <strong>Coordenates:</strong> {{ parking.coordY }}<br>
+  <div class="container">
+    <div class="parking-list">
+      <h2>Parkings List</h2>
+      <table v-if="activeParkings.length">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Phone Number</th>
+          <th>Coordinates X</th>
+          <th>Coordinates Y</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="parking in activeParkings" :key="parking.id">
+          <td>{{ parking.name }}</td>
+          <td>{{ parking.address }}</td>
+          <td>{{ parking.phoneNumber }}</td>
+          <td>{{ parking.coordX }}</td>
+          <td>{{ parking.coordY }}</td>
+          <td>{{ parking.status ? 'Active' : 'Inactive' }}</td>
+          <td>
+            <button class="action-button" @click="toggleParkingStatus(parking)">
+              {{ parking.status ? 'Delete' : 'Recover' }}
+            </button>
+            <button class="action-button" @click="editParking(parking)">Edit</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <p v-else>No active parkings available.</p>
+    </div>
 
-        <button @click="toggleParkingStatus(parking)">Delete</button>
-        <button @click="editParking(parking)">Edit</button>
-        <hr />
-      </li>
-    </ul>
-    <p v-else>No active parkings available.</p>
-  </div>
-
-  <div class="parking-form">
-    <h2>{{ editingParking ? 'Edit Parking Facility' : 'Create Parking Facility' }}</h2>
-    <input v-model="currentParking.name" placeholder="Parking Facility Name" />
-    <input v-model="currentParking.address" placeholder="Parking Facility Address" />
-    <input v-model="currentParking.phoneNumber" placeholder="Parking Facility Contact Number" />
-    <input v-model="currentParking.coordX" placeholder="Parking Facility X Coordinate" />
-    <input v-model="currentParking.coordY" placeholder="Parking Facility Y Coordinate" />
-    <input type="checkbox" v-model="currentParking.status" />
-    <label for="status">Active</label>
-    <button @click="editingParking ? updateParking() : createParking()">
-      {{ editingParking ? 'Update Parking Facility' : 'Create Parking Facility' }}
-    </button>
-    <button @click="resetForm" v-if="editingParking">Cancel</button>
+    <div class="parking-form">
+      <h2>{{ editingParking ? 'Edit Parking Facility' : 'Create Parking Facility' }}</h2>
+      <form @submit.prevent="editingParking ? updateParking() : createParking()">
+        <div class="form-group">
+          <input class="form-input" v-model="currentParking.name" placeholder="Parking Facility Name" required />
+        </div>
+        <div class="form-group">
+          <input class="form-input" v-model="currentParking.address" placeholder="Parking Facility Address" required />
+        </div>
+        <div class="form-group">
+          <input class="form-input" v-model="currentParking.phoneNumber" placeholder="Parking Facility Contact Number" required />
+        </div>
+        <div class="form-group">
+          <input class="form-input" v-model="currentParking.coordX" placeholder="Parking Facility X Coordinate" required />
+        </div>
+        <div class="form-group">
+          <input class="form-input" v-model="currentParking.coordY" placeholder="Parking Facility Y Coordinate" required />
+        </div>
+        <div class="form-group">
+          <input type="checkbox" id="status" v-model="currentParking.status" />
+          <label for="status">Active</label>
+        </div>
+        <button class="submit-button" type="submit">
+          {{ editingParking ? 'Update Parking Facility' : 'Create Parking Facility' }}
+        </button>
+        <button class="cancel-button" type="button" @click="resetForm" v-if="editingParking">
+          Cancel
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
-
 <style scoped>
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  width: 150%;
+}
+
 .parking-list, .parking-form {
-  margin: 20px;
+  flex: 1;
+  margin: 10px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -130,12 +170,65 @@ const currentParking = computed(() => {
   margin-bottom: 10px;
 }
 
-.parking-list ul {
-  list-style-type: none;
-  padding: 0;
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.parking-form li {
-  margin-bottom: 10px;
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: rgba(0, 0, 0, 0.99);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.action-button, .submit-button, .cancel-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.action-button {
+  background-color: #679ee8;
+  color: white;
+}
+
+.action-button:hover {
+  background-color: #569ae7;
+}
+
+.submit-button {
+  background-color: #96f6ab;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #72e58c;
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #c82333;
 }
 </style>

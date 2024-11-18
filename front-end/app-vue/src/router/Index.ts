@@ -13,6 +13,13 @@ import ParkingSpotView from "@/views/ParkingSpotView.vue";
 import ScheduleVIew from "@/views/ScheduleVIew.vue";
 import DayOfWeekView from "@/views/DayOfWeekView.vue";
 import DailyScheduleView from "@/views/DailyScheduleView.vue";
+import AddServiceView from "@/views/AddServiceView.vue";
+import FeeView from "@/views/FeeView.vue";
+import PayMethodView from "@/views/PayMethodView.vue";
+import ReservationView from "@/views/ReservationView.vue";
+import ServiceReservationView from "@/views/ServiceReservationView.vue";
+import VehicleTypeView from "@/views/VehicleTypeView.vue";
+import ReservationStatusView from "@/views/ReservationStatusView.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -93,6 +100,62 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'daily-schedules',
                 name: 'DailySchedule',
                 component: DailyScheduleView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'additional-services',
+                name: 'AdditionalServices',
+                component: AddServiceView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'fees',
+                name: 'Fee',
+                component: FeeView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'pay-methods',
+                name: 'PayMethod',
+                component: PayMethodView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'reservations',
+                name: 'Reservation',
+                component: ReservationView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'service-reservations',
+                name: 'ServiceReservation',
+                component: ServiceReservationView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'vehicle-types',
+                name: 'VehicleType',
+                component: VehicleTypeView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'reservations-status',
+                name: 'ReservationStatus',
+                component: ReservationStatusView,
                 meta: {
                     requiresAuth: true,
                 }
