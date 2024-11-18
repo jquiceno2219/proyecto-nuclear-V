@@ -3,6 +3,14 @@ import {computed, onMounted, ref} from "vue";
 import scheduleService from "@/services/ScheduleService";
 import type {Schedule} from "@/models/Schedule";
 
+/**
+ * Este componente Vue gestiona los horarios, permitiendo crear, editar y eliminar registros de horarios.
+ * Al montarse, carga la lista de horarios existentes desde un servicio externo.
+ * Proporciona un formulario para crear o editar horarios, permitiendo al usuario ingresar la hora de inicio, la hora de finalización y el estado del horario.
+ * La interfaz muestra una lista de horarios activos y permite realizar acciones como editar o eliminar cada horario.
+ * Los estilos CSS aseguran una presentación clara y atractiva, mejorando la experiencia del usuario en la gestión de horarios.
+ */
+
 const schedules = ref<Schedule[]>([]);
 const newSchedule = ref<Schedule>({endTime: 0, id: 0, startTime: 0, status: true});
 const editingSchedule = ref<Schedule | null>(null); // Para almacenar el que se está editando

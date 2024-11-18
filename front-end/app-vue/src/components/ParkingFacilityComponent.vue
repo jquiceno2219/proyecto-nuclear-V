@@ -3,6 +3,14 @@ import type { ParkingFacility } from "@/models/ParkingFacility";
 import { computed, onMounted, ref } from "vue";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
 
+/**
+ * Este componente Vue gestiona las instalaciones de estacionamiento, permitiendo crear, editar y eliminar registros de estacionamientos.
+ * Al montarse, carga la lista de estacionamientos existentes desde un servicio externo.
+ * Proporciona un formulario para crear o editar instalaciones de estacionamiento, asegurando que todos los campos requeridos estén completos.
+ * La interfaz muestra una tabla con las instalaciones de estacionamiento activas y permite realizar acciones como editar el estado de cada instalación o modificar sus detalles.
+ * Los estilos CSS garantizan una presentación clara y organizada, mejorando la experiencia del usuario en la gestión de estacionamientos.
+ */
+
 const parkings = ref<ParkingFacility[]>([]);
 const newParking = ref<ParkingFacility>({
   address: "", coordX: "", coordY: "", id: 0, name: "", nit: "", phoneNumber: "", status: true

@@ -6,6 +6,14 @@
 import leaflet from "leaflet";
 import { onMounted } from "vue";
 
+/**
+ * Este componente Vue integra un mapa interactivo utilizando la biblioteca Leaflet.
+ * Al montarse, inicializa el mapa centrado en unas coordenadas predeterminadas y añade una capa de tiles de OpenStreetMap.
+ * Permite a los usuarios hacer clic en el mapa para agregar marcadores en las coordenadas seleccionadas.
+ * Cada marcador tiene un popup que indica que se puede eliminar al hacer clic sobre él.
+ * Los estilos CSS aseguran que el mapa ocupe el espacio adecuado en la interfaz.
+ */
+
 let map: leaflet.Map;
 
 onMounted(() => {
