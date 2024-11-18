@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import {computed, onMounted, ref} from "vue";
 import parkingSpotService from "@/services/ParkingSpotService";
-import type { ParkingSpot } from "@/models/ParkingSpot";
-import type { ParkingFacility } from "@/models/ParkingFacility";
+import type {ParkingSpot} from "@/models/ParkingSpot";
+import type {ParkingFacility} from "@/models/ParkingFacility";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
 
 /**
@@ -88,7 +88,7 @@ const updateSpot = async () => {
         status: editingSpot.value.status,
         parkingFacility: { id: editingSpot.value.parkingFacility.id }
       };
-      await parkingSpotService.updateSpot(editingSpot.value.id, spotToSend);
+      await parkingSpotService.updateSpot(editingSpot .value.id, spotToSend);
       await loadSpots();
       resetForm();
     } catch (error) {

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { ParkingFacility } from "@/models/ParkingFacility";
-import { computed, onMounted, ref } from "vue";
+import type {ParkingFacility} from "@/models/ParkingFacility";
+import {computed, onMounted, ref} from "vue";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
+import Map from "@/components/map.vue";
 
 /**
  * Este componente Vue gestiona la creación, edición y visualización de instalaciones de estacionamiento.
@@ -16,6 +17,17 @@ const parkings = ref<ParkingFacility[]>([]);
 const newParking = ref<ParkingFacility>({
   address: "", coordX: "", coordY: "", id: 0, name: "", nit: "", phoneNumber: "", status: true
 });
+
+const updateCoordX = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  newParking.value.coordX = input.value;
+};
+
+const updateCoordY = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  newParking.value.coordY = input.value;
+};
+
 const editingParking = ref<ParkingFacility | null>(null);
 
 onMounted(async () => {
@@ -97,6 +109,7 @@ const currentParking = computed(() => {
 </script>
 
 <template>
+
   <div class="container">
     <div class="parking-list">
       <h2>Parkings List</h2>
@@ -132,6 +145,7 @@ const currentParking = computed(() => {
       <p v-else>No active parkings available.</p>
     </div>
 
+
     <div class="parking-form">
       <h2>{{ editingParking ? 'Edit Parking Facility' : 'Create Parking Facility' }}</h2>
       <form @submit.prevent="editingParking ? updateParking() : createParking()">
@@ -162,11 +176,12 @@ const currentParking = computed(() => {
         </button>
       </form>
     </div>
-
     <div class="map">
       <Map @map-click="updateCoordinates"></Map>
     </div>
   </div>
+
+<div class="map"><Map @map-click="updateCoordinates"></Map></div>
 </template>
 
 <style scoped>
@@ -250,4 +265,5 @@ th {
 .cancel-button:hover {
   background-color: #c82333;
 }
+
 </style>

@@ -9,10 +9,10 @@ import type {PayMethod} from "@/models/PayMethod";
  * - `togglePayMethodStatus`: Cambia el estado de un método de pago por ID.
  */
 
-
 const API_URL = 'http://localhost:8080/api/pay-methods';
 
 export default {
+
     async getPayMethod(): Promise<PayMethod[]> {
         try {
             const response = await axios.get<PayMethod[]>(`${API_URL}/list`);
@@ -22,6 +22,7 @@ export default {
             throw error;
         }
     },
+
 
     async createPayMethod(payMethod: PayMethod): Promise<string> {
         const response = await axios.post(`${API_URL}/new`, payMethod);
@@ -38,3 +39,4 @@ export default {
         return response.data;
     }
 };
+

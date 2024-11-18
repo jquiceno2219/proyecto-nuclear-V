@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-import type { UserRole } from "@/models/UserRole";
+import {computed, onMounted, ref} from "vue";
+import type {UserRole} from "@/models/UserRole";
 import roleService from "@/services/UserRoleService";
 
 /**

@@ -1,10 +1,11 @@
+
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import type { Fee } from "@/models/Fee";
+import {computed, onMounted, ref} from 'vue';
+import type {Fee} from "@/models/Fee";
 import feeService from "@/services/FeeService";
-import type { ParkingFacility } from "@/models/ParkingFacility";
+import type {ParkingFacility} from "@/models/ParkingFacility";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
-import type { VehicleType } from "@/models/VehicleType";
+import type {VehicleType} from "@/models/VehicleType";
 import vehicleTypeService from "@/services/VehicleTypeService";
 
 /**

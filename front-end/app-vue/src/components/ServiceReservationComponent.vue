@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { ServiceReservation } from "@/models/ServiceReservation";
-import { computed, onMounted, ref } from "vue";
+import type {ServiceReservation} from "@/models/ServiceReservation";
+import {computed, onMounted, ref} from "vue";
 import addServiceRService from "@/services/AddServiceRService";
-import type { AddService } from "@/models/AddService";
-import type { Reservation } from "@/models/Reservation";
+import type {AddService} from "@/models/AddService";
+import type {Reservation} from "@/models/Reservation";
 import reservationService from "@/services/ReservationService";
 import serviceReservationService from "@/services/ServiceReservationService";
 

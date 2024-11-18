@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import type { Reservation } from "@/models/Reservation";
+import {computed, onMounted, ref} from 'vue';
+import type {Reservation} from "@/models/Reservation";
 import reservationService from "@/services/ReservationService";
-import type { PayMethod } from "@/models/PayMethod";
-import type { ParkingSpot } from "@/models/ParkingSpot";
-import type { Fee } from "@/models/Fee";
-import type { ReservationStatus } from "@/models/ReservationStatus";
+import type {PayMethod} from "@/models/PayMethod";
+import type {ParkingSpot} from "@/models/ParkingSpot";
+import type {Fee} from "@/models/Fee";
+import type {ReservationStatus} from "@/models/ReservationStatus";
 import payMethodService from "@/services/PayMethodService";
 import parkingSpotService from "@/services/ParkingSpotService";
 import feeService from "@/services/FeeService";

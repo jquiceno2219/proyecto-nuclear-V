@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-import type { VehicleType } from "@/models/VehicleType";
+import {computed, onMounted, ref} from "vue";
+import type {VehicleType} from "@/models/VehicleType";
 import vehicleTypeService from "@/services/VehicleTypeService";
 
 /**

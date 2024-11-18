@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import leaflet from "leaflet";
-import { onMounted, ref } from "vue";
+import {onMounted, ref} from "vue";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
-import type { ParkingFacility } from "@/models/ParkingFacility";
+import type {ParkingFacility} from "@/models/ParkingFacility";
 
 /**
  * Este componente Vue utiliza Leaflet para mostrar un mapa interactivo que permite a los usuarios ver y seleccionar ubicaciones de instalaciones de estacionamiento.

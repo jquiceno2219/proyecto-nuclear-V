@@ -36,7 +36,6 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
             requiresAuth: false
         }
-
     },
     {
         path: '/',

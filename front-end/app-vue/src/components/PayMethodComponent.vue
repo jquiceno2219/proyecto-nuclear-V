@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import {computed, onMounted, ref} from "vue";
 import payMethodService from "@/services/PayMethodService";
-import type { PayMethod } from "@/models/PayMethod";
+import type {PayMethod} from "@/models/PayMethod";
 
 /**
  * Este componente Vue gestiona los métodos de pago, permitiendo crear, editar y eliminar registros de estos métodos.

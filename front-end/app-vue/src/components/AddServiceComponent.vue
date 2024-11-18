@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-import type { AddService } from "@/models/AddService";
+import {computed, onMounted, ref} from "vue";
+import type {AddService} from "@/models/AddService";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
 import addServiceRService from "@/services/AddServiceRService";
-import type { ParkingFacility } from "@/models/ParkingFacility";
+import type {ParkingFacility} from "@/models/ParkingFacility";
 
 /**
  * Este componente Vue gestiona servicios adicionales para instalaciones de estacionamiento.

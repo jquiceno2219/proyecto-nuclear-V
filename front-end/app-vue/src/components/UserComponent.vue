@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import type { User } from "@/models/User";
+import {computed, onMounted, ref} from 'vue';
+import type {User} from "@/models/User";
 import userService from "@/services/UserService";
 import UserRoleService from "@/services/UserRoleService";
-import type { UserRole } from "@/models/UserRole";
-import type { ParkingFacility } from "@/models/ParkingFacility";
+import type {UserRole} from "@/models/UserRole";
+import type {ParkingFacility} from "@/models/ParkingFacility";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
 
 /**

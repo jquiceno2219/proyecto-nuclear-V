@@ -65,7 +65,8 @@ public class SecurityConfig {
                                 "api/reservations-status/status/{id}",
                                 "api/pay-methods/new",
                                 "api/pay-methods/update/{id}",
-                                "api/pay-methods/status/{id}"
+                                "api/pay-methods/status/{id}",
+                                "api/vehicles-types/list"
                         ).hasRole("ADMIN")
 
                         // Rutas exclusivas para PARKING_MANAGER

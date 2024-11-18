@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-import type { ReservationStatus } from "@/models/ReservationStatus";
+import {computed, onMounted, ref} from "vue";
+import type {ReservationStatus} from "@/models/ReservationStatus";
 import reservationStatusService from "@/services/ReservationStatusService";
 
 /**

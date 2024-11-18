@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { DailySchedule } from "@/models/DailySchedule";
-import { onMounted, ref } from "vue";
-import type { Schedule } from "@/models/Schedule";
-import type { DayOfWeek } from "@/models/DayOfWeek";
-import type { ParkingFacility } from "@/models/ParkingFacility";
+import type {DailySchedule} from "@/models/DailySchedule";
+import {onMounted, ref} from "vue";
+import type {Schedule} from "@/models/Schedule";
+import type {DayOfWeek} from "@/models/DayOfWeek";
+import type {ParkingFacility} from "@/models/ParkingFacility";
 import ScheduleService from "@/services/ScheduleService";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
 import DayOfWeekService from "@/services/DayOfWeekService";
