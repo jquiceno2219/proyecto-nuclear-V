@@ -1,6 +1,14 @@
 import axios from 'axios';
 import type {User} from '@/models/User';
 
+/**
+ * Servicio para interactuar con el API de usuarios.
+ * - `getUser`: Obtiene la lista de usuarios.
+ * - `createUser`: Crea un nuevo usuario.
+ * - `updateUser`: Actualiza un usuario existente por ID.
+ * - `toggleUserStatus`: Cambia el estado de un usuario por ID.
+ */
+
 
 const API_URL = 'http://localhost:8080/api/users';
 

@@ -21,6 +21,12 @@ import ServiceReservationView from "@/views/ServiceReservationView.vue";
 import VehicleTypeView from "@/views/VehicleTypeView.vue";
 import ReservationStatusView from "@/views/ReservationStatusView.vue";
 
+/**
+ * Configuración de rutas de la aplicación con Vue Router.
+ * Define rutas públicas y protegidas, incluyendo la sección de administración con subrutas específicas.
+ * Implementa un guard para verificar autenticación antes de acceder a rutas protegidas.
+ */
+
 
 const routes: Array<RouteRecordRaw> = [
     {

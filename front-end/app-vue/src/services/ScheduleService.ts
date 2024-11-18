@@ -1,6 +1,15 @@
 import axios from "axios";
 import type {Schedule} from "@/models/Schedule";
 
+/**
+ * Servicio para interactuar con el API de horarios.
+ * - `getSchedule`: Obtiene la lista de horarios.
+ * - `createSchedule`: Crea un nuevo horario.
+ * - `updateSchedule`: Actualiza un horario existente por ID.
+ * - `toggleScheduleStatus`: Cambia el estado de un horario por ID.
+ */
+
+
 const API_URL = 'http://localhost:8080/api/schedules';
 
 export default {

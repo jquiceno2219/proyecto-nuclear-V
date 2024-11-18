@@ -9,6 +9,14 @@ import ParkingFacilityService from "@/services/ParkingFacilityService";
 import DayOfWeekService from "@/services/DayOfWeekService";
 import DailyScheduleService from "@/services/DailyScheduleService";
 
+/**
+ * Este componente Vue gestiona la creación y visualización de horarios diarios para diferentes instalaciones de estacionamiento.
+ * Al montarse, carga las listas de horarios, días de la semana y instalaciones de estacionamiento desde servicios externos.
+ * Proporciona una interfaz para crear nuevos horarios diarios, asegurando que todos los campos requeridos estén completos mediante validación.
+ * La interfaz muestra una tabla con los horarios diarios existentes, incluyendo detalles del horario, día de la semana y nombre de la instalación de estacionamiento.
+ * Los estilos CSS aseguran una presentación clara y atractiva, mejorando la experiencia del usuario en la gestión de horarios diarios.
+ */
+
 const dailys = ref<DailySchedule[]>([]);
 const newDaily = ref<DailySchedule>({
   dayWeek: { id: 0 },

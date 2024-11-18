@@ -7,6 +7,14 @@ import type { UserRole } from "@/models/UserRole";
 import type { ParkingFacility } from "@/models/ParkingFacility";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
 
+/**
+ * Este componente Vue gestiona la creación, edición y visualización de usuarios en el sistema.
+ * Al montarse, carga la lista de usuarios, roles de usuario y las instalaciones de estacionamiento desde servicios externos.
+ * Proporciona un formulario para crear o editar usuarios, donde los administradores pueden ingresar detalles como nombre, número de identificación, correo electrónico, y seleccionar una instalación de estacionamiento y un rol de usuario.
+ * La interfaz muestra una lista de usuarios activos, incluyendo sus detalles y opciones para editar o cambiar su estado (activar/desactivar).
+ * Los estilos CSS aseguran una presentación clara y atractiva, mejorando la experiencia del usuario en la gestión de usuarios.
+ */
+
 const users = ref<User[]>([]);
 const newUser    = ref<User>({
   parkingFacility: { id: 0 },

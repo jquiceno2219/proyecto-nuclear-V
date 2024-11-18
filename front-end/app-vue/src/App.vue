@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import 'leaflet/dist/leaflet.css';
+/**
+ * Este componente contiene la barra de navegación principal para la administración del sistema.
+ * Cada sección del menú (Usuarios, Estacionamiento, Horarios, Servicios) está agrupada en un menú desplegable.
+ * El contenido principal se muestra a través de `<router-view>`, que se actualiza según la ruta activa.
+ * Además, se asegura de que la barra de navegación permanezca fija en la parte superior de la página,
+ * con un margen superior en el contenido para evitar que se sobreponga.
+ */
+
 </script>
 
 <template>
@@ -119,8 +127,8 @@ nav a.router-link-active {
 }
 
 .main-content {
-  margin-top: 60px; /* Ajusta este valor según la altura de tu header */
-  padding: 20px; /* Espaciado interno para el contenido */
-  align-items: center; /* Centra el contenido horizontalmente */
+  margin-top: 60px;
+  padding: 20px;
+  align-items: center;
 }
 </style>

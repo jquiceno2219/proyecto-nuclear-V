@@ -3,6 +3,15 @@ import type { ParkingFacility } from "@/models/ParkingFacility";
 import { computed, onMounted, ref } from "vue";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
 
+/**
+ * Este componente Vue gestiona la creación, edición y visualización de instalaciones de estacionamiento.
+ * Al montarse, carga la lista de instalaciones de estacionamiento desde un servicio externo.
+ * Proporciona una interfaz para crear nuevas instalaciones y editar las existentes, asegurando que todos los campos requeridos estén completos.
+ * Los usuarios pueden alternar el estado de las instalaciones, ya sea para eliminarlas o recuperarlas.
+ * Además, incluye un mapa interactivo que permite a los usuarios seleccionar coordenadas para las instalaciones de estacionamiento.
+ * Los estilos CSS aseguran una presentación clara y atractiva, mejorando la experiencia del usuario en la gestión de instalaciones de estacionamiento.
+ */
+
 const parkings = ref<ParkingFacility[]>([]);
 const newParking = ref<ParkingFacility>({
   address: "", coordX: "", coordY: "", id: 0, name: "", nit: "", phoneNumber: "", status: true
@@ -42,7 +51,7 @@ const editParking = (parking: ParkingFacility) => {
 const updateParking = async () => {
   if (editingParking.value) {
     try {
-      await ParkingFacilityService.updateParking(editingParking.value.id, editingParking.value);
+      await ParkingFacilityService.updateParking(editingParking .value.id, editingParking.value);
       resetForm(); // Reiniciar el formulario
       await loadParkings(); // Recargar parkings
     } catch (error) {
@@ -68,6 +77,12 @@ const toggleParkingStatus = async (parking: ParkingFacility) => {
 const resetForm = () => {
   newParking.value = { address: "", coordX: "", coordY: "", id: 0, name: "", nit: "", phoneNumber: "", status: true };
   editingParking.value = null; // Reiniciar el parking en edición
+};
+
+// Actualiza las coordenadas cuando se hace clic en el mapa
+const updateCoordinates = (coords: { coordX: string; coordY: string }) => {
+  newParking.value.coordX = coords.coordX;
+  newParking.value.coordY = coords.coordY;
 };
 
 // Computed property para filtrar parkings activos
@@ -136,16 +151,20 @@ const currentParking = computed(() => {
           <input class="form-input" v-model="currentParking.coordY" placeholder="Parking Facility Y Coordinate" required />
         </div>
         <div class="form-group">
-          <input type="checkbox" id="status" v-model="currentParking.status" />
+          <input type="checkbox" id ="status" v-model="currentParking.status" />
           <label for="status">Active</label>
         </div>
-        <button class="submit-button" type="submit">
+        <button class ="submit-button" type="submit">
           {{ editingParking ? 'Update Parking Facility' : 'Create Parking Facility' }}
         </button>
         <button class="cancel-button" type="button" @click="resetForm" v-if="editingParking">
           Cancel
         </button>
       </form>
+    </div>
+
+    <div class="map">
+      <Map @map-click="updateCoordinates"></Map>
     </div>
   </div>
 </template>

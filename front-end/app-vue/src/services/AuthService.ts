@@ -1,5 +1,13 @@
 import axios from 'axios';
 
+/**
+ * Servicio de autenticación para la aplicación.
+ * - `login`: Realiza la autenticación usando credenciales básicas y guarda los datos del usuario en `sessionStorage`.
+ * - `logout`: Elimina los datos de autenticación del almacenamiento de sesión.
+ * - Interceptor de Axios: Añade automáticamente las credenciales de autenticación a las solicitudes si el usuario está logueado.
+ */
+
+
 const API_URL = 'http://localhost:8080/api'; // Cambia esto a tu URL de API
 
 class AuthService {

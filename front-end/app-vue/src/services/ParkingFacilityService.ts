@@ -1,6 +1,15 @@
 import type {ParkingFacility} from "@/models/ParkingFacility";
 import axios from "axios";
 
+/**
+ * Servicio para interactuar con el API de instalaciones de estacionamiento.
+ * - `getParking`: Obtiene la lista de instalaciones de estacionamiento.
+ * - `createParking`: Crea una nueva instalación de estacionamiento.
+ * - `updateParking`: Actualiza una instalación de estacionamiento existente por ID.
+ * - `toggleParkingStatus`: Cambia el estado de una instalación de estacionamiento por ID.
+ */
+
+
 const API_URL = 'http://localhost:8080/api/parking-facilities';
 
 export default {

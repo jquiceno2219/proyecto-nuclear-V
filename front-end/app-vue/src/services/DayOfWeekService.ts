@@ -1,6 +1,13 @@
 import axios from "axios";
 import type {DayWeek} from "@/models/DayOfWeek";
 
+/**
+ * Servicio para interactuar con el API de días de la semana.
+ * - `getDayOfWeek`: Obtiene la lista de días de la semana.
+ * - `createDayOfWeek`: Crea un nuevo día de la semana.
+ * - `updateDayOfWeek`: Actualiza un día de la semana existente por ID.
+ * - `toggleDayOfWeekStatus`: Cambia el estado de un día de la semana por ID.
+ */
 
 const API_URL = 'http://localhost:8080/api/days-week';
 

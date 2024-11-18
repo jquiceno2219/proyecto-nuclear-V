@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import MapComponent from "@/components/MapComponent.vue";
+/**
+ * Componente principal de la vista de inicio.
+ * Contiene un encabezado con un título de bienvenida y un contenedor para mostrar el mapa.
+ * El mapa se incluye a través del componente MapComponent.
+ * El diseño utiliza flexbox para alinear y centrar los elementos dentro del contenedor principal.
+ * El contenedor del mapa tiene un tamaño máximo definido y un estilo que incluye bordes, bordes redondeados y sombra para mejorar la estética.
+ */
+
 </script>
 
 <template>

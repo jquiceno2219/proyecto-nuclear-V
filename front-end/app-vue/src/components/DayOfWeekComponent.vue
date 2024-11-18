@@ -3,6 +3,14 @@ import {computed, onMounted, ref} from "vue";
 import type {DayOfWeek} from "@/models/DayOfWeek";
 import dayOfWeekService from "@/services/DayOfWeekService";
 
+/**
+ * Este componente Vue gestiona la creación, edición y visualización de días de la semana.
+ * Al montarse, carga la lista de días de la semana desde un servicio externo.
+ * Proporciona una interfaz para crear nuevos días y editar los existentes, asegurando que todos los campos requeridos estén completos mediante validación.
+ * La interfaz muestra una lista de días activos, permitiendo al usuario editar o eliminar días de la semana.
+ * Los estilos CSS aseguran una presentación clara y atractiva, mejorando la experiencia del usuario en la gestión de días de la semana.
+ */
+
 const dayWeeks = ref<DayOfWeek[]>([]);
 const newDayWeek = ref<DayOfWeek>({
   dayWeekNumber: 0, dayTitle: "", id: 0, status: true

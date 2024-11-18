@@ -1,6 +1,14 @@
 import type {ParkingSpot} from "@/models/ParkingSpot";
 import axios from "axios";
 
+/**
+ * Servicio para interactuar con el API de espacios de estacionamiento.
+ * - `getSpot`: Obtiene la lista de espacios de estacionamiento.
+ * - `createSpot`: Crea un nuevo espacio de estacionamiento.
+ * - `updateSpot`: Actualiza un espacio de estacionamiento existente por ID.
+ * - `toggleSpotStatus`: Cambia el estado de un espacio de estacionamiento por ID.
+ */
+
 
 const API_URL = 'http://localhost:8080/api/parking-spots';
 

@@ -5,6 +5,15 @@ import type { ParkingSpot } from "@/models/ParkingSpot";
 import type { ParkingFacility } from "@/models/ParkingFacility";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
 
+/**
+ * Este componente Vue gestiona la creación, edición y visualización de espacios de estacionamiento.
+ * Al montarse, carga la lista de espacios de estacionamiento y las instalaciones de estacionamiento asociadas desde servicios externos.
+ * Proporciona una interfaz para crear nuevos espacios y editar los existentes, asegurando que todos los campos requeridos estén completos.
+ * Los usuarios pueden alternar el estado de los espacios, ya sea para eliminarlos o recuperarlos.
+ * Además, incluye un formulario que permite seleccionar la instalación de estacionamiento a la que pertenece cada espacio.
+ * Los estilos CSS aseguran una presentación clara y atractiva, mejorando la experiencia del usuario en la gestión de espacios de estacionamiento.
+ */
+
 const spots = ref<ParkingSpot[]>([]);
 const newSpot = ref<ParkingSpot>({ id: 0, parkingFacility: { id: 0 }, spotNumber: 0, status: true });
 const editingSpot = ref<ParkingSpot | null>(null);

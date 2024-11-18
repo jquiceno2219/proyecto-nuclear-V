@@ -3,6 +3,14 @@ import { computed, onMounted, ref } from "vue";
 import type { UserRole } from "@/models/UserRole";
 import roleService from "@/services/UserRoleService";
 
+/**
+ * Este componente Vue gestiona la creación, edición y visualización de roles de usuario en el sistema.
+ * Al montarse, carga la lista de roles desde un servicio externo.
+ * Proporciona un formulario para crear o editar roles, permitiendo a los administradores definir el nombre del rol y su estado (activo o inactivo).
+ * La interfaz muestra una lista de roles activos, con opciones para editar o cambiar su estado (eliminar/recuperar).
+ * Los estilos CSS aseguran una presentación clara y atractiva, mejorando la experiencia del usuario en la gestión de roles.
+ */
+
 const roles = ref<UserRole[]>([]);
 const newRole = ref<UserRole>({ id: 0, name: '', status: true });
 const editingRole = ref<UserRole | null>(null);
