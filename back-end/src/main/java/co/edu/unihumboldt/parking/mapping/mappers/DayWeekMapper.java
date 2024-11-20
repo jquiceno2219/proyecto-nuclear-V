@@ -1,12 +1,12 @@
 package co.edu.unihumboldt.parking.mapping.mappers;
 
-import co.edu.unihumboldt.parking.domain.entities.DayWeek;
+import co.edu.unihumboldt.parking.domain.entities.DayOfWeek;
 import co.edu.unihumboldt.parking.mapping.dtos.DayWeekDto;
 
 import java.util.List;
 
 public class DayWeekMapper {
-    public static DayWeekDto mapFrom(DayWeek source){
+    public static DayWeekDto mapFrom(DayOfWeek source){
         return DayWeekDto.builder()
                 .id(source.getId())
                 .dayWeekNumber(source.getDayWeekNumber())
@@ -16,21 +16,21 @@ public class DayWeekMapper {
 
     }
 
-    public static DayWeek mapFrom(DayWeekDto source){
-        return new DayWeek(source.getId(),
+    public static DayOfWeek mapFrom(DayWeekDto source){
+        return new DayOfWeek(source.getId(),
                 source.getDayWeekNumber(),
                 source.getDayTitle(),
                 source.isStatus()
         );
     }
 
-    public static List<DayWeek> mapFrom(List<DayWeekDto> source){
+    public static List<DayOfWeek> mapFrom(List<DayWeekDto> source){
         return source.parallelStream()
                 .map(DayWeekMapper::mapFrom)
                 .toList();
 
     }
-    public static List<DayWeekDto> mapFromDto(List<DayWeek> source){
+    public static List<DayWeekDto> mapFromDto(List<DayOfWeek> source){
         return source.parallelStream()
                 .map(DayWeekMapper::mapFrom)
                 .toList();

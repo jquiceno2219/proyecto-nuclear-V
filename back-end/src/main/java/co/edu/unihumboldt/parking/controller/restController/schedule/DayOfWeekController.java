@@ -54,10 +54,10 @@ public class DayOfWeekController {
             }
             dayWeekDto.setId(id);
             serviceDayWeek.add(dayWeekDto);
-            return ResponseEntity.ok("DayWeek Updated Successfully");
+            return ResponseEntity.ok("DayOfWeek Updated Successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Error updating DayWeek: " + e.getMessage());
+                    .body("Error updating DayOfWeek: " + e.getMessage());
         }
     }
 

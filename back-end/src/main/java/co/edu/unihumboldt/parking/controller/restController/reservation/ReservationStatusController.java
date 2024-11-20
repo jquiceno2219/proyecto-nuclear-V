@@ -24,20 +24,21 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("api/reservations-status")
 public class ReservationStatusController {
-    private final ReservationStatusServiceImpl serviceBookStatus;
+    private final ReservationStatusServiceImpl serviceReservationStatus;
+
     private final Logger logger = LoggerFactory.getLogger(ReservationStatusController.class);
 
 
     @GetMapping("/list")
-    public List<ReservationStatusDto> listBookStatus() {
-        return serviceBookStatus.list();
+    public List<ReservationStatusDto> listReservationStatus() {
+        return serviceReservationStatus.list();
     }
 
     @PostMapping("/new")
-    public ResponseEntity<String> createBookStatus (@RequestBody ReservationStatusDto reservationStatusDto){
+    public ResponseEntity<String> createReservationStatus (@RequestBody ReservationStatusDto reservationStatusDto){
         try {
 
-            serviceBookStatus.add(reservationStatusDto);
+            serviceReservationStatus.add(reservationStatusDto);
             return ResponseEntity.ok("Reservation Status Created Successfully");
         }  catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error creating Reservation Status: " + e.getMessage());
@@ -45,17 +46,17 @@ public class ReservationStatusController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateBookStatus(
+    public ResponseEntity<String> updateReservationStatus(
             @PathVariable("id") int id,
             @RequestBody ReservationStatusDto reservationStatusDto) {
 
         try {
-            ReservationStatusDto existingBookStatus = serviceBookStatus.byId(id);
+            ReservationStatusDto existingBookStatus = serviceReservationStatus.byId(id);
             if (existingBookStatus == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Reservation Status not found");
             }
             reservationStatusDto.setId(id);
-            serviceBookStatus.add(reservationStatusDto);
+            serviceReservationStatus.add(reservationStatusDto);
             return ResponseEntity.ok("Reservation Status Updated Successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -64,9 +65,9 @@ public class ReservationStatusController {
     }
 
     @PatchMapping("/status/{id}")
-    public ResponseEntity<ReservationStatusDto> toggleBookStatus(@PathVariable int id) {
+    public ResponseEntity<ReservationStatusDto> toggleReservationStatus(@PathVariable int id) {
         try {
-            ReservationStatusDto updatedBookStatus = serviceBookStatus.toggleBookStatus(id);
+            ReservationStatusDto updatedBookStatus = serviceReservationStatus.toggleBookStatus(id);
             return ResponseEntity.ok(updatedBookStatus);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();

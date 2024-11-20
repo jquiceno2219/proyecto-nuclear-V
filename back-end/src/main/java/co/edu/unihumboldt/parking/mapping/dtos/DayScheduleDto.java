@@ -1,6 +1,6 @@
 package co.edu.unihumboldt.parking.mapping.dtos;
 
-import co.edu.unihumboldt.parking.domain.entities.DayWeek;
+import co.edu.unihumboldt.parking.domain.entities.DayOfWeek;
 import co.edu.unihumboldt.parking.domain.entities.ParkingFacility;
 import co.edu.unihumboldt.parking.domain.entities.Schedule;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class DayScheduleDto {
        private int id;
        private Schedule schedule;
-       private DayWeek dayWeek;
+       private DayOfWeek dayOfWeek;
        private ParkingFacility parkingFacility;
 
 }
