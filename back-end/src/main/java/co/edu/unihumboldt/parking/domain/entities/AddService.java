@@ -22,13 +22,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "add_service",schema = "public", indexes = @Index(columnList = "id"))
+@Table(name = "add_services",schema = "public", indexes = @Index(columnList = "id"))
 public class AddService implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private int price;
+    private double price;
     private boolean status;
     @ManyToOne
     private ParkingFacility parkingFacility;

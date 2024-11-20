@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, onMounted, ref} from 'vue'
+import {computed, onMounted, ref} from 'vue';
 import type {User} from "@/models/User";
 import userService from "@/services/UserService";
 import UserRoleService from "@/services/UserRoleService";
@@ -7,35 +7,43 @@ import type {UserRole} from "@/models/UserRole";
 import type {ParkingFacility} from "@/models/ParkingFacility";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
 
-const users = ref<User[]>([])
-const newUser = ref<User>({
-  parkingFacility: {id:0},
+/**
+ * Este componente Vue gestiona la creación, edición y visualización de usuarios en el sistema.
+ * Al montarse, carga la lista de usuarios, roles de usuario y las instalaciones de estacionamiento desde servicios externos.
+ * Proporciona un formulario para crear o editar usuarios, donde los administradores pueden ingresar detalles como nombre, número de identificación, correo electrónico, y seleccionar una instalación de estacionamiento y un rol de usuario.
+ * La interfaz muestra una lista de usuarios activos, incluyendo sus detalles y opciones para editar o cambiar su estado (activar/desactivar).
+ * Los estilos CSS aseguran una presentación clara y atractiva, mejorando la experiencia del usuario en la gestión de usuarios.
+ */
+
+const users = ref<User[]>([]);
+const newUser    = ref<User>({
+  parkingFacility: { id: 0 },
   email: "",
   id: 0,
   idNumber: "",
   name: "",
   password: "",
   phoneNumber: "",
-  userRole: {id:0},
+  userRole: { id: 0 },
   status: true,
   userName: ""
 });
-const editingUser = ref<User|null>(null);
+const editingUser    = ref<User | null>(null);
 
 const parkings = ref<ParkingFacility[]>([]);
 const roles = ref<UserRole[]>([]);
 
 onMounted(async () => {
-  await loadUsers()
-  await loadRoles()
-  await loadParkings()
+  await loadUsers();
+  await loadRoles();
+  await loadParkings();
 });
 
 const loadUsers = async () => {
   try {
-    users.value = await userService.getUser()
+    users.value = await userService.getUser  ();
   } catch (error) {
-    console.error('Error al cargar usuarios:', error)
+    console.error('Error al cargar usuarios:', error);
   }
 };
 
@@ -47,7 +55,7 @@ const loadRoles = async () => {
   }
 };
 
-const loadParkings= async () => {
+const loadParkings = async () => {
   try {
     parkings.value = await ParkingFacilityService.getParking();
   } catch (error) {
@@ -55,7 +63,7 @@ const loadParkings= async () => {
   }
 };
 
-const createUser = async () => {
+const createUser    = async () => {
   try {
     if (!validateUserForm()) {
       alert('Please complete all required fields');
@@ -64,18 +72,18 @@ const createUser = async () => {
 
     const userToSend = {
       id: 0,
-      userName: newUser.value.userName,
-      password: newUser.value.password,
-      name: newUser.value.name,
-      idNumber: newUser.value.idNumber,
-      phoneNumber: newUser.value.phoneNumber,
-      email: newUser.value.email,
-      status: newUser.value.status,
-      parkingFacility: { id: newUser.value.parkingFacility.id },
-      userRole: { id: newUser.value.userRole.id }
+      userName: newUser .value.userName,
+      password: newUser .value.password,
+      name: newUser .value.name,
+      idNumber: newUser .value.idNumber,
+      phoneNumber: newUser .value.phoneNumber,
+      email: newUser .value.email,
+      status: newUser .value.status,
+      parkingFacility: { id: newUser .value.parkingFacility.id },
+      userRole: { id: newUser .value.userRole.id }
     };
 
-    await userService.createUser(userToSend);
+    await userService.createUser (userToSend);
     await loadUsers();
     resetForm();
   } catch (error) {
@@ -85,7 +93,7 @@ const createUser = async () => {
 };
 
 const validateUserForm = () => {
-  const user = currentUser.value;
+  const user = currentUser .value;
   return user.userName &&
       user.password &&
       user.name &&
@@ -95,8 +103,8 @@ const validateUserForm = () => {
       user.userRole?.id;
 };
 
-const editUser = (user: User) => {
-  editingUser.value = {...user};
+const editUser  = (user: User) => {
+  editingUser .value = { ...user };
 };
 
 const updateUser  = async () => {
@@ -115,8 +123,8 @@ const updateUser  = async () => {
         phoneNumber: editingUser .value.phoneNumber,
         email: editingUser .value.email,
         status: editingUser .value.status,
-        parkingFacility: { id: editingUser .value.parkingFacility.id }, // Enviando el objeto parkingFacility
-        userRole: { id: editingUser .value.userRole.id } // Enviando el objeto userRole
+        parkingFacility: { id: editingUser .value.parkingFacility.id },
+        userRole: { id: editingUser .value.userRole.id }
       };
 
       await userService.updateUser (editingUser .value.id, userToSend);
@@ -131,10 +139,10 @@ const updateUser  = async () => {
 
 const toggleUserStatus = async (user: User) => {
   try {
-    const updatedUser = await userService.toggleUserStatus(user.id);
-    const index = users.value.findIndex(r => r.id === updatedUser.id);
+    const updatedUser  = await userService.toggleUserStatus(user.id);
+    const index = users.value.findIndex(r => r.id === updatedUser .id);
     if (index !== -1) {
-      users.value[index] = updatedUser;
+      users.value[index] = updatedUser ;
     }
   } catch (error) {
     console.error('Error al alternar estado de user:', error);
@@ -143,112 +151,133 @@ const toggleUserStatus = async (user: User) => {
 };
 
 const resetForm = () => {
-  newUser.value = {
-    parkingFacility:{id:0},
+  newUser .value = {
+    parkingFacility: { id: 0 },
     email: "",
-    id: 0,
+    id:  0,
     idNumber: "",
     name: "",
     password: "",
     phoneNumber: "",
-    userRole: {id:0},
+    userRole: { id: 0 },
     status: true,
     userName: ""
   };
-  editingUser.value = null;
+  editingUser  .value = null;
 };
 
 const activeUsers = computed(() => {
   return users.value.filter(user => user.status);
 });
 
-const currentUser = computed(() => {
-  return editingUser.value || newUser.value;
+const currentUser   = computed(() => {
+  return editingUser  .value || newUser  .value;
 });
 
 </script>
 
 <template>
-  <div class="user-list">
-    <h2>Users List</h2>
-    <ul v-if="activeUsers.length">
-      <li v-for="user in activeUsers" :key="user.id" class="user-item">
-        <div class="user-details">
-          <strong>Username:</strong> <span>{{ user.userName }}</span><br>
-          <strong>Name:</strong> <span>{{ user.name }}</span><br>
-          <strong>ID Number:</strong> <span>{{ user.idNumber }}</span><br>
-          <strong>Phone Number:</strong> <span>{{ user.phoneNumber }}</span><br>
-          <strong>Email:</strong> <span>{{ user.email }}</span><br>
-          <strong>Status:</strong> <span>{{ user.status ? 'Active' : 'Inactive' }}</span><br>
-          <strong>Parking Facility:</strong>
-          <span>{{ parkings.find(p => p.id === user.parkingFacility.id)?.name || 'N/A' }}</span><br>
-          <strong>User Role:</strong>
-          <span>{{ roles.find(r => r.id === user.userRole.id)?.name || 'N/A' }}</span><br>
+  <div class="container">
+    <div class="user-list">
+      <h2>Users List</h2>
+      <table v-if="activeUsers.length">
+        <thead>
+        <tr>
+          <th>Username</th>
+          <th>Name</th>
+          <th>ID Number</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Parking Facility</th>
+          <th>User Role</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="user in activeUsers" :key="user.id">
+          <td>{{ user.userName }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.idNumber }}</td>
+          <td>{{ user.phoneNumber }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.status ? 'Active' : 'Inactive' }}</td>
+          <td>{{ parkings.find(p => p.id === user.parkingFacility.id)?.name || 'N/A' }}</td>
+          <td>{{ roles.find(r => r.id === user.userRole.id)?.name || 'N/A' }}</td>
+          <td>
+            <button class="action-button" @click="toggleUserStatus(user)">
+              {{ user.status ? 'Delete' : 'Recuperate' }}
+            </button>
+            <button class="action-button" @click="editUser  (user)">Edit</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <p v-else>No active users available.</p>
+    </div>
+    <div class="user-form">
+      <h2>{{ editingUser   ? 'Edit User' : 'Create User' }}</h2>
+      <form @submit.prevent="editingUser   ? updateUser  () : createUser  ()">
+        <div class="form-group">
+          <input class="form-input" v-model="currentUser  .userName" placeholder="Username" required />
         </div>
-        <div class="user-actions">
-          <button @click="toggleUserStatus(user)">
-            {{ user.status ? 'Delete' : 'Recuperate' }}
-          </button>
-          <button @click="editUser (user)">Edit</button>
+        <div class="form-group">
+          <input class="form-input" v-model="currentUser  .password" type="password" placeholder="Password" required />
         </div>
-        <hr />
-      </li>
-    </ul>
-    <p v-else>No active users available.</p>
-  </div>
-  <div class="user-form">
-    <h2>{{ editingUser  ? 'Edit User' : 'Create User' }}</h2>
-    <form @submit.prevent="editingUser  ? updateUser () : createUser ()">
-      <div>
-        <input v-model="currentUser .userName" placeholder="Username" required />
-      </div>
-      <div>
-        <input v-model="currentUser .password" type="password" placeholder="Password" required />
-      </div>
-      <div>
-        <input v-model="currentUser .name" placeholder="Name" required />
-      </div>
-      <div>
-        <input v-model="currentUser .idNumber" placeholder="ID Number" required />
-      </div>
-      <div>
-        <input v-model="currentUser .phoneNumber" type="tel" placeholder="Phone Number" />
-      </div>
-      <div>
-        <input v-model="currentUser .email" type="email" placeholder="Email" required />
-      </div>
-      <div>
-        <select v-model="currentUser .parkingFacility.id" required>
-          <option disabled value="">Select Parking Facility</option>
-          <option v-for="parkingFacility in parkings" :key="parkingFacility.id" :value="parkingFacility.id">
-            {{ parkingFacility.name }}
-          </option>
-        </select>
-      </div>
-      <div>
-        <select v-model="currentUser .userRole.id" required>
-          <option disabled value="">Select User Role</option>
-          <option v-for="userRole in roles" :key="userRole.id" :value="userRole.id">
-            {{ userRole.name }}
-          </option>
-        </select>
-      </div>
-      <div>
-        <input type="checkbox" id="status" v-model="currentUser .status" />
-        <label for="status">Active</label>
-      </div>
-      <button type="submit">
-        {{ editingUser  ? 'Update User' : 'Create User' }}
-      </button>
-      <button type="button" @click="resetForm" v-if="editingUser ">
-        Cancel
-      </button>
-    </form>
+        <div class="form-group">
+          <input class="form-input" v-model="currentUser  .name" placeholder="Name" required />
+        </div>
+        <div class="form-group">
+          <input class="form-input" v-model="currentUser  .idNumber" placeholder="ID Number" required />
+        </div>
+        <div class="form-group">
+          <input class="form-input" v-model="currentUser  .phoneNumber" type="tel" placeholder="Phone Number" />
+        </div>
+        <div class="form-group">
+          <input class="form-input" v-model="currentUser  .email" type="email" placeholder="Email" required />
+        </div>
+        <div class="form-group">
+          <select class="form-select" v-model="currentUser  .parkingFacility.id" required>
+            <option disabled value="">Select Parking Facility</option>
+            <option v-for="parkingFacility in parkings" :key="parkingFacility.id" :value="parkingFacility.id">
+              {{ parkingFacility.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select class="form-select" v-model="currentUser  .userRole.id" required>
+            <option disabled value="">Select User Role</option>
+            <option v-for="userRole in roles" :key="userRole.id" :value="userRole.id">
+              {{ userRole.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" id="status" v-model="currentUser  .status" />
+          <label for="status">Active</label>
+        </div>
+        <button class="submit-button" type="submit">
+          {{ editingUser   ? 'Update User' : 'Create User' }}
+        </button>
+        <button class="cancel-button" type="button" @click="resetForm" v-if="editingUser  ">
+          Cancel
+        </button>
+      </form>
+    </div>
   </div>
 </template>
+
 <style scoped>
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  width: 120%;
+}
+
 .user-list, .user-form {
-  margin: 20px;
+  flex: 1;
+  margin: 10px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -258,12 +287,65 @@ const currentUser = computed(() => {
   margin-bottom: 10px;
 }
 
-.user-list ul {
-  list-style-type: none;
-  padding: 0;
+table {
+  width: 0%;
+  border-collapse: collapse;
 }
 
-.user-list li {
-  margin-bottom: 10px;
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: rgba(0, 0, 0, 0.99);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-input, .form-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.action-button, .submit-button, .cancel-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.action-button {
+  background-color: #679ee8;
+  color: white;
+}
+
+.action-button:hover {
+  background-color: #569ae7;
+}
+
+.submit-button {
+  background-color: #96f6ab;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #72e58c;
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #c82333;
 }
 </style>

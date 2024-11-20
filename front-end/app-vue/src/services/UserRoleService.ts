@@ -3,6 +3,14 @@ import axios from "axios";
 
 const API_URL = 'http://localhost:8080/api/user-roles';
 
+/**
+ * Servicio para interactuar con el API de roles de usuario.
+ * - `getRole`: Obtiene la lista de roles de usuario.
+ * - `createRole`: Crea un nuevo rol de usuario.
+ * - `updateRole`: Actualiza un rol de usuario existente por ID.
+ * - `toggleRoleStatus`: Cambia el estado de un rol de usuario por ID.
+ */
+
 
 export default {
     async getRole(): Promise<UserRole[]> {

@@ -1,19 +1,63 @@
 <script setup lang="ts">
+import 'leaflet/dist/leaflet.css';
+/**
+ * Este componente contiene la barra de navegación principal para la administración del sistema.
+ * Cada sección del menú (Usuarios, Estacionamiento, Horarios, Servicios) está agrupada en un menú desplegable.
+ * El contenido principal se muestra a través de `<router-view>`, que se actualiza según la ruta activa.
+ * Además, se asegura de que la barra de navegación permanezca fija en la parte superior de la página,
+ * con un margen superior en el contenido para evitar que se sobreponga.
+ */
+
 </script>
 
 <template>
   <header>
     <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/administration/users">Users</router-link> |
-      <router-link to="/administration/roles">Roles</router-link> |
-      <router-link to="/administration/parking-facilities">Parking Facilities</router-link> |
-      <router-link to="/administration/parking-spots">Parking Spots</router-link> |
-      <router-link to="/map">Map</router-link>
+      <router-link to="/">Home</router-link>
+
+      <div class="dropdown">
+        <button class="dropbtn">Users</button>
+        <div class="dropdown-content">
+          <router-link to="/administration/users">Manage Users</router-link>
+          <router-link to="/administration/roles">User  Roles</router-link>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropbtn">Parking</button>
+        <div class="dropdown-content">
+          <router-link to="/administration/parking-facilities">Parking Facilities</router-link>
+          <router-link to="/administration/parking-spots">Parking Spots</router-link>
+          <router-link to="/administration/reservations">Reservations</router-link>
+          <router-link to="/administration/reservations-status">Reservation Status</router-link>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropbtn">Schedules</button>
+        <div class="dropdown-content">
+          <router-link to="/administration/schedules">Schedules</router-link>
+          <router-link to="/administration/days-week">Days of the Week</router-link>
+          <router-link to="/administration/daily-schedules">Daily Schedules</router-link>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropbtn">Services</button>
+        <div class="dropdown-content">
+          <router-link to="/administration/additional-services">Additional Services</router-link>
+          <router-link to="/administration/fees">Fees</router-link>
+          <router-link to="/administration/pay-methods">Payment Methods</router-link>
+          <router-link to="/administration/service-reservations">Service Reservations</router-link>
+          <router-link to="/administration/vehicle-types">Vehicle Types</router-link>
+        </div>
+      </div>
     </nav>
   </header>
   <main>
-    <router-view></router-view>
+    <div class="main-content"> <!-- Añadido un contenedor para el contenido principal -->
+      <router-view></router-view>
+    </div>
   </main>
 </template>
 
@@ -26,11 +70,6 @@ header {
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
 }
 
 nav {
@@ -48,21 +87,48 @@ nav a.router-link-active {
   color: #42b983;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.dropbtn {
+  background-color: #fff;
+  color: #2c3e50;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  text-align: left;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  color: #2c3e50;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.main-content {
+  margin-top: 60px;
+  padding: 20px;
+  align-items: center;
 }
 </style>

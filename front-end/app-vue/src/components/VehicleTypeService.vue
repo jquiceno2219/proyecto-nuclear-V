@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
-import type { VehicleTypeDto } from '@/models/VehicleTypeDto.ts';
+import {computed, onMounted, ref} from 'vue';
+import type {VehicleTypeDto} from '@/models/VehicleTypeDto.ts';
 import vehicleTypeService from '@/services/VehicleTypeService';
 
 const vehicleTypes = ref<VehicleTypeDto[]>([]);

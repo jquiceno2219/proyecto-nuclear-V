@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
-import type { PayMethod } from "@/models/PayMethod";
+import {computed, onMounted, ref} from 'vue';
+import type {PayMethod} from "@/models/PayMethod";
 import payMethodService from "@/services/PayMethodService";
 
 const payMethods = ref<PayMethod[]>([]);

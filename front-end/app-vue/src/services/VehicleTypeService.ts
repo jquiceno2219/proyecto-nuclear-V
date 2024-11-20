@@ -1,66 +1,41 @@
-import axios from 'axios';
-import type { VehicleTypeDto } from '@/models/VehicleTypeDto.ts';
+import type {VehicleType} from "@/models/VehicleType";
+import axios from "axios";
 
-const API_URL = 'http://localhost:8080/api/vehicles-types';
+/**
+ * Servicio para interactuar con el API de tipos de vehículos.
+ * - `getVehicleType`: Obtiene la lista de tipos de vehículos.
+ * - `createVehicleType`: Crea un nuevo tipo de vehículo.
+ * - `updateVehicleType`: Actualiza un tipo de vehículo existente por ID.
+ * - `toggleVehicleTypeStatus`: Cambia el estado de un tipo de vehículo por ID.
+ */
+
+
+const API_URL = 'http://localhost:8080/api/vehicle-types';
 
 export default {
-  /**
-   * Obtiene la lista de tipos de vehículos desde la API.
-   * @returns Una promesa con la lista de tipos de vehículos.
-   */
-  async listVehicleTypes(): Promise<VehicleTypeDto[]> {
-    try {
-      const response = await axios.get<VehicleTypeDto[]>(`${API_URL}/list`);
-      return response.data;
-    } catch (error) {
-      console.error('Error al obtener los tipos de vehículos:', error);
-      throw error;
-    }
-  },
+    async getVehicleType(): Promise<VehicleType[]> {
+        try {
+            const response = await axios.get<VehicleType[]>(`${API_URL}/list`);
+            return response.data;
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
+    },
 
-  /**
-   * Crea un nuevo tipo de vehículo.
-   * @param vehicleType - Los datos del tipo de vehículo a crear.
-   * @returns Un mensaje de éxito de la API.
-   */
-  async createVehicleType(vehicleType: VehicleTypeDto): Promise<string> {
-    try {
-      const response = await axios.post(`${API_URL}/new`, vehicleType);
-      return response.data;
-    } catch (error) {
-      console.error('Error al crear el tipo de vehículo:', error);
-      throw error;
-    }
-  },
+    async createVehicleType(vehicleType: VehicleType): Promise<string> {
+        const response = await axios.post(`${API_URL}/new`, vehicleType);
+        return response.data;
+    },
 
-  /**
-   * Actualiza un tipo de vehículo existente.
-   * @param id - El ID del tipo de vehículo a actualizar.
-   * @param vehicleType - Los nuevos datos del tipo de vehículo.
-   * @returns Un mensaje de éxito de la API.
-   */
-  async updateVehicleType(id: number, vehicleType: VehicleTypeDto): Promise<string> {
-    try {
-      const response = await axios.put(`${API_URL}/update/${id}`, vehicleType);
-      return response.data;
-    } catch (error) {
-      console.error('Error al actualizar el tipo de vehículo:', error);
-      throw error;
-    }
-  },
+    async updateVehicleType(id: number, vehicleType: VehicleType): Promise<string> {
+        const response = await axios.put(`${API_URL}/update/${id}`, vehicleType);
+        return response.data;
+    },
 
-  /**
-   * Cambia el estado de un tipo de vehículo (activo/inactivo).
-   * @param id - El ID del tipo de vehículo a modificar.
-   * @returns El tipo de vehículo actualizado.
-   */
-  async toggleVehicleTypeStatus(id: number): Promise<VehicleTypeDto> {
-    try {
-      const response = await axios.patch(`${API_URL}/status/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error('Error al cambiar el estado del tipo de vehículo:', error);
-      throw error;
+    async toggleVehicleTypeStatus(id: number): Promise<VehicleType> {
+        const response = await axios.patch(`${API_URL}/status/${id}`);
+        return response.data;
     }
-  }
 };
+

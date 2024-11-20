@@ -4,6 +4,13 @@ import {defineComponent, ref} from 'vue';
 import AuthService from '@/services/AuthService';
 import router from "@/router";
 
+/**
+ * Componente de vista de login.
+ * Permite a los usuarios ingresar su nombre de usuario y contraseña.
+ * Utiliza AuthService para manejar la autenticación del usuario.
+ * Si las credenciales son correctas, el usuario es redirigido a la página principal.
+ * En caso de error, se muestra un mensaje indicando que las credenciales son incorrectas.
+ */
 
 export default defineComponent({
   setup() {

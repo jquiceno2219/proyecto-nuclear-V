@@ -10,18 +10,25 @@ import RoleView from "@/views/UserRoleView.vue";
 import LoginView from "@/views/LoginView.vue";
 import ParkingFacilityView from "@/views/ParkingFacilityView.vue";
 import ParkingSpotView from "@/views/ParkingSpotView.vue";
-import Map from "@/components/map.vue";
-import PayMethod from "@/components/PayMethod.vue";
+import ScheduleVIew from "@/views/ScheduleVIew.vue";
+import DayOfWeekView from "@/views/DayOfWeekView.vue";
+import DailyScheduleView from "@/views/DailyScheduleView.vue";
+import AddServiceView from "@/views/AddServiceView.vue";
+import FeeView from "@/views/FeeView.vue";
+import PayMethodView from "@/views/PayMethodView.vue";
+import ReservationView from "@/views/ReservationView.vue";
+import ServiceReservationView from "@/views/ServiceReservationView.vue";
+import VehicleTypeView from "@/views/VehicleTypeView.vue";
+import ReservationStatusView from "@/views/ReservationStatusView.vue";
+
+/**
+ * Configuración de rutas de la aplicación con Vue Router.
+ * Define rutas públicas y protegidas, incluyendo la sección de administración con subrutas específicas.
+ * Implementa un guard para verificar autenticación antes de acceder a rutas protegidas.
+ */
+
 
 const routes: Array<RouteRecordRaw> = [
-    {
-        path: '/map',
-        name: 'Map test',
-        component: Map,
-        meta: {
-            requiresAuth: false
-        }
-    },
     {
         path: '/login',
         name: 'Login',
@@ -29,7 +36,6 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
             requiresAuth: false
         }
-
     },
     {
         path: '/',
@@ -80,13 +86,86 @@ const routes: Array<RouteRecordRaw> = [
                 }
             },
             {
-                path: 'pay-method',
-                name: 'Method test',
-                component: PayMethod,
+                path: 'schedules',
+                name: 'Schedule',
+                component: ScheduleVIew,
                 meta: {
-                    requiresAuth: true
+                    requiresAuth: true,
                 }
             },
+            {
+                path: 'days-week',
+                name: 'DayOfWeeks',
+                component: DayOfWeekView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'daily-schedules',
+                name: 'DailySchedule',
+                component: DailyScheduleView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'additional-services',
+                name: 'AdditionalServices',
+                component: AddServiceView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'fees',
+                name: 'Fee',
+                component: FeeView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'pay-methods',
+                name: 'PayMethod',
+                component: PayMethodView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'reservations',
+                name: 'Reservation',
+                component: ReservationView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'service-reservations',
+                name: 'ServiceReservation',
+                component: ServiceReservationView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'vehicle-types',
+                name: 'VehicleType',
+                component: VehicleTypeView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+            {
+                path: 'reservations-status',
+                name: 'ReservationStatus',
+                component: ReservationStatusView,
+                meta: {
+                    requiresAuth: true,
+                }
+            },
+
         ],
     },
 ];
