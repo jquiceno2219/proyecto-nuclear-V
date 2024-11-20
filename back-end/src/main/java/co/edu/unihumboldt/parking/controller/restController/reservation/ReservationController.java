@@ -22,18 +22,18 @@ import java.util.List;
 @RequestMapping("api/reservations")
 public class ReservationController {
 
-    private final ReservationServiceImpl serviceBook;
+    private final ReservationServiceImpl serviceReservation;
 
     @GetMapping("/list")
     public List<ReservationDto> listBook() {
-        return serviceBook.list();
+        return serviceReservation.list();
     }
 
     @PostMapping("/new")
     public ResponseEntity<String> createBook (@RequestBody ReservationDto reservationDto){
         try {
 
-            serviceBook.add(reservationDto);
+            serviceReservation.add(reservationDto);
             return ResponseEntity.ok("Reservation Created Successfully");
         }  catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error creating Reservation: " + e.getMessage());
@@ -46,12 +46,12 @@ public class ReservationController {
             @RequestBody ReservationDto reservationDto) {
 
         try {
-            ReservationDto existingBook = serviceBook.byId(id);
+            ReservationDto existingBook = serviceReservation.byId(id);
             if (existingBook == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Reservation not found");
             }
             reservationDto.setId(id);
-            serviceBook.add(reservationDto);
+            serviceReservation.add(reservationDto);
             return ResponseEntity.ok("Reservation  Updated Successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

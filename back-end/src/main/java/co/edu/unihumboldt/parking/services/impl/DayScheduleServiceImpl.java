@@ -1,6 +1,6 @@
 package co.edu.unihumboldt.parking.services.impl;
 
-import co.edu.unihumboldt.parking.domain.entities.DaySchedule;
+import co.edu.unihumboldt.parking.domain.entities.DailySchedule;
 import co.edu.unihumboldt.parking.mapping.dtos.DayScheduleDto;
 import co.edu.unihumboldt.parking.mapping.mappers.DayScheduleMapper;
 import co.edu.unihumboldt.parking.repositories.DayScheduleRepository;
@@ -28,15 +28,15 @@ public class DayScheduleServiceImpl implements DayScheduleService {
 
     @Override
     public List<DayScheduleDto> list() {
-        List<DaySchedule> daySchedule = repository.findAll();
-        return DayScheduleMapper.mapFromDto(daySchedule);
+        List<DailySchedule> dailySchedule = repository.findAll();
+        return DayScheduleMapper.mapFromDto(dailySchedule);
     }
 
 
     @Override
     public void add(DayScheduleDto t) {
-        DaySchedule daySchedule = DayScheduleMapper.mapFrom(t);
-        repository.save(daySchedule);
+        DailySchedule dailySchedule = DayScheduleMapper.mapFrom(t);
+        repository.save(dailySchedule);
 
     }
 

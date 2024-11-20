@@ -4,12 +4,12 @@ import co.edu.unihumboldt.parking.domain.entities.ServiceReservation;
 import co.edu.unihumboldt.parking.mapping.dtos.ServiceBookDto;
 import co.edu.unihumboldt.parking.mapping.mappers.ServiceBookMapper;
 import co.edu.unihumboldt.parking.repositories.ServiceBookRepository;
-import co.edu.unihumboldt.parking.services.ServiceBookService;
+import co.edu.unihumboldt.parking.services.ServiceReservationService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 /**
- * La clase ServiceBookServiceImpl implementa la interfaz ServiceBookService y se encarga de gestionar
+ * La clase ServiceReservationServiceImpl implementa la interfaz ServiceReservationService y se encarga de gestionar
  * la lógica de negocio relacionada con los servicios adicionales asociados a las reservas en el sistema
  * de estacionamiento. Utiliza ServiceBookRepository para acceder a los datos, permitiendo la obtención
  * de todos los registros de servicios adicionales, la búsqueda de un servicio específico por su ID, y
@@ -21,10 +21,10 @@ import java.util.List;
  */
 
 @Service
-public class ServiceBookServiceImpl implements ServiceBookService {
+public class ServiceReservationServiceImpl implements ServiceReservationService {
     private final ServiceBookRepository repository;
 
-    public ServiceBookServiceImpl(ServiceBookRepository repository) {
+    public ServiceReservationServiceImpl(ServiceBookRepository repository) {
         this.repository = repository;
     }
 

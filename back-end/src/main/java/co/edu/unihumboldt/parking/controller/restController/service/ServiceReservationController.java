@@ -1,7 +1,7 @@
 package co.edu.unihumboldt.parking.controller.restController.service;
 
 import co.edu.unihumboldt.parking.mapping.dtos.ServiceBookDto;
-import co.edu.unihumboldt.parking.services.impl.ServiceBookServiceImpl;
+import co.edu.unihumboldt.parking.services.impl.ServiceReservationServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 /**
  * Clase {@code ServiceReservationController} que gestiona las operaciones CRUD para
- * la reserva de servicios a través de la API. Utiliza {@code ServiceBookServiceImpl}
+ * la reserva de servicios a través de la API. Utiliza {@code ServiceReservationServiceImpl}
  * para acceder a la lógica de negocio. Proporciona endpoints para listar, crear
  * y actualizar reservas de servicios. Los métodos manejan excepciones y devuelven
  * respuestas adecuadas en caso de éxito o error, incluyendo códigos de estado HTTP
@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("/api/service-reservations")
 public class ServiceReservationController {
 
-    private final ServiceBookServiceImpl serviceBookService;
+    private final ServiceReservationServiceImpl serviceBookService;
 
     @GetMapping("/list")
     public ResponseEntity<List<ServiceBookDto>> listServiceBooks() {

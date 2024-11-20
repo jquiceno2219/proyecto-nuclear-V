@@ -4,7 +4,7 @@ import co.edu.unihumboldt.parking.mapping.dtos.ServiceBookDto;
 
 import java.util.List;
 
-public interface ServiceBookService {
+public interface ServiceReservationService {
     List<ServiceBookDto> list();
     ServiceBookDto byId(int id);
     void add(ServiceBookDto t);

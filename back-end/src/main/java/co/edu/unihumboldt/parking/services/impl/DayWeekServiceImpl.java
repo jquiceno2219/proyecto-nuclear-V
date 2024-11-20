@@ -1,6 +1,6 @@
 package co.edu.unihumboldt.parking.services.impl;
 
-import co.edu.unihumboldt.parking.domain.entities.DayWeek;
+import co.edu.unihumboldt.parking.domain.entities.DayOfWeek;
 import co.edu.unihumboldt.parking.mapping.dtos.DayWeekDto;
 import co.edu.unihumboldt.parking.mapping.mappers.DayWeekMapper;
 import co.edu.unihumboldt.parking.repositories.DayWeekRepository;
@@ -29,40 +29,40 @@ public class DayWeekServiceImpl implements DayWeekService {
 
     @Override
     public List<DayWeekDto> list() {
-        List<DayWeek> dayWeek = repository.findAll();
-        return DayWeekMapper.mapFromDto(dayWeek);
+        List<DayOfWeek> dayOfWeek = repository.findAll();
+        return DayWeekMapper.mapFromDto(dayOfWeek);
     }
 
     @Override
     public DayWeekDto byId(int id) {
-        DayWeek dayWeek = repository.findById(id).orElseThrow();
-        return DayWeekMapper.mapFrom(dayWeek);
+        DayOfWeek dayOfWeek = repository.findById(id).orElseThrow();
+        return DayWeekMapper.mapFrom(dayOfWeek);
     }
 
     @Override
     public void add(DayWeekDto t) {
-        DayWeek dayWeek = DayWeekMapper.mapFrom(t);
-        repository.save(dayWeek);
+        DayOfWeek dayOfWeek = DayWeekMapper.mapFrom(t);
+        repository.save(dayOfWeek);
     }
 
     @Override
     public void update(int id, DayWeekDto dayWeekDto) {
-        DayWeek dayWeek = repository.findById(id).orElseThrow();
-        DayWeek updated = DayWeekMapper.mapFrom(dayWeekDto);
+        DayOfWeek dayOfWeek = repository.findById(id).orElseThrow();
+        DayOfWeek updated = DayWeekMapper.mapFrom(dayWeekDto);
 
-        dayWeek.setDayWeekNumber(updated.getDayWeekNumber());
-        dayWeek.setDayTitle(updated.getDayTitle());
-        dayWeek.setStatus(updated.isStatus());
+        dayOfWeek.setDayWeekNumber(updated.getDayWeekNumber());
+        dayOfWeek.setDayTitle(updated.getDayTitle());
+        dayOfWeek.setStatus(updated.isStatus());
     }
 
     @Override
     public DayWeekDto toggleDayWeekStatus(int id) {
-        DayWeek dayWeek = repository.findById(id)
+        DayOfWeek dayOfWeek = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Day Week not found with id: " + id));
 
-        dayWeek.setStatus(!dayWeek.isStatus());
-        DayWeek savedDayWeek = repository.save(dayWeek);
+        dayOfWeek.setStatus(!dayOfWeek.isStatus());
+        DayOfWeek savedDayOfWeek = repository.save(dayOfWeek);
 
-        return DayWeekMapper.mapFrom(savedDayWeek);
+        return DayWeekMapper.mapFrom(savedDayOfWeek);
     }
 }

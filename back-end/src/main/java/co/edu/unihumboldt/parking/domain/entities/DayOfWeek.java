@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 /**
- * Clase {@code DayWeek} que representa un día de la semana en el sistema.
+ * Clase {@code DayOfWeek} que representa un día de la semana en el sistema.
  * Esta entidad se mapea a la tabla {@code days_week} en el esquema {@code public}.
  * Contiene atributos para el identificador del día de la semana, el número del día de la semana,
  * el título del día y el estado (activo/inactivo).
@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "days_week",schema = "public", indexes = @Index(columnList = "id"))
-public class DayWeek implements Serializable {
+public class DayOfWeek implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

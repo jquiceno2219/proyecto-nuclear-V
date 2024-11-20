@@ -1,34 +1,34 @@
 package co.edu.unihumboldt.parking.mapping.mappers;
 
-import co.edu.unihumboldt.parking.domain.entities.DaySchedule;
+import co.edu.unihumboldt.parking.domain.entities.DailySchedule;
 import co.edu.unihumboldt.parking.mapping.dtos.DayScheduleDto;
 
 import java.util.List;
 
 public class DayScheduleMapper {
-    public static DayScheduleDto mapFrom(DaySchedule source) {
+    public static DayScheduleDto mapFrom(DailySchedule source) {
         return  DayScheduleDto.builder()
                 .id(source.getId())
                 .schedule(source.getSchedule())
-                .dayWeek(source.getDayWeek())
+                .dayOfWeek(source.getDayOfWeek())
                 .parkingFacility(source.getParkingFacility())
                 .build();
     }
 
-    public static DaySchedule mapFrom(DayScheduleDto source){
-        return new DaySchedule(source.getId(),
+    public static DailySchedule mapFrom(DayScheduleDto source){
+        return new DailySchedule(source.getId(),
                 source.getSchedule(),
-                source.getDayWeek(),
+                source.getDayOfWeek(),
                 source.getParkingFacility());
     }
 
-    public static List<DaySchedule> mapFrom(List<DayScheduleDto> source){
+    public static List<DailySchedule> mapFrom(List<DayScheduleDto> source){
         return source.parallelStream()
                 .map(DayScheduleMapper::mapFrom)
                 .toList();
 
     }
-    public static List<DayScheduleDto> mapFromDto(List<DaySchedule> source){
+    public static List<DayScheduleDto> mapFromDto(List<DailySchedule> source){
         return source.parallelStream()
                 .map(DayScheduleMapper::mapFrom)
                 .toList();
