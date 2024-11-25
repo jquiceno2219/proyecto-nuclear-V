@@ -13,6 +13,8 @@ services:
      - DATABASE_PASSWORD = postgres
     depends_on:
       - java_db
+    volumes:
+      - ./target:/app
   java_db:
     container_name: java_db
     image: postgres:12
