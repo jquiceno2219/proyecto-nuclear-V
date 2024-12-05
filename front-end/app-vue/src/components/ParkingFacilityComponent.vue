@@ -2,7 +2,7 @@
 import type {ParkingFacility} from "@/models/ParkingFacility";
 import {computed, onMounted, ref} from "vue";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
-import Map from "@/components/map.vue";
+
 
 /**
  * Este componente Vue gestiona la creación, edición y visualización de instalaciones de estacionamiento.
@@ -216,7 +216,7 @@ th, td {
 }
 
 th {
-  background-color: rgba(0, 0, 0, 0.99);
+  background-color: rgb(255, 255, 255);
 }
 
 .form-group {

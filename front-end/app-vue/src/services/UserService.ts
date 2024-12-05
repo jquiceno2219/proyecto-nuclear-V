@@ -28,6 +28,18 @@ export default {
         return response.data;
     },
 
+    async getUserById(id: number): Promise<User> {
+        try {
+            const response = await axios.get<User>(`${API_URL}/get/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error al obtener el usuario:', error);
+            throw error;
+        }
+    },
+
+
+
     async updateUser(id: number, user: User): Promise<string> {
         const response = await axios.put(`${API_URL}/update/${id}`, user);
         return response.data;

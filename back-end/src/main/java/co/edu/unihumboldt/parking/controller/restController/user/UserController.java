@@ -33,6 +33,19 @@ public class UserController {
         return serviceUser.list();
     }
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable int id) {
+        try {
+            UserDto user = serviceUser.byId(id);
+            return ResponseEntity.ok(user);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            logger.error("Error getting user by ID: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @PostMapping("/new")
     public ResponseEntity<String> createUser (@RequestBody UserDto userDto){
         try {

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
-import type {UserRole} from "@/models/UserRole";
+
 import roleService from "@/services/UserRoleService";
+import type {UserRole} from "@/models/UserRole";
 
 /**
  * Este componente Vue gestiona la creación, edición y visualización de roles de usuario en el sistema.

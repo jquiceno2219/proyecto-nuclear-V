@@ -3,10 +3,10 @@ version: '3.9'
 services:
   java_app:
     container_name: java_app
-    image: pee-java-app:1.0.0
+    image: pee-java-app:java-app-1.0.0
     build: .
     ports:
-      - 8080:8080
+      - 8081:8080
     environment:
      - DATABASE_URL = jdbc:postgresql://java_db:5432/postgres
      - DATABASE_USERNAME = postgres
