@@ -38,8 +38,6 @@ public class UserController {
         try {
             UserDto user = serviceUser.byId(id);
             return ResponseEntity.ok(user);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
         } catch (Exception e) {
             logger.error("Error getting user by ID: ", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

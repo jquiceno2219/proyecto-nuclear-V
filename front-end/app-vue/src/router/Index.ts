@@ -25,6 +25,7 @@ import NavbarSwitcher from "@/components/navbars/NavbarSwitcher.vue";
 import type {User} from "@/models/User";
 import UserProfileView from "@/views/UserProfileView.vue";
 import LoginView from "@/views/LoginView.vue";
+import PublicReservationView from "@/views/PublicReservationView.vue";
 
 
 
@@ -216,7 +217,7 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'reservations',
                 name: 'PublicReservations',
-                component: ReservationView,
+                component: PublicReservationView,
                 meta: {
                     requiresAuth: true
                 }

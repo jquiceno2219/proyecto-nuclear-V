@@ -58,6 +58,7 @@ public class SecurityConfig {
                                 "api/spots/list",
                                 "api/service-reservations/list",
                                 "api/fees/list",
+                                "api/get/{id}",
                                 "api/user_roles/list"
                         ).permitAll()
                         // Rutas para ADMIN y PARKING_MANAGER

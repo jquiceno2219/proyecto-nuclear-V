@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from 'vue';
+import {useRouter} from 'vue-router';
 import type {Reservation} from "@/models/Reservation";
 import reservationService from "@/services/ReservationService";
 import type {PayMethod} from "@/models/PayMethod";
@@ -21,28 +22,22 @@ import reservationStatusService from "@/services/ReservationStatusService";
 
 const reservations = ref<Reservation[]>([]);
 const newReservation = ref<Reservation>({
-  bookDate: new Date(),
-  endDate: new Date(),
+  bookDate: new Date().toISOString().split('T')[0],
+  endDate: new Date().toISOString().split('T')[0],
   fee: { id: 0 },
   id: 0,
   parkingSpot: { id: 0 },
-  payDate: new Date(),
+  payDate: new Date().toISOString().split('T')[0],
   payMethod: { id: 0 },
   reservationStatus: { id: 0 },
-  startDate: new Date()
+  startDate: new Date().toISOString().split('T')[0]
 });
 
 const editingReservation = ref<Reservation | null>(null);
 const payMethods = ref<PayMethod[]>([]);
 const parkingSpots = ref<ParkingSpot[]>([]);
 const fees = ref<Fee[]>([]);
-const status = ref<ReservationStatus[]>([]);
-
-const formatDate = (date: number | string): string => {
-  if (!date) return '';
-  const d = new Date(date);
-  return d.toLocaleDateString();
-};
+const reservationStatus = ref<ReservationStatus[]>([]);
 
 onMounted(async () => {
   await Promise.all([
@@ -52,11 +47,23 @@ onMounted(async () => {
     loadParkingSpots(),
     loadFees()
   ]);
+
+  console.log('Reservations:', reservations.value);
+  console.log('Status:', reservationStatus.value);
 });
+
+const formatDate = (date: number | string): string => {
+  if (!date) return '';
+  const d = new Date(date);
+  return d.toLocaleDateString();
+};
+
 
 const loadReservations = async () => {
   try {
-    reservations.value = await reservationService.getReservation();
+    const response = await reservationService.getReservation();
+    console.log('Reservations Response:', response);
+    reservations.value = response;
   } catch (error) {
     console.error('Error loading reservations:', error);
   }
@@ -64,7 +71,8 @@ const loadReservations = async () => {
 
 const loadReservationStatus = async () => {
   try {
-    status.value = await reservationStatusService.getReservationStatus();
+    reservationStatus.value = await reservationStatusService.getReservationStatus();
+    console.log('Reservation Status Response:', reservationStatus.value);
   } catch (error) {
     console.error('Error loading status:', error);
   }
@@ -101,17 +109,17 @@ const createReservation = async () => {
       return;
     }
 
-    // Convertir las fechas de string a Date
+    const selectedStatus = reservationStatus.value.find(s => s.id === newReservation.value.reservationStatus.id);
+
     const reservationToSend = {
-      id: 0,
-      bookDate: new Date(newReservation.value.bookDate).getTime(),
-      payDate: new Date(newReservation.value.payDate).getTime(),
-      startDate: new Date(newReservation.value.startDate).getTime(),
-      endDate: new Date(newReservation.value.endDate).getTime(),
-      reservationStatus: { id: newReservation.value.reservationStatus.id },
-      payMethod: { id: newReservation.value.payMethod.id },
-      parkingSpot: { id: newReservation.value.parkingSpot.id },
-      fee: { id: newReservation.value.fee.id }
+      ...newReservation.value,
+      bookDate: newReservation.value.bookDate,
+      payDate: newReservation.value.payDate,
+      startDate: newReservation.value.startDate,
+      endDate: newReservation.value.endDate,
+      reservationStatus: {
+        id: selectedStatus?.id || 0
+      }
     };
 
     await reservationService.createReservation(reservationToSend);
@@ -138,10 +146,10 @@ const validateReservationForm = () => {
 const editReservation = (reservation: Reservation) => {
   editingReservation.value = {
     ...reservation,
-    bookDate: new Date(reservation.bookDate), // Mantener como objeto Date
-    payDate: new Date(reservation.payDate),
-    startDate: new Date(reservation.startDate),
-    endDate: new Date(reservation.endDate),
+    bookDate: reservation.bookDate,
+    payDate: reservation.payDate,
+    startDate: reservation.startDate,
+    endDate: reservation.endDate
   };
 };
 
@@ -153,17 +161,17 @@ const updateReservation = async () => {
         return;
       }
 
-      // Convertir las fechas de string a Date
+      const selectedStatus = reservationStatus.value.find(s => s.id === editingReservation.value?.reservationStatus.id);
+
       const reservationToSend = {
-        id: editingReservation.value.id,
-        bookDate: new Date(editingReservation.value.bookDate).getTime(),
-        payDate: new Date(editingReservation.value.payDate).getTime(),
-        startDate: new Date(editingReservation.value.startDate).getTime(),
-        endDate: new Date(editingReservation.value.endDate).getTime(),
-        reservationStatus: { id: editingReservation.value.reservationStatus.id },
-        payMethod: { id: editingReservation.value.payMethod.id },
-        parkingSpot: { id: editingReservation.value.parkingSpot.id },
-        fee: { id: editingReservation.value.fee.id }
+        ...editingReservation.value,
+        bookDate: editingReservation.value.bookDate,
+        payDate: editingReservation.value.payDate,
+        startDate: editingReservation.value.startDate,
+        endDate: editingReservation.value.endDate,
+        reservationStatus: {
+          id: selectedStatus?.id || 0
+        }
       };
 
       await reservationService.updateReservation(editingReservation.value.id, reservationToSend);
@@ -178,22 +186,75 @@ const updateReservation = async () => {
 
 const resetForm = () => {
   newReservation.value = {
-    bookDate: new Date(),
-    endDate: new Date(),
+    bookDate: new Date().toISOString().split('T')[0],
+    endDate: new Date().toISOString().split('T')[0],
     fee: { id: 0 },
     id: 0,
     parkingSpot: { id: 0 },
-    payDate: new Date(),
+    payDate: new Date().toISOString().split('T')[0],
     payMethod: { id: 0 },
     reservationStatus: { id: 0 },
-    startDate: new Date()
+    startDate: new Date().toISOString().split('T')[0]
   };
   editingReservation.value = null;
 };
 
+const router = useRouter();
+
 const currentReservation = computed(() => {
   return editingReservation.value || newReservation.value;
 });
+
+// Format date for input fields
+const formatDateForInput = (date: Date | string | number): string => {
+  const d = new Date(date);
+  return d.toISOString().split('T')[0];
+};
+
+// Check if current user is PUBLIC_USER
+const isPublicUser = computed(() => {
+  const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+  return user.userRole?.name === 'PUBLIC_USER';
+});
+
+// Check if reservation can be paid
+const canPayReservation = (reservation: Reservation) => {
+  const statusName = reservationStatus.value.find(s => s.id === reservation.reservationStatus?.id)?.name;
+  return statusName === 'FINISHED' || statusName === 'CANCELLED';
+};
+
+// Calculate payment amount based on reservation status and duration
+const calculatePaymentAmount = (reservation: Reservation) => {
+  const fee = fees.value.find(f => f.id === reservation.fee?.id);
+  if (!fee) return 0;
+
+  const statusName = reservationStatus.value.find((s: ReservationStatus) => s.id === reservation.reservationStatus?.id)?.name;
+
+  if (statusName === 'FINISHED') {
+    // Calculate total time in hours
+    const startTime = new Date(reservation.startDate).getTime();
+    const endTime = new Date(reservation.endDate).getTime();
+    const hours = Math.ceil((endTime - startTime) / (1000 * 60 * 60));
+    return hours * fee.price;
+  } else if (statusName === 'CANCELLED') {
+    // Cancellation fee (e.g., 20% of the base fee)
+    return fee.price * 0.2;
+  }
+
+  return 0;
+};
+
+// Navigate to payment view
+const goToPayment = (reservation: Reservation) => {
+  const amount = calculatePaymentAmount(reservation);
+  router.push({
+    name: 'Payment',
+    params: {
+      reservationId: reservation.id.toString(),
+      amount: amount.toString()
+    }
+  });
+};
 </script>
 
 <template>
@@ -223,12 +284,19 @@ const currentReservation = computed(() => {
               <td>{{ formatDate(reservation.payDate) }}</td>
               <td>{{ formatDate(reservation.startDate) }}</td>
               <td>{{ formatDate(reservation.endDate) }}</td>
-              <td>{{ status.find(s => s.id === reservation.reservationStatus?.id)?.name || 'N/A' }}</td>
+<td>{{ reservationStatus.find(s => s.id === reservation.reservationStatus?.id)?.name || 'N/A' }}</td>
               <td>{{ payMethods.find(p => p.id === reservation.payMethod?.id)?.name || 'N/A' }}</td>
               <td>{{ parkingSpots.find(p => p.id === reservation.parkingSpot?.id)?.spotNumber || 'N/A' }}</td>
               <td>{{ fees.find(f => f.id === reservation.fee?.id)?.price || 'N/A' }}</td>
               <td>
                 <button class="edit-button" @click="editReservation(reservation)">Edit</button>
+                <button
+                  v-if="isPublicUser && canPayReservation(reservation)"
+                  class="pay-button"
+                  @click="goToPayment(reservation)"
+                >
+                  Pay
+                </button>
               </td>
             </tr>
             </tbody>
@@ -243,33 +311,53 @@ const currentReservation = computed(() => {
         <form @submit.prevent="editingReservation ? updateReservation() : createReservation()">
           <div class="form-group">
             <label>Booking Date:</label>
-            <input type="date" v-model="currentReservation.bookDate" required />
+            <input
+              type="date"
+              :value="formatDateForInput(currentReservation.bookDate)"
+              @input="e => currentReservation.bookDate = (e.target as HTMLInputElement).value"
+              required
+            />
           </div>
 
           <div class="form-group">
             <label>Payment Date:</label>
-            <input type="date" v-model="currentReservation.payDate" required />
+            <input
+              type="date"
+              :value="formatDateForInput(currentReservation.payDate)"
+              @input="e => currentReservation.payDate = (e.target as HTMLInputElement).value"
+              required
+            />
           </div>
 
           <div class="form-group">
             <label>Start Date:</label>
-            <input type="date" v-model="currentReservation.startDate" required />
+            <input
+              type="date"
+              :value="formatDateForInput(currentReservation.startDate)"
+              @input="e => currentReservation.startDate = (e.target as HTMLInputElement).value"
+              required
+            />
           </div>
 
           <div class="form-group">
             <label>End Date:</label>
-            <input type="date" v-model="currentReservation.endDate" required />
+            <input
+              type="date"
+              :value="formatDateForInput(currentReservation.endDate)"
+              @input="e => currentReservation.endDate = (e.target as HTMLInputElement).value"
+              required
+            />
           </div>
 
-          <div class="form-group">
-            <label > Status:</label>
-            <select v-model="currentReservation.reservationStatus.id" required>
-              <option disabled value="0">Select Status</option>
-              <option v-for="reservationStatus in status" :key="reservationStatus.id" :value="reservationStatus.id">
-                {{ reservationStatus.name }}
-              </option>
-            </select>
-          </div>
+<div class="form-group">
+  <label>Status:</label>
+  <select class="form-select" v-model="currentReservation.reservationStatus.id" required>
+    <option disabled value="0">Select Status</option>
+    <option v-for="status in reservationStatus" :key="status.id" :value="status.id">
+      {{ status.name }}
+    </option>
+  </select>
+</div>
 
           <div class="form-group">
             <label>Payment Method:</label>
@@ -420,6 +508,16 @@ button {
 
 .edit-button:hover {
   background-color: #0b7dda;
+}
+
+.pay-button {
+  background-color: #4CAF50;
+  color: white;
+  margin-left: 8px;
+}
+
+.pay-button:hover {
+  background-color: #45a049;
 }
 
 .no-data {
