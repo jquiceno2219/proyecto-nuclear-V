@@ -58,8 +58,14 @@ const loadParkings = async () => {
   try {
     parkings.value = await ParkingFacilityService.getParking();
     parkings.value.forEach(parking => {
-      const marker = leaflet.marker([parking.coordX, parking.coordY]).addTo(map);
-      marker.bindPopup(`Nombre: ${parking.name}<br>Dirección: ${parking.address}`).openPopup();
+const marker = leaflet.marker([parseFloat(parking.coordX), parseFloat(parking.coordY)]).addTo(map);
+marker.bindPopup(`
+  Nombre: ${parking.name}<br>
+  Dirección: ${parking.address}<br>
+  Teléfono: ${parking.phoneNumber}<br>
+  NIT: ${parking.nit}<br>
+  Estado: ${parking.status ? 'Activo' : 'Inactivo'}
+`).openPopup();
     });
   } catch (error) {
     console.error('Error al cargar parkings:', error);
