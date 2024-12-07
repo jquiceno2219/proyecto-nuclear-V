@@ -44,44 +44,54 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("api/users/list").permitAll()
+                        .requestMatchers(
+                                "api/users/list",
+                                "api/pay-methods/list",
+                                "api/parking-facilities/list",
+                                "api/parking-spots/list",
+                                "api/reservations-status/list",
+                                "api/reservations/list",
+                                "api/days-schedules/list",
+                                "api/days-week/list",
+                                "api/schedules/list",
+                                "api/vehicles-types/list",
+                                "api/spots/list",
+                                "api/service-reservations/list",
+                                "api/fees/list",
+                                "api/get/{id}",
+                                "api/user_roles/list"
+                        ).permitAll()
                         // Rutas para ADMIN y PARKING_MANAGER
                         .requestMatchers(
                                 "api/users/new",
                                 "api/users/update/{id}",
-                                "api/car-parks/list",
-                                "api/pay-methods/list",
-                                "api/reservations-status/list",
-                                "api/car-parks/update/{id}"
+                                "api/parking-facilities/update/{id}",
+                                "api/daily-schedules/new"
+
                         ).hasAnyRole("ADMIN", "PARKING_MANAGER")
 
                         // Rutas exclusivas para ADMIN
                         .requestMatchers(
                                 "api/users/status/{id}",
-                                "api/car-parks/new",
-                                "api/car-parks/status/{id}",
+                                "api/parking-facilities/new",
+                                "api/parking-facilities/status/{id}",
                                 "api/reservations-status/new",
                                 "api/reservations-status/update/{id}",
                                 "api/reservations-status/status/{id}",
                                 "api/pay-methods/new",
                                 "api/pay-methods/update/{id}",
-                                "api/pay-methods/status/{id}",
-                                "api/vehicles-types/list"
+                                "api/pay-methods/status/{id}"
+
                         ).hasRole("ADMIN")
 
                         // Rutas exclusivas para PARKING_MANAGER
                         .requestMatchers(
-                                "api/days-schedules/list",
-                                "api/days-schedules/new",
-                                "api/spots/list",
                                 "api/spots/new",
                                 "api/spots/update/{id}",
                                 "api/spots/status/{id}",
-                                "api/fees/list",
                                 "api/fees/new",
                                 "api/fees/update/{id}",
                                 "api/fees/status/{id}",
-                                "api/service-reservations/list",
                                 "api/service-reservations/new",
                                 "api/service-reservations/update/{id}",
                                 "api/service-reservations/status/{id}"

@@ -7,28 +7,20 @@ import type {UserRole} from "@/models/UserRole";
 import type {ParkingFacility} from "@/models/ParkingFacility";
 import ParkingFacilityService from "@/services/ParkingFacilityService";
 
-/**
- * Este componente Vue gestiona la creación, edición y visualización de usuarios en el sistema.
- * Al montarse, carga la lista de usuarios, roles de usuario y las instalaciones de estacionamiento desde servicios externos.
- * Proporciona un formulario para crear o editar usuarios, donde los administradores pueden ingresar detalles como nombre, número de identificación, correo electrónico, y seleccionar una instalación de estacionamiento y un rol de usuario.
- * La interfaz muestra una lista de usuarios activos, incluyendo sus detalles y opciones para editar o cambiar su estado (activar/desactivar).
- * Los estilos CSS aseguran una presentación clara y atractiva, mejorando la experiencia del usuario en la gestión de usuarios.
- */
-
 const users = ref<User[]>([]);
-const newUser    = ref<User>({
-  parkingFacility: { id: 0 },
+const newUser = ref<User>({
+  parkingFacility: { id: 0, name: "" },
   email: "",
   id: 0,
   idNumber: "",
   name: "",
   password: "",
   phoneNumber: "",
-  userRole: { id: 0 },
+  userRole: { id: 0, name: "" },
   status: true,
   userName: ""
 });
-const editingUser    = ref<User | null>(null);
+const editingUser = ref<User | null>(null);
 
 const parkings = ref<ParkingFacility[]>([]);
 const roles = ref<UserRole[]>([]);
@@ -41,7 +33,7 @@ onMounted(async () => {
 
 const loadUsers = async () => {
   try {
-    users.value = await userService.getUser  ();
+    users.value = await userService.getUser();
   } catch (error) {
     console.error('Error al cargar usuarios:', error);
   }
@@ -63,7 +55,7 @@ const loadParkings = async () => {
   }
 };
 
-const createUser    = async () => {
+const createUser = async () => {
   try {
     if (!validateUserForm()) {
       alert('Please complete all required fields');
@@ -72,18 +64,18 @@ const createUser    = async () => {
 
     const userToSend = {
       id: 0,
-      userName: newUser .value.userName,
-      password: newUser .value.password,
-      name: newUser .value.name,
-      idNumber: newUser .value.idNumber,
-      phoneNumber: newUser .value.phoneNumber,
-      email: newUser .value.email,
-      status: newUser .value.status,
-      parkingFacility: { id: newUser .value.parkingFacility.id },
-      userRole: { id: newUser .value.userRole.id }
+      userName: newUser.value.userName,
+      password: newUser.value.password,
+      name: newUser.value.name,
+      idNumber: newUser.value.idNumber,
+      phoneNumber: newUser.value.phoneNumber,
+      email: newUser.value.email,
+      status: newUser.value.status,
+      parkingFacility: { id: newUser.value.parkingFacility.id , name: newUser.value.parkingFacility.name},
+      userRole: { id: newUser.value.userRole.id , name: newUser.value.userRole.name}
     };
 
-    await userService.createUser (userToSend);
+    await userService.createUser(userToSend);
     await loadUsers();
     resetForm();
   } catch (error) {
@@ -93,7 +85,7 @@ const createUser    = async () => {
 };
 
 const validateUserForm = () => {
-  const user = currentUser .value;
+  const user = currentUser.value;
   return user.userName &&
       user.password &&
       user.name &&
@@ -103,31 +95,31 @@ const validateUserForm = () => {
       user.userRole?.id;
 };
 
-const editUser  = (user: User) => {
-  editingUser .value = { ...user };
+const editUser = (user: User) => {
+  editingUser.value = { ...user };
 };
 
-const updateUser  = async () => {
-  if (editingUser .value) {
+const updateUser = async () => {
+  if (editingUser.value) {
     try {
       if (!validateUserForm()) {
         alert('Por favor complete todos los campos requeridos');
         return;
       }
       const userToSend = {
-        id: 0,
-        userName: editingUser .value.userName,
-        password: editingUser .value.password,
-        name: editingUser .value.name,
-        idNumber: editingUser .value.idNumber,
-        phoneNumber: editingUser .value.phoneNumber,
-        email: editingUser .value.email,
-        status: editingUser .value.status,
-        parkingFacility: { id: editingUser .value.parkingFacility.id },
-        userRole: { id: editingUser .value.userRole.id }
+        id: editingUser.value.id,
+        userName: editingUser.value.userName,
+        password: editingUser.value.password,
+        name: editingUser.value.name,
+        idNumber: editingUser.value.idNumber,
+        phoneNumber: editingUser.value.phoneNumber,
+        email: editingUser.value.email,
+        status: editingUser.value.status,
+        parkingFacility: { id: editingUser.value.parkingFacility.id , name: editingUser.value.parkingFacility.name},
+        userRole: { id: editingUser.value.userRole.id , name: editingUser.value.userRole.name}
       };
 
-      await userService.updateUser (editingUser .value.id, userToSend);
+      await userService.updateUser(editingUser.value.id, userToSend);
       await loadUsers();
       resetForm();
     } catch (error) {
@@ -139,10 +131,10 @@ const updateUser  = async () => {
 
 const toggleUserStatus = async (user: User) => {
   try {
-    const updatedUser  = await userService.toggleUserStatus(user.id);
-    const index = users.value.findIndex(r => r.id === updatedUser .id);
+    const updatedUser = await userService.toggleUserStatus(user.id);
+    const index = users.value.findIndex(r => r.id === updatedUser.id);
     if (index !== -1) {
-      users.value[index] = updatedUser ;
+      users.value[index] = updatedUser;
     }
   } catch (error) {
     console.error('Error al alternar estado de user:', error);
@@ -151,29 +143,28 @@ const toggleUserStatus = async (user: User) => {
 };
 
 const resetForm = () => {
-  newUser .value = {
-    parkingFacility: { id: 0 },
+  newUser.value = {
+    parkingFacility: { id: 0, name: "" },
     email: "",
-    id:  0,
+    id: 0,
     idNumber: "",
     name: "",
     password: "",
     phoneNumber: "",
-    userRole: { id: 0 },
+    userRole: { id: 0, name: "" },
     status: true,
     userName: ""
   };
-  editingUser  .value = null;
+  editingUser.value = null;
 };
 
 const activeUsers = computed(() => {
   return users.value.filter(user => user.status);
 });
 
-const currentUser   = computed(() => {
-  return editingUser  .value || newUser  .value;
+const currentUser = computed(() => {
+  return editingUser.value || newUser.value;
 });
-
 </script>
 
 <template>
@@ -299,7 +290,7 @@ th, td {
 }
 
 th {
-  background-color: rgba(0, 0, 0, 0.99);
+  background-color: rgb(255, 255, 255);
 }
 
 .form-group {

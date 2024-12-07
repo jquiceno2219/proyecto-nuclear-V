@@ -19,8 +19,8 @@ import DailyScheduleService from "@/services/DailyScheduleService";
 
 const dailys = ref<DailySchedule[]>([]);
 const newDaily = ref<DailySchedule>({
-  dayWeek: { id: 0 },
   id: 0,
+  dayWeek: { id: 0 , dayTitle: "" },
   parkingFacility: { id: 0 },
   schedule: { id: 0 }
 });
@@ -78,12 +78,21 @@ const createDaily = async () => {
       return;
     }
 
+    // Imprimir los valores originales para depuración
+    console.log('Valores originales:', {
+      scheduleId: newDaily.value.schedule.id,
+      dayWeekId: newDaily.value.dayWeek.id,
+      parkingFacilityId: newDaily.value.parkingFacility.id
+    });
+
     const dailyToSend = {
-      id: 0,
-      schedule: { id: newDaily.value.schedule.id },
-      dayWeek: { id: newDaily.value.dayWeek.id },
-      parkingFacility: { id: newDaily.value.parkingFacility.id }
+      schedule: { id: newDaily.value.schedule.id }, // Mantener el ID del horario
+      dayWeek: { id: newDaily.value.dayWeek.id , dayTitle: newDaily.value.dayWeek.dayTitle}, // Mantener el ID del día de la semana
+      parkingFacility: { id: newDaily.value.parkingFacility.id } // Mantener el ID del estacionamiento
     };
+
+    // Imprimir los valores que se van a enviar
+    console.log('Daily a enviar:', dailyToSend);
 
     await DailyScheduleService.createDaily(dailyToSend);
     await loadDailys();
@@ -100,9 +109,22 @@ const validateDailyForm = () => {
 };
 
 const resetForm = () => {
-  newDaily.value = { dayWeek: { id: 0 }, id: 0, parkingFacility: { id: 0 }, schedule: { id: 0 } };
+  newDaily.value = {
+    id: 0,
+    dayWeek: { id: 0 , dayTitle: ""},
+    parkingFacility: { id: 0 },
+    schedule: { id: 0 }
+  };
 };
 
+const getScheduleTime = (dailyScheduleId: number) => {
+  const schedule = schedules.value.find(s => s.id === dailyScheduleId);
+  return schedule ? `${schedule.startTime} - ${schedule.endTime}` : 'N/A';
+};
+const getDayWeekTitle = (dayWeekId: number) => {
+  const dayWeek = daysWeek.value.find(d => d.id === dayWeekId);
+  return dayWeek ? ` ${dayWeek.dayTitle}` : 'N/A';
+};
 </script>
 
 <template>
@@ -121,12 +143,17 @@ const resetForm = () => {
         <tr v-if="dailys.length" v-for="daily in dailys" :key="daily.id">
           <td>
             {{
-              schedules.find(s => s.id === daily.schedule.id)?.startTime + ' - ' +
-              schedules.find(s => s.id === daily.schedule.id)?.endTime || 'N/A'
+              schedules.find(s => s.id === daily.schedule?.id)?.startTime + ' - ' +
+              schedules.find(s => s.id === daily.schedule?.id)?.endTime || 'N/A'
             }}
           </td>
-          <td>{{ daysWeek.find(d => d.id === daily.dayWeek.id)?.dayTitle }}</td>
-          <td>{{ parkings.find(p => p.id === daily.parkingFacility.id)?.name || 'N/A' }}</td>
+          <td>
+            {{ daysWeek.find(r => r.id === daily.dayWeek.id)?.dayTitle || 'N/A' }}
+
+          </td>
+          <td>
+            {{ parkings.find(p => p.id === daily.parkingFacility?.id)?.name || 'N/A' }}
+          </td>
         </tr>
         <tr v-else>
           <td colspan="3">No hay horarios diarios disponibles.</td>
@@ -211,7 +238,7 @@ const resetForm = () => {
 }
 
 .daily-table th {
-  background-color: rgba(0, 0, 0, 0.99);
+  background-color: rgb(255, 255, 255);
 }
 
 .form-group {

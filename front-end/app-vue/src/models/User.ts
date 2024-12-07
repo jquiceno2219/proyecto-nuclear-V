@@ -9,6 +9,6 @@ export interface User {
     phoneNumber: string;
     email: string;
     status: boolean;
-    parkingFacility: { id: number };
-    userRole: { id: number };
+    parkingFacility: { id: number , name: string };
+    userRole: { id: number , name: string};
 }

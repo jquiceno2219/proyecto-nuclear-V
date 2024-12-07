@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import 'leaflet/dist/leaflet.css';
+import NavbarSwitcher from "@/components/navbars/NavbarSwitcher.vue";
 /**
  * Este componente contiene la barra de navegación principal para la administración del sistema.
  * Cada sección del menú (Usuarios, Estacionamiento, Horarios, Servicios) está agrupada en un menú desplegable.
@@ -11,54 +12,8 @@ import 'leaflet/dist/leaflet.css';
 </script>
 
 <template>
-  <header>
-    <nav>
-      <router-link to="/">Home</router-link>
+  <navbar-switcher/>
 
-      <div class="dropdown">
-        <button class="dropbtn">Users</button>
-        <div class="dropdown-content">
-          <router-link to="/administration/users">Manage Users</router-link>
-          <router-link to="/administration/roles">User  Roles</router-link>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <button class="dropbtn">Parking</button>
-        <div class="dropdown-content">
-          <router-link to="/administration/parking-facilities">Parking Facilities</router-link>
-          <router-link to="/administration/parking-spots">Parking Spots</router-link>
-          <router-link to="/administration/reservations">Reservations</router-link>
-          <router-link to="/administration/reservations-status">Reservation Status</router-link>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <button class="dropbtn">Schedules</button>
-        <div class="dropdown-content">
-          <router-link to="/administration/schedules">Schedules</router-link>
-          <router-link to="/administration/days-week">Days of the Week</router-link>
-          <router-link to="/administration/daily-schedules">Daily Schedules</router-link>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <button class="dropbtn">Services</button>
-        <div class="dropdown-content">
-          <router-link to="/administration/additional-services">Additional Services</router-link>
-          <router-link to="/administration/fees">Fees</router-link>
-          <router-link to="/administration/pay-methods">Payment Methods</router-link>
-          <router-link to="/administration/service-reservations">Service Reservations</router-link>
-          <router-link to="/administration/vehicle-types">Vehicle Types</router-link>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <main>
-    <div class="main-content"> <!-- Añadido un contenedor para el contenido principal -->
-      <router-view></router-view>
-    </div>
-  </main>
 </template>
 
 <style scoped>

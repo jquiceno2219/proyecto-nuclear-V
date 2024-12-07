@@ -269,7 +269,7 @@ const currentFee = computed(() => {
 }
 
 .fee-table th {
-  background-color: rgba(0, 0, 0, 0.99);
+  background-color: rgb(255, 255, 255);
 }
 
 .fee-form div {
