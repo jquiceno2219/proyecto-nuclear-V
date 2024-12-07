@@ -180,7 +180,7 @@ const currentDayWeek = computed(() => {
 .dayWeek-form input[type="number"],
 .dayWeek-form input[type="text"] {
   display: block;
-  width: 100%;
+  width: 80%;
   margin-bottom: 10px;
   padding: 8px;
   border-radius: 4px;

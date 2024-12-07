@@ -277,7 +277,7 @@ const currentFee = computed(() => {
 }
 
 .fee-form input, .fee-form select {
-  width: 100%;
+  width: 80%;
   padding: 8px 12px;
   border: 1px solid #ced4da;
   border-radius: 4px;

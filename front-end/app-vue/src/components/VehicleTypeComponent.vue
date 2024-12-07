@@ -141,7 +141,7 @@ const currentVehicle = computed(() => {
 
 .vehicle-form input {
   margin-bottom: 10px;
-  width: 100%;
+  width: 80%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;

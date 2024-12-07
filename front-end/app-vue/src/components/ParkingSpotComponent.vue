@@ -226,7 +226,7 @@ th {
 }
 
 .form-input {
-  width: 100%;
+  width: 80%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;

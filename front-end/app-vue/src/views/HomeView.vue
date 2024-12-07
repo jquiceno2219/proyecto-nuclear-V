@@ -13,7 +13,8 @@ import MapComponent from "@/components/MapComponent.vue";
 <template>
   <main class="home-view">
     <header class="header">
-      <h1 class="title">Welcome</h1>
+      <h1 class="title">SpotFlash</h1>
+      <p class="slogan">Tu parqueo listo, en un flash</p>
     </header>
     <section class="map-container">
       <MapComponent />

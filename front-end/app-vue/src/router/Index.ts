@@ -26,6 +26,7 @@ import type {User} from "@/models/User";
 import UserProfileView from "@/views/UserProfileView.vue";
 import LoginView from "@/views/LoginView.vue";
 import PublicReservationView from "@/views/PublicReservationView.vue";
+import PaymentView from "@/views/PaymentView.vue";
 
 
 
@@ -218,6 +219,14 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'reservations',
                 name: 'PublicReservations',
                 component: PublicReservationView,
+                meta: {
+                    requiresAuth: true
+                }
+            },
+            {
+                path: 'payment',
+                name: 'Payment',
+                component: PaymentView,
                 meta: {
                     requiresAuth: true
                 }

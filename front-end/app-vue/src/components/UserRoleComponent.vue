@@ -145,7 +145,7 @@ const currentRole = computed(() => {
 .container {
   display: flex;
   justify-content: space-between;
-  margin: 10px;
+  margin: 20px;
   width : 150%;
 }
 
@@ -173,7 +173,7 @@ th, td {
 }
 
 th {
-  background-color: rgba(0, 0, 0, 0.99);
+  background-color: rgb(255, 255, 255);
 }
 
 .form-group {
@@ -181,7 +181,7 @@ th {
 }
 
 .form-input {
-  width: 100%;
+  width: 80%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;

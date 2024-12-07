@@ -462,7 +462,7 @@ label {
 }
 
 input, select {
-  width: 100%;
+  width: 90%;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;

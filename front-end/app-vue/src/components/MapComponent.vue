@@ -42,14 +42,6 @@ onMounted(async () => {
     // Emitir el evento con las coordenadas
     emit('map-click', { coordX: lat.toFixed(5), coordY: lng.toFixed(5) });
 
-    // Crear un marcador en las coordenadas del clic
-    const marker = leaflet.marker([lat, lng]).addTo(map);
-    marker.bindPopup(`Coordenadas: ${lat.toFixed(5)}, ${lng.toFixed(5)}`).openPopup();
-
-    // Manejar el clic en el marcador para eliminarlo
-    marker.on('click', function() {
-      map.removeLayer(marker);
-    });
   });
 });
 
